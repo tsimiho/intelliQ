@@ -7,8 +7,8 @@
             "description": "Email of the user",
             "type": "string"
         },
-        "sector": {
-            "description": "Sector of the user's email",
+        "domain": {
+            "description": "Domain of the user's email",
             "type": "string"
         },
         "History": {

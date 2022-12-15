@@ -19,11 +19,11 @@
                 "type": "string"
             }
         },
-        "sectors": {
-            "description": "An array of valid sectors",
+        "domain": {
+            "description": "An array of valid domain",
             "type": "array",
             "items": {
-                "description": "Valid Sector",
+                "description": "Valid Domain",
                 "type": "string"
             }
         },
