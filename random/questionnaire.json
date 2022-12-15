@@ -19,6 +19,10 @@
                 "type": "string"
             }
         },
+        "admin": {
+            "description": "Admin id",
+            "type": "string"
+        },
         "questions": {
             "description": "This is an array of questions",
             "type": "array",
