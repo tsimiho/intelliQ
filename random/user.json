@@ -1,0 +1,48 @@
+{
+    "title": "User Information",
+    "description": "This is the general structure of a user profile",
+    "type": "object",
+    "properties": {
+        "email": {
+            "description": "Email of the user",
+            "type": "string"
+        },
+        "domain": {
+            "description": "Domain of the user's email",
+            "type": "string"
+        },
+        "History": {
+            "description": "Completed Questionnaires",
+            "type": "array",
+            "items": {
+                "title": "Completed Questionnaire",
+                "description": "This is the general structure of a completed questionnaire",
+                "type": "object",
+                "properties": {
+                    "questionnaireID": {
+                        "description": "ID of the questionnaire",
+                        "type": "string"
+                    },
+                    "QnA": {
+                        "description": "Array of question-answer pairs",
+                        "type": "array",
+                        "items": {
+                            "title": "Question-Answer Pair",
+                            "description": "Questions and their respective answers",
+                            "properties": {
+                                "qID": {
+                                    "description": "ID of question",
+                                    "type": "string"
+                                },
+                                "optID": {
+                                    "description": "ID of option",
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
