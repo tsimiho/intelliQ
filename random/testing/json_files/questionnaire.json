@@ -1,0 +1,89 @@
+{
+    "title": "Questionnaire",
+    "description": "This is the general structure of a questionnaire",
+    "type": "object",
+    "properties": {
+        "questionnaireID": {
+            "desctription": "ID of Questionnaire",
+            "type": "number"
+        },
+        "questionnaireTitle": {
+            "description": "The title of the questionnaire",
+            "type": "string"
+        },
+        "domain": {
+            "description": "An array of valid domain",
+            "type": "array",
+            "items": {
+                "description": "Valid Domain",
+                "type": "string"
+            }
+        },
+        "admin": {
+            "description": "Admin id",
+            "type": "string"
+        },
+        "questions": {
+            "description": "This is an array of questions",
+            "type": "array",
+            "items": {
+                "title": "Question",
+                "description": "This is the general structure of a question",
+                "type": "object",
+                "properties": {
+                    "qID": {
+                        "desctription": "ID of Question",
+                        "type": "string"
+                    },
+                    "qtext": {
+                        "description": "The question",
+                        "type": "string"
+                    },
+                    "required": {
+                        "description": "Determines if the question is required or not",
+                        "type": "boolean"
+                    },
+                    "qtype": {
+                        "description": "Type of question",
+                        "type": "string"
+                    },
+                    "keywords": {
+                        "description": "General categories",
+                        "type": "array",
+                        "items": {
+                            "description": "List of keywords",
+                            "type": "string"
+                        }
+                    },
+                    "options": {
+                        "description": "An array of possible answers",
+                        "type": "array",
+                        "items": {
+                            "title": "Option",
+                            "description": "This is the general structure of an option",
+                            "type": "object",
+                            "properties": {
+                                "optID": {
+                                    "description": "ID of the option",
+                                    "type": "string"
+                                },
+                                "opttxt": {
+                                    "description": "Body of the option",
+                                    "type": "string"
+                                },
+                                "nextqID": {
+                                    "description": "ID of the next question",
+                                    "type": "string"
+                                },
+                                "times_answered": {
+                                    "description": "Times the answer has been chosen",
+                                    "type": "Number"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

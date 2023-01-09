@@ -1,0 +1,96 @@
+{
+    "title": "Admin Information",
+    "description": "This is the general structure of an admin profile",
+    "type": "object",
+    "properties": {
+        "email": {
+            "description": "Email of the user",
+            "type": "string"
+        },
+        "admin_id": {
+            "description": "Distinctive admin id",
+            "type": "string"
+        },
+        "Organization": {
+            "description": "Organization to which the admin belongs",
+            "type": "string"
+        },
+        "History": {
+            "description": "Questionnaires Created",
+            "type": "array",
+            "items": {
+                "title": "Questionnaire Created",
+                "description": "This is the general structure of a created questionnaire",
+                "type": "object",
+                "properties": {
+                    "questionnaireID": {
+                        "description": "ID of the questionnaire",
+                        "type": "string"
+                    },
+                    "questions": {
+                        "description": "This is an array of questions",
+                        "type": "array",
+                        "items": {
+                            "title": "Question",
+                            "description": "This is the general structure of a question",
+                            "type": "object",
+                            "properties": {
+                                "qID": {
+                                    "desctription": "ID of Question",
+                                    "type": "string"
+                                },
+                                "qtext": {
+                                    "description": "The question",
+                                    "type": "string"
+                                },
+                                "required": {
+                                    "description": "Determines if the question is required or not",
+                                    "type": "boolean"
+                                },
+                                "qtype": {
+                                    "description": "Type of question",
+                                    "type": "string"
+                                },
+                                "keywords": {
+                                    "description": "General categories",
+                                    "type": "array",
+                                    "items": {
+                                        "description": "List of keywords",
+                                        "type": "string"
+                                    }
+                                },
+                                "options": {
+                                    "description": "An array of possible answers",
+                                    "type": "array",
+                                    "items": {
+                                        "title": "Option",
+                                        "description": "This is the general structure of an option",
+                                        "type": "object",
+                                        "properties": {
+                                            "optID": {
+                                                "description": "ID of the option",
+                                                "type": "string"
+                                            },
+                                            "opttxt": {
+                                                "description": "Body of the option",
+                                                "type": "string"
+                                            },
+                                            "nextqID": {
+                                                "description": "ID of the next question",
+                                                "type": "string"
+                                            },
+                                            "times_answered": {
+                                                "description": "Times the answer has been chosen",
+                                                "type": "Number"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
