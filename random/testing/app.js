@@ -13,11 +13,10 @@ app.use(express.json());
 
 // routes
 
-app.use('/api/v1/tasks', tasks);
+app.use('/questionnaire', questionnaire);
 
-app.use(notFound);
-app.use(errorHandlerMiddleware);
-const port = process.env.PORT || 5000;
+
+const port = 9103;
 
 const start = async () => {
   try {
