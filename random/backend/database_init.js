@@ -126,4 +126,22 @@ var questionnaireObj = [
     }
 ]
 
+module.exports = {
+    admins: adminObj,
+    users: userObj,
+    questionnaires: questionnaireObj
+}
+
 		
+
+
+
+
+
+
+
+
+
+
+
+

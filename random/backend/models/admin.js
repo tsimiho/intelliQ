@@ -9,18 +9,23 @@ var uuid 		= require('node-uuid');
 var AdminSchema = new Schema({	
 	email: {
 		type: String,
-		required: true
+		required: true,
+		trim: true
 	},
 	admin_id: {
 		type: String,
-		required: true
+		required: true,
+		trim: true
 	},
 	Organization: {
 		type: String,
-		required: true
+		required: true,
+		trim: true
 	},
 	History: {
 		type: Array,
 		required: true
 	}
 });
+
+module.exports = mongoose.model('admin', AdminSchema);
