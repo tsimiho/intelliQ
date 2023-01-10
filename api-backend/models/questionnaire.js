@@ -65,3 +65,4 @@ const QuestionnaireSchema = new mongoose.Schema({
 
 
 module.exports = mongoose.model('QuestionnaireSchema', QuestionnaireSchema);
+module.exports = mongoose.model('OptionSchema', OptionSchema);
