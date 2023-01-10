@@ -4,8 +4,8 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import RadioGroup from '@mui/material/RadioGroup';
 import Radio from '@mui/material/Radio';
 import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-
 
 function Question(props) {
     const [answer, setAnswer] = useState('');
@@ -15,11 +15,16 @@ function Question(props) {
     const Options = props.options.map((option) =>
         <FormControlLabel value={option.optID} control={<Radio />} label={option.opttxt} />
     );
+    function findref(id) {
+        return "/doanswer/QQ000/" + id + "/ABCD/" + answer;
+    }
 
     return (
        <>
             <Container maxWidth="sm" style={{ marginTop: '100px' }}>
-                <h2>{ props.qtext }</h2>
+                <Typography variant="h5" gutterBottom>
+                    { props.qtext }
+                </Typography>
                 <FormControl>
                     <RadioGroup
                         aria-labelledby="demo-radio-buttons-group-label"
@@ -31,7 +36,13 @@ function Question(props) {
                     </RadioGroup>
                 </FormControl>
                 <div>
-                    <Button variant="contained" sx={{ mt: 3 }}>Next</Button>
+                    <Button 
+                    href={findref(props.qID)}
+                    variant="contained" 
+                    sx={{ mt: 3 }}
+                    >
+                        Next
+                    </Button>
                 </div>
             </Container>        
         </>

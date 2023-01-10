@@ -9,7 +9,7 @@ function Home() {
         <Button href="/questionnaire/QQ000" variant="contained">Ερωτηματολογιο</Button>
       </Container>
       <Container maxWidth="sm" style={{ marginTop: '100px' }}>
-        <Button href="/quest" variant="contained">Ερωτηση</Button>
+        <Button href="/question/QQ000/P00" variant="contained">Ερωτηση</Button>
       </Container>
     </>   
   )

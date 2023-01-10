@@ -5,6 +5,7 @@ import { CssBaseline } from '@mui/material';
 import QuestionnairePage from './components/pages/QuestionnairePage';
 import QuestionPage from './components/pages/QuestionPage';
 import Home from './components//pages/Home';
+import DoAnswerPage from './components/pages/DoAnswerPage';
 
 export default function App() {
   return (    
@@ -15,7 +16,8 @@ export default function App() {
         <Switch>
           <Route path="/" exact component={Home}/>
           <Route path="/questionnaire/:id" component={QuestionnairePage} /> 
-          <Route path="/quest" component={QuestionPage} /> 
+          <Route path="/question/:questionnaireID/:questionID" component={QuestionPage} /> 
+          <Route path="/doanswer/:questionnaireID/:questionID/:session/:optionID" component={DoAnswerPage} /> 
         </Switch>    
       </Router>      
     </>  
