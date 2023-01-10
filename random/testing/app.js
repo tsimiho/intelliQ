@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
-const tasks = require('./routes/admin');
+const questionnaire = require('./routes/questionnaire');
+const question = require('./routes/question');
 const connectDB = require('./database/connect');
 require('dotenv').config();
 // const notFound = require('./middleware/not-found');
@@ -14,6 +15,8 @@ app.use(express.json());
 // routes
 
 app.use('/questionnaire', questionnaire);
+app.use('/question', question);
+
 
 
 const port = 9103;

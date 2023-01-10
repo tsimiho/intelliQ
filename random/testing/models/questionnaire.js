@@ -30,10 +30,6 @@ const QuestionSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    keywords: {
-        type: [String],
-        required: true
-    },
     options: {
         type: [OptionSchema],
         required: true
@@ -52,6 +48,10 @@ const QuestionnaireSchema = new mongoose.Schema({
     },
     admin: {
         type: String,
+        required: true
+    },
+    keywords: {
+        type: [String],
         required: true
     },
     questions: {
