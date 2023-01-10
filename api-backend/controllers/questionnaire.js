@@ -1,7 +1,5 @@
 const Questionnaire = require('../models/questionnaire')
 
-
-
 const getQuestionnaire = async (req, res) => {
     try {
         const { questionnaireID } = req.params

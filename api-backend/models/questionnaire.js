@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 
-
 const OptionSchema = new mongoose.Schema({
     opttext: {
         type: String,
@@ -37,6 +36,48 @@ const QuestionSchema = new mongoose.Schema({
 })
 
 
+const SessionSchema = new mongoose.Schema({
+    sessionID: {
+     type: Number,
+     randomGeneratedString: {
+         type: String,
+         default: (generateRandom = () => {
+            function makeid(length) {
+            var result = "";
+            var characters =
+                "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            var charactersLength = characters.length;
+            for (var i = 0; i < length; i++) {
+                result += characters.charAt(
+                    Math.floor(Math.random() * charactersLength)
+                );
+            }
+            return result;
+        }
+        return makeid(4);
+    }),
+},
+unique: true,
+required: true,
+},
+    pairs: {
+        type: [{qID: {
+            type: String,
+            required: true,
+            ref: 'Question'
+        },
+             optionID: {
+                type: String,
+                required: false, 
+                ref: 'Option',
+                default: 'empty'
+            }
+             }],
+        required: true
+    }
+})
+
+
 const QuestionnaireSchema = new mongoose.Schema({
     questionnaireTitle: {
         type: String,
@@ -57,12 +98,12 @@ const QuestionnaireSchema = new mongoose.Schema({
     questions: {
         type: [QuestionSchema],
         required: true
+    },
+    sessions: {
+        type: [SessionSchema],
+        required: false
     }
-
-
 })
-
-
 
 module.exports = mongoose.model('QuestionnaireSchema', QuestionnaireSchema);
 module.exports = mongoose.model('OptionSchema', OptionSchema);
