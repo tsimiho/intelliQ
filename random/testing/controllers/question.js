@@ -1,23 +1,24 @@
-const Questionnaire = require('../models/questionnaire')
+const QuestionnaireSchema = require('../models/questionnaire')
 
 
 const getQuestionnaire = async (req, res) => {
     try {
         const { questionnaireID, questionID } = req.params
-        const questionnaire = await Questionnaire.findOne({ _id: questionnaireID })
-        if (!questionnaire) {
-            res.status(400).json({ msg: 'Bad request' })
-        }
-
-        const question = await questionnaire.questions.findOne({ _id: questionID})
-
+        const question = await QuestionnaireSchema.find({ _id: questionnaireID })
         if (!question) {
             res.status(400).json({ msg: 'Bad request' })
         }
 
-        res.status(200).json({ questionnaire })
+        // const question = await questionnaire.findOne({ questions: { _id: questionID } })
+
+        // if (!question) {
+        //     res.status(400).json({ msg: 'Bad request' })
+        // }
+
+        res.status(200).json({ question })
+
     } catch (error) {
-        res.status(500).json({ msg: 'Internal server error' })
+        res.status(500).json({ msg: error })
     }
 }
 

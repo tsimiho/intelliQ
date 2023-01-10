@@ -5,7 +5,7 @@ const Questionnaire = require('../models/questionnaire')
 const getQuestionnaire = async (req, res) => {
     try {
         const { questionnaireID } = req.params
-        const questionnaire = await Questionnaire.findOne({ _id: "63bcbf1adce44419912a6e80" })
+        const questionnaire = await Questionnaire.findOne({ _id: questionnaireID })
         if (!questionnaire) {
             res.status(400).json({ msg: 'Bad request' })
         }
