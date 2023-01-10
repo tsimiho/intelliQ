@@ -5,11 +5,11 @@
     "properties": {
         "email": {
             "description": "Email of the user",
-            "type": "string"
+            "type": "String"
         },
         "domain": {
             "description": "Domain of the user's email",
-            "type": "string"
+            "type": "String"
         },
         "History": {
             "description": "Completed Questionnaires",
@@ -21,7 +21,7 @@
                 "properties": {
                     "questionnaireID": {
                         "description": "ID of the questionnaire",
-                        "type": "string"
+                        "type": "String"
                     },
                     "QnA": {
                         "description": "Array of question-answer pairs",
@@ -32,11 +32,11 @@
                             "properties": {
                                 "qID": {
                                     "description": "ID of question",
-                                    "type": "string"
+                                    "type": "String"
                                 },
                                 "optID": {
                                     "description": "ID of option",
-                                    "type": "string"
+                                    "type": "String"
                                 }
                             }
                         }

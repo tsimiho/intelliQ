@@ -5,15 +5,15 @@
     "properties": {
         "email": {
             "description": "Email of the user",
-            "type": "string"
+            "type": "String"
         },
         "admin_id": {
             "description": "Distinctive admin id",
-            "type": "string"
+            "type": "String"
         },
         "Organization": {
             "description": "Organization to which the admin belongs",
-            "type": "string"
+            "type": "String"
         },
         "History": {
             "description": "Questionnaires Created",
@@ -25,7 +25,7 @@
                 "properties": {
                     "questionnaireID": {
                         "description": "ID of the questionnaire",
-                        "type": "string"
+                        "type": "String"
                     },
                     "questions": {
                         "description": "This is an array of questions",
@@ -37,26 +37,26 @@
                             "properties": {
                                 "qID": {
                                     "desctription": "ID of Question",
-                                    "type": "string"
+                                    "type": "String"
                                 },
                                 "qtext": {
                                     "description": "The question",
-                                    "type": "string"
+                                    "type": "String"
                                 },
-                                "required": {
+                                "require": {
                                     "description": "Determines if the question is required or not",
                                     "type": "boolean"
                                 },
                                 "qtype": {
                                     "description": "Type of question",
-                                    "type": "string"
+                                    "type": "String"
                                 },
                                 "keywords": {
                                     "description": "General categories",
                                     "type": "array",
                                     "items": {
                                         "description": "List of keywords",
-                                        "type": "string"
+                                        "type": "String"
                                     }
                                 },
                                 "options": {
@@ -69,19 +69,19 @@
                                         "properties": {
                                             "optID": {
                                                 "description": "ID of the option",
-                                                "type": "string"
+                                                "type": "String"
                                             },
                                             "opttxt": {
                                                 "description": "Body of the option",
-                                                "type": "string"
+                                                "type": "String"
                                             },
                                             "nextqID": {
                                                 "description": "ID of the next question",
-                                                "type": "string"
+                                                "type": "String"
                                             },
                                             "times_answered": {
                                                 "description": "Times the answer has been chosen",
-                                                "type": "int"
+                                                "type": "Number"
                                             }
                                         }
                                     }
