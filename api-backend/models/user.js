@@ -1,7 +1,5 @@
-const mongoose = require('mongoose')
-const QuestionnaireSchema = require('./questionnaire')
-
-
+const mongoose = require("mongoose");
+const QuestionnaireSchema = require("./questionnaire");
 
 const QnASchema = new mongoose.Schema({
     optID: {
@@ -14,33 +12,36 @@ const QnASchema = new mongoose.Schema({
 const ItemSchema = new mongoose.Schema({
     QnA: {
         type: [QnASchema],
-        required: true
+        required: true,
     },
     QuestionnaireID: {
         type: String,
         required: true,
-        ref: QuestionnaireSchema
+        ref: QuestionnaireSchema,
     },
     Session: {
         type: Number,
         randomGeneratedString: {
             type: String,
-            default: generateRandom = () => {       
-function makeid(length) {
-    var result           = '';
-    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    var charactersLength = characters.length;
-    for ( var i = 0; i < length; i++ ) {
-        result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return result;
-}
-return makeid(4);
-            }
+            default: (generateRandom = () => {
+                function makeid(length) {
+                    var result = "";
+                    var characters =
+                        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+                    var charactersLength = characters.length;
+                    for (var i = 0; i < length; i++) {
+                        result += characters.charAt(
+                            Math.floor(Math.random() * charactersLength)
+                        );
+                    }
+                    return result;
+                }
+                return makeid(4);
+            }),
         },
         unique: true,
-        required: true
-    }
+        required: true,
+    },
 });
 
 const UserSchema = new mongoose.Schema({
@@ -54,10 +55,8 @@ const UserSchema = new mongoose.Schema({
     },
     History: {
         type: [ItemSchema],
-        required: true
-    }
-})
+        required: true,
+    },
+});
 
-module.exports = mongoose.model('ItemSchema', ItemSchema);
-
-
+module.exports = mongoose.model("ItemSchema", ItemSchema);
