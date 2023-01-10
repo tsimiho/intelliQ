@@ -23,7 +23,14 @@ const healthcheck = async (req, res) => {
     }
 };
 
-const questionnaire_upd = async (req, res) => {};
+const upload_questionnaire = async (req, res) => {
+    try {
+        res.sendFile("upload_file.html", { root: "./views/" });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ msg: error });
+    }
+};
 
 const resetall = async (req, res) => {};
 
@@ -35,7 +42,7 @@ const users = async (req, res) => {};
 
 module.exports = {
     healthcheck,
-    questionnaire_upd,
+    upload_questionnaire,
     resetall,
     resetq,
     usermod,

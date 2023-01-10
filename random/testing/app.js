@@ -4,6 +4,7 @@ const questionnaire = require("./routes/questionnaire");
 const question = require("./routes/question");
 const admin = require("./routes/admin");
 const connectDB = require("./database/connect");
+const multer  = require('multer')
 require("dotenv").config();
 
 // middleware
