@@ -1,13 +1,15 @@
 const mongoose = require('mongoose')
 const QuestionnaireSchema = require('./questionnaire')
 
+
+
 const QnASchema = new mongoose.Schema({
     optID: {
         type: String,
         required: true,
-        trim: true
-    }
-})
+        trim: true,
+    },
+});
 
 const ItemSchema = new mongoose.Schema({
     QnA: {
@@ -36,19 +38,19 @@ function makeid(length) {
 return makeid(4);
             }
         },
-        unique: true
+        unique: true,
+        required: true
     }
-})
-
+});
 
 const UserSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
     },
     domain: {
-        type: String
+        type: String,
     },
     History: {
         type: [ItemSchema],
@@ -57,3 +59,5 @@ const UserSchema = new mongoose.Schema({
 })
 
 module.exports = mongoose.model('ItemSchema', ItemSchema);
+
+

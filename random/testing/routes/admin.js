@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const multer = require("multer");
 const upload = multer({ dest: "./uploaded_files/" });
-const fs = require('fs')
+const fs = require("fs");
 
 const {
     healthcheck,
@@ -19,8 +19,19 @@ router
     .get(upload_questionnaire)
     .post(upload.single("uploaded_file"), function (req, res) {
         try {
+            const { destination, filename } = req.file;
 
-            res.status(200).json({ file: req.file });
+            const path = destination + filename;
+
+            fs.readFile(String(path), "utf8", (err, result) => {
+                if (err) {
+                    console.log(err);
+                    return;
+                }
+                json_file = result;
+            });
+
+            res.status(200).json(json_file);
         } catch (error) {
             res.status(500).json({ msg: error });
         }
