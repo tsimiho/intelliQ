@@ -1,33 +1,31 @@
-const mongoose = require('mongoose')
-
+const mongoose = require("mongoose");
 
 const QnASchema = new mongoose.Schema({
     optID: {
         type: String,
         required: true,
-        trim: true
-    }
-})
+        trim: true,
+    },
+});
 
 const ItemSchema = new mongoose.Schema({
     QnA: {
         type: [QnASchema],
-        required: true
+        required: true,
     }
-})
-
+});
 
 const UserSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
     },
     domain: {
-        type: String
+        type: String,
     },
     History: {
         type: [ItemSchema],
-        required: true
-    }
-})
+        required: true,
+    },
+});
