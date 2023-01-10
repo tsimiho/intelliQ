@@ -1,109 +1,110 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
 const OptionSchema = new mongoose.Schema({
     opttext: {
         type: String,
-        required: true
+        required: false,
     },
     nextqID: {
         type: String,
-        required: false
+        required: false,
     },
     times_answered: {
-        type: Number
-    }
-})
+        type: Number,
+    },
+});
 
 const QuestionSchema = new mongoose.Schema({
     qtext: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
     },
     require: {
         type: Boolean,
-        required: true
+        required: true,
     },
     qtype: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
     },
     options: {
         type: [OptionSchema],
-        required: true
-    }
-})
-
+        required: true,
+    },
+});
 
 const SessionSchema = new mongoose.Schema({
     sessionID: {
-     type: Number,
-     randomGeneratedString: {
-         type: String,
-         default: (generateRandom = () => {
-            function makeid(length) {
-            var result = "";
-            var characters =
-                "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-            var charactersLength = characters.length;
-            for (var i = 0; i < length; i++) {
-                result += characters.charAt(
-                    Math.floor(Math.random() * charactersLength)
-                );
-            }
-            return result;
-        }
-        return makeid(4);
-    }),
-},
-unique: true,
-required: true,
-},
-    pairs: {
-        type: [{qID: {
+        type: Number,
+        randomGeneratedString: {
             type: String,
-            required: true,
-            ref: 'Question'
+            default: (generateRandom = () => {
+                function makeid(length) {
+                    var result = "";
+                    var characters =
+                        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+                    var charactersLength = characters.length;
+                    for (var i = 0; i < length; i++) {
+                        result += characters.charAt(
+                            Math.floor(Math.random() * charactersLength)
+                        );
+                    }
+                    return result;
+                }
+                return makeid(4);
+            }),
         },
-             optionID: {
-                type: String,
-                required: false, 
-                ref: 'Option',
-                default: 'empty'
-            }
-             }],
-        required: true
-    }
-})
-
+        unique: true,
+        required: true,
+    },
+    pairs: {
+        type: [
+            {
+                qID: {
+                    type: String,
+                    required: true,
+                    ref: "Question",
+                },
+                optionID: {
+                    type: String,
+                    required: false,
+                    ref: "Option",
+                    default: "empty",
+                },
+            },
+        ],
+        required: true,
+    },
+});
 
 const QuestionnaireSchema = new mongoose.Schema({
     questionnaireTitle: {
         type: String,
-        required: true
+        required: true,
     },
     domain: {
         type: [String],
-        required: false
+        required: false,
     },
     admin: {
         type: String,
-        required: true
+        required: true,
     },
     keywords: {
         type: [String],
-        required: true
+        required: true,
     },
     questions: {
         type: [QuestionSchema],
-        required: true
+        required: true,
     },
     sessions: {
         type: [SessionSchema],
-        required: false
-    }
-})
+        required: false,
+    },
+});
 
-module.exports = mongoose.model('QuestionnaireSchema', QuestionnaireSchema);
-module.exports = mongoose.model('OptionSchema', OptionSchema);
+module.exports = mongoose.model("QuestionnaireSchema", QuestionnaireSchema);
+module.exports = mongoose.model("OptionSchema", OptionSchema);

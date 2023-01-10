@@ -27,9 +27,7 @@ const start = async () => {
     app.listen(port, () =>
       console.log(`Server is listening on port ${port}...`)
     );
-    // const char = new Questionnaire(t)
-    // const doc = await char.save()
-    // console.log(doc);
+
   } catch (error) {
     console.log(error);
   }
