@@ -6,6 +6,7 @@ const admin = require("./routes/admin");
 const doanswer = require("./routes/doanswer");
 const getsessionanswers = require("./routes/getsessionanswers");
 const getquestionanswers = require("./routes/getquestionanswers");
+const extract = require("./routes/extract");
 
 const connectDB = require("./database/connect");
 require("dotenv").config();
@@ -23,6 +24,7 @@ app.use("/admin", admin);
 app.use("/doanswer", doanswer);
 app.use("/getsessionanswers", getsessionanswers);
 app.use("/getquestionanswers", getquestionanswers);
+app.use("/extract", extract);
 
 const port = 9103;
 
