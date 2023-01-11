@@ -66,12 +66,10 @@ const SessionSchema = new mongoose.Schema({
                 qID: {
                     type: String,
                     required: true,
-                    ref: "Question",
                 },
                 optionID: {
                     type: String,
                     required: false,
-                    ref: "Option",
                 },
             },
         ],

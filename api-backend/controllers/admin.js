@@ -1,6 +1,8 @@
 // const Questionnaire = require("../models/questionnaire");
 // const Admin = require("../models/admin");
 const mongoose = require("mongoose");
+const QuestionnaireSchema = require("../models/questionnaire");
+const UserSchema = require("../models/user");
 
 const healthcheck = async (req, res) => {
     try {
@@ -12,11 +14,12 @@ const healthcheck = async (req, res) => {
                 status: "failed",
                 dbconnection: [connection_string],
             });
+        } else {
+            res.status(200).json({
+                status: "OK",
+                dbconnection: [connection_string],
+            });
         }
-        res.status(200).json({
-            status: "OK",
-            dbconnection: [connection_string],
-        });
     } catch (error) {
         // console.log(error);
         res.status(500).json({ msg: error });
@@ -32,9 +35,27 @@ const upload_questionnaire = async (req, res) => {
     }
 };
 
-const resetall = async (req, res) => {};
+const resetall = async (req, res) => {
+    try {
+        await QuestionnaireSchema.deleteMany({});
+        await UserSchema.deleteMany({});
 
-const resetq = async (req, res) => {};
+        res.status(200).json({ status: "OK" });
+    } catch (error) {
+        res.status(500).json({ status: "failed", reason: error });
+    }
+};
+
+const resetq = async (req, res) => {
+    try {
+        const { questionnaireID } = req.params;
+        await QuestionnaireSchema.deleteOne({ _id: questionnaireID });
+
+        res.status(200).json({ status: "OK" });
+    } catch (error) {
+        res.status(500).json({ status: "failed", reason: error });
+    }
+};
 
 const usermod = async (req, res) => {};
 

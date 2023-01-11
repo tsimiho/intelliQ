@@ -20,23 +20,6 @@ router
     .get(upload_questionnaire)
     .post(upload.single("uploaded_file"), function (req, res) {
         try {
-            // const new_data = mongoose.model(data);
-
-            // const add_to_db = async (data) => {
-            //     const char = new Questionnaire(data);
-            //     char.save(function (err, book) {
-            //         if (err) return console.error(err);
-            //         console.log(" saved to bookstore collection.");
-            //     });
-            // };
-
-            // try {
-            //     add_to_db(data);
-            //     console.log("Added to Database");
-            // } catch (error) {
-            //     console.log(error);
-            // }
-
             const data = JSON.parse(req.file.buffer.toString());
             try {
                 QuestionnaireSchema.create(data);

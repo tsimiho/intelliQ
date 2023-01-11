@@ -35,14 +35,14 @@
     ],
     "sessions": [
         {
-            "sessionID": "2w3v",
+            "sessionID": "abcd",
             "pairs": [
                 { "qID": "q01", "optionID": "q01a01" },
                 { "qID": "q02", "optionID": "empty" }
             ]
         },
         {
-            "sessionID": "1o1k",
+            "sessionID": "dcba",
             "pairs": [
                 { "qID": "q01", "optionID": "q01a02" },
                 { "qID": "q02", "optionID": "q02a01" }
