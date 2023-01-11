@@ -74,10 +74,6 @@
                 "nextqID": {
                   "description": "ID of the next question",
                   "type": "String"
-                },
-                "times_answered": {
-                  "description": "Times the answer has been chosen",
-                  "type": "Number"
                 }
               }
             }
@@ -86,24 +82,28 @@
       }
     },
     "sessions": {
-      "sessionID": {
-        "description": "ID of the current session",
-        "type": "String"
-      },
-      "pairs": {
-        "description": "Array of pairs of the question and the respective answer",
-        "type": "array",
-        "items": {
-          "title": "pair",
-          "description": "General structure of a question-answer pair",
-          "type": "object",
-          "properties": {
-            "qID": {
-              "description": "ID of the answered question",
+      "description": "This is an array of sessions",
+      "type": "array",
+      "items": {
+        "sessionID": {
+          "description": "ID of the current session",
+          "type": "String"
+        },
+        "pairs": {
+          "description": "Array of pairs of the question and the respective answer",
+          "type": "array",
+          "items": {
+            "title": "pair",
+            "description": "General structure of a question-answer pair",
+            "type": "object",
+            "properties": {
+              "qID": {
+                "description": "ID of the answered question",
+                "type": "String"
+              },
+              "optionID": "ID of the given answer",
               "type": "String"
-            },
-            "optionID": "ID of the given answer",
-            "type": "String"
+            }
           }
         }
       }

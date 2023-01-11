@@ -1,36 +1,34 @@
 {
-    "questionnaireTitle": "Are you healthy enough?",
-    "domain": ["@ntua"],
-    "admin": "Vasileios Veskoukis",
-    "keywords": ["fitness", "health"],
-    "questions": [
+  "questionnaireTitle": "Are you healthy enough?",
+  "domain": ["@ntua"],
+  "admin": "Vasileios Veskoukis",
+  "keywords": ["fitness", "health"],
+  "questions": [
+    {
+      "qtext": "How often do you train during the week?",
+      "require": true,
+      "qtype": "question",
+      "options": [
+        { "opttext": "1-2 times" },
+        { "opttext": "3-4 times" },
         {
-            "qtext": "How often do you train during the week?",
-            "require": true,
-            "qtype": "question",
-            "options": [
-                { "opttext": "1-2 times", "times_answered": 8 },
-                { "opttext": "3-4 times", "times_answered": 3 },
-                {
-                    "opttext": "more than 5 times",
-                    "times_answered": 6
-                },
-                {
-                    "opttext": "I do not exercise",
-                    "times_answered": 2
-                }
-            ]
+          "opttext": "more than 5 times"
         },
         {
-            "qtext": "How much do you approximately weigh? (in kg)",
-            "require": true,
-            "qtype": "question",
-            "options": [
-                { "opttext": "65-", "times_answered": 8 },
-                { "opttext": "65-80", "times_answered": 3 },
-                { "opttext": "80-95", "times_answered": 6 },
-                { "opttext": "95+", "times_answered": 2 }
-            ]
+          "opttext": "I do not exercise"
         }
-    ]
+      ]
+    },
+    {
+      "qtext": "How much do you approximately weigh? (in kg)",
+      "require": true,
+      "qtype": "question",
+      "options": [
+        { "opttext": "65-" },
+        { "opttext": "65-80" },
+        { "opttext": "80-95" },
+        { "opttext": "95+" }
+      ]
+    }
+  ]
 }
