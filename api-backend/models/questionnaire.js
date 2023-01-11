@@ -9,10 +9,6 @@ const OptionSchema = new mongoose.Schema({
         type: String,
         required: false,
     },
-    times_answered: {
-        type: Number,
-        required: false,
-    },
 });
 
 const QuestionSchema = new mongoose.Schema({

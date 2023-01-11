@@ -7,6 +7,8 @@ const doanswer = require("./routes/doanswer");
 const getsessionanswers = require("./routes/getsessionanswers");
 const getquestionanswers = require("./routes/getquestionanswers");
 const extract = require("./routes/extract");
+const graph = require("./routes/graph");
+const history = require("./routes/history");
 
 const connectDB = require("./database/connect");
 require("dotenv").config();
@@ -25,6 +27,8 @@ app.use("/doanswer", doanswer);
 app.use("/getsessionanswers", getsessionanswers);
 app.use("/getquestionanswers", getquestionanswers);
 app.use("/extract", extract);
+app.use("/graph", graph);
+app.use("/history", history);
 
 const port = 9103;
 
