@@ -11,6 +11,7 @@ const OptionSchema = new mongoose.Schema({
     },
     times_answered: {
         type: Number,
+        required: false,
     },
 });
 
@@ -37,7 +38,7 @@ const QuestionSchema = new mongoose.Schema({
 
 const SessionSchema = new mongoose.Schema({
     sessionID: {
-        type: Number,
+        type: String,
         randomGeneratedString: {
             type: String,
             default: (generateRandom = () => {
@@ -107,4 +108,4 @@ const QuestionnaireSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model("QuestionnaireSchema", QuestionnaireSchema);
-module.exports = mongoose.model("OptionSchema", OptionSchema);
+// module.exports = mongoose.model("OptionSchema", OptionSchema);

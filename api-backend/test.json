@@ -1,7 +1,8 @@
 {
     "questionnaireTitle": "Are you healthy enough?",
-    "domain": "@ntua",
+    "domain": ["@ntua"],
     "admin": "Vasileios Veskoukis",
+    "keywords": ["fitness", "health"],
     "questions": [
         {
             "qtext": "How often do you train during the week?",
@@ -29,6 +30,22 @@
                 { "opttext": "65-80", "times_answered": 3 },
                 { "opttext": "80-95", "times_answered": 6 },
                 { "opttext": "95+", "times_answered": 2 }
+            ]
+        }
+    ],
+    "sessions": [
+        {
+            "sessionID": "2w3v",
+            "pairs": [
+                { "qID": "q01", "optionID": "q01a01" },
+                { "qID": "q02", "optionID": "empty" }
+            ]
+        },
+        {
+            "sessionID": "1o1k",
+            "pairs": [
+                { "qID": "q01", "optionID": "q01a02" },
+                { "qID": "q02", "optionID": "q02a01" }
             ]
         }
     ]
