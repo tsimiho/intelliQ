@@ -1,59 +1,63 @@
-const OptionSchema = require("../models/questionnaire");
-const ItemSchema = require("../models/user");
+const QuestionnaireSchema = require("../models/questionnaire");
 
-const getQuestionnaire = async (req, res) => {
-  try {
-    const { questionnaireID, questionID, session, optionID } = req.params;
-    const questionnaire = await Questionnaire.findOne({
-      _id: questionnaireID,
-      questions: { _id: questionID },
-      sessions: { _id: sessionID },
-    });
-    if (!questionnaire) {
-      res.status(400).json({ msg: "Bad request" });
-    }
-    res.status(200).json({ questionnaire });
-  } catch (error) {
-    res.status(500).json({ msg: error });
-  }
-};
+// const getQuestionnaire = async (req, res) => {
+//     try {
+//         const { questionnaireID, questionID, session, optionID } = req.params;
+//         const questionnaire = await Questionnaire.findOne({
+//             _id: questionnaireID,
+//             questions: { _id: questionID },
+//             sessions: { _id: sessionID },
+//         });
+//         if (!questionnaire) {
+//             res.status(400).json({ msg: "Bad request" });
+//         }
+//         res.status(200).json({ questionnaire });
+//     } catch (error) {
+//         res.status(500).json({ msg: error });
+//     }
+// };
 
 const postOptionID = async (req, res) => {
-  try {
-    const { questionnaireID, questionID, session, optionID } = req.params;
-    const questionnaire = await Questionnaire.findOne({
-      _id: questionnaireID,
-      questions: { _id: questionID },
-      sessions: { _id: sessionID },
-    });
-    const Option = async (req, res) => {
-      try {
-        const pair = { qID: questionID, optionID: optionID };
-        const Id = await Questionnaire.findOneAndUpdate({
-          _id: questionnaireID,
-          questions: { _id: questionID },
-          sessions: {
-            _id: sessionID,
-            pairs: { qID: questionID, optionID: optionID },
-          },
+    try {
+        const { questionnaireID, questionID, session, optionID } = req.params;
+        const questionnaire = await QuestionnaireSchema.findOne({
+            _id: questionnaireID,
         });
-        // const question = await questionnaire.findOne({ questions: { _id: questionID } })
 
-        // if (!question) {
-        //     res.status(400).json({ msg: 'Bad request' })
-        // }
+        const { sessions } = questionnaire;
 
-        // res.status(200).json({ question })
-      } catch (error) {
+        var ses_index;
+        for (const i in sessions) {
+            if (sessions[i].sessionID === session) {
+                ses_index = i;
+                break;
+            }
+        }
+
+        const pair = { qID: questionID, optionID: optionID };
+        questionnaire.sessions[ses_index].pairs.push(pair);
+
+        delete questionnaire._id;
+
+        const q = await QuestionnaireSchema.findOneAndUpdate(
+            { _id: questionnaireID },
+            questionnaire
+            // {
+            //     new: true,
+            //     runValidators: true,
+            // }
+        );
+
+        if (!q) {
+            res.status(400).json({ msg: "Bad Request" });
+        }
+
+        res.status(200).json(q);
+    } catch (error) {
         res.status(500).json({ msg: error });
-      }
-    };
-  } catch (error) {
-    res.status(500).json({ msg: error });
-  }
+    }
 };
 
 module.exports = {
-  postOptionID,
-  getQuestionnaire,
+    postOptionID,
 };

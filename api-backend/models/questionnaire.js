@@ -72,7 +72,6 @@ const SessionSchema = new mongoose.Schema({
                     type: String,
                     required: false,
                     ref: "Option",
-                    default: "empty",
                 },
             },
         ],

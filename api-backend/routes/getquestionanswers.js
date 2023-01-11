@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
-const { getQuestionanswers } = require("../controllers/getquestionanswers");
+const { getquestionanswers } = require("../controllers/getquestionanswers");
 
-router.route("/:questionnaireID/:questionID").get(getQuestionanswers);
+router.route("/:questionnaireID/:questionID").get(getquestionanswers);
 
 module.exports = router;

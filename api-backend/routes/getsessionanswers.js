@@ -3,6 +3,6 @@ const router = express.Router();
 
 const { getSessionanswers } = require("../controllers/getsessionanswers");
 
-router.route("/:questionnaireID/:sessions").get(getSessionanswers);
+router.route("/:questionnaireID/:session").get(getSessionanswers);
 
 module.exports = router;

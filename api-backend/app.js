@@ -21,8 +21,8 @@ app.use("/questionnaire", questionnaire);
 app.use("/question", question);
 app.use("/admin", admin);
 app.use("/doanswer", doanswer);
-app.use("getsessionanswers", getsessionanswers);
-app.use("getquestionanswers", getquestionanswers);
+app.use("/getsessionanswers", getsessionanswers);
+app.use("/getquestionanswers", getquestionanswers);
 
 const port = 9103;
 
