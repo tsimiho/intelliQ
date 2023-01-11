@@ -39,24 +39,6 @@ const QuestionSchema = new mongoose.Schema({
 const SessionSchema = new mongoose.Schema({
     sessionID: {
         type: String,
-        randomGeneratedString: {
-            type: String,
-            default: (generateRandom = () => {
-                function makeid(length) {
-                    var result = "";
-                    var characters =
-                        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-                    var charactersLength = characters.length;
-                    for (var i = 0; i < length; i++) {
-                        result += characters.charAt(
-                            Math.floor(Math.random() * charactersLength)
-                        );
-                    }
-                    return result;
-                }
-                return makeid(4);
-            }),
-        },
         unique: true,
         required: true,
     },

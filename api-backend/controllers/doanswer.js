@@ -17,6 +17,11 @@ const postOptionID = async (req, res) => {
             }
         }
 
+        if (!ses_index) {
+            questionnaire.sessions.push({ sessionID: session, pairs: [] });
+            ses_index = 0;
+        }
+
         const pair = { qID: questionID, optionID: optionID };
         questionnaire.sessions[ses_index].pairs.push(pair);
 
@@ -25,10 +30,6 @@ const postOptionID = async (req, res) => {
         const q = await QuestionnaireSchema.findOneAndUpdate(
             { _id: questionnaireID },
             questionnaire
-            // {
-            //     new: true,
-            //     runValidators: true,
-            // }
         );
 
         if (!q) {

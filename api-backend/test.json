@@ -32,21 +32,5 @@
                 { "opttext": "95+", "times_answered": 2 }
             ]
         }
-    ],
-    "sessions": [
-        {
-            "sessionID": "abcd",
-            "pairs": [
-                { "qID": "q01", "optionID": "q01a01" },
-                { "qID": "q02", "optionID": "empty" }
-            ]
-        },
-        {
-            "sessionID": "dcba",
-            "pairs": [
-                { "qID": "q01", "optionID": "q01a02" },
-                { "qID": "q02", "optionID": "q02a01" }
-            ]
-        }
     ]
 }
