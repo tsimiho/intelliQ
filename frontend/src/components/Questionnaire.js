@@ -1,5 +1,4 @@
 import React from 'react'
-import { styled } from '@mui/material/styles';
 import Divider from '@mui/material/Divider';
 import Container from '@mui/material/Container';
 import List from '@mui/material/List';
@@ -8,10 +7,9 @@ import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 
 function Questionnaire(props) {
-    const Q = props;
     function sec(req, type) {
-        let R = (req=="TRUE"? "Υποχρεωτική" : "Προαιρετική");
-        let T = (type=="question"? "Ερώτηση" : "Προφίλ");
+        let R = (req==="TRUE"? "Υποχρεωτική" : "Προαιρετική");
+        let T = (type==="question"? "Ερώτηση" : "Προφίλ");
         return R + " (" + T + ")";
     }
     let Keywords = "Λέξεις κλειδιά: " + props.keywords[0];
