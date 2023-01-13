@@ -1,21 +1,39 @@
-// try {
-//   const hashedPassword = await bcrypt.hash(req.body.password, 10);
-//   const user = { name: req.body.name, password: hashedPassword };
-//   users.push(user);
-//   res.status(201).send();
-// } catch {
-//   res.status(500).send();
-// }
-// const user = users.find((user) => user.name === req.body.name);
-// if (user == null) {
-//   return res.status(400).send("Cannot find user");
-// }
-// try {
-//   if (await bcrypt.compare(req.body.password, user.password)) {
-//     res.send("Success");
-//   } else {
-//     res.send("Not Allowed");
-//   }
-// } catch {
-//   res.status(500).send();
-// }
+const jwt = require("jsonwebtoken");
+const AdminSchema = require("../models/admin");
+const bcrypt = require("bcrypt");
+
+const signup = async (req, res) => {
+  const { username, password, email } = req.body;
+  try {
+    const check = await Admin.findOne({
+      username: username,
+    });
+    const check2 = await Admin.findOne({
+      email: email,
+    });
+    if (check) {
+      res
+        .status(400)
+        .json({ msg: "Bad request. Admin username already exists." });
+    } else if (check2) {
+      res.status(400).json({ msg: "Bad request. Admin email already exists." });
+    } else {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const admin = {
+        username: username,
+        email: email,
+        password: hashedPassword,
+        history: [],
+      };
+
+      AdminSchema.create(admin);
+      res.status(200).json({ msg: "Admin created." });
+    }
+  } catch {
+    res.status(500).json({ msg: "Internal Server Error" });
+  }
+};
+
+module.exports = {
+  signup,
+};
