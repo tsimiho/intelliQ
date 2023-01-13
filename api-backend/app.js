@@ -9,6 +9,7 @@ const getquestionanswers = require("./routes/getquestionanswers");
 const extract = require("./routes/extract");
 const graph = require("./routes/graph");
 const history = require("./routes/history");
+const login = require("./routes/login");
 
 const connectDB = require("./database/connect");
 require("dotenv").config();
