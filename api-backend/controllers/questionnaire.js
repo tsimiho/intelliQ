@@ -1,9 +1,9 @@
-const Questionnaire = require("../models/questionnaire");
+const QuestionnaireSchema = require("../models/questionnaire");
 
 const getQuestionnaire = async (req, res) => {
     try {
         const { questionnaireID } = req.params;
-        const questionnaire = await Questionnaire.findOne({
+        const questionnaire = await QuestionnaireSchema.findOne({
             _id: questionnaireID,
         });
         if (!questionnaire) {
