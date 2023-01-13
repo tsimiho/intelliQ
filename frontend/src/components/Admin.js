@@ -20,6 +20,9 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { IconButton } from '@mui/material';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
+import Box from '@mui/material/Box';
+import { Redirect } from 'react-router-dom';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 const Q = QEx2();
 function Questionnaires () {
@@ -38,6 +41,8 @@ function Questionnaires () {
 
 function Admin(props) {
   const [open, setOpen] = React.useState(false);
+  const [openUpload, setOpenUpload] = React.useState(props.upd);
+  const [file, setFile] = React.useState();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -45,6 +50,14 @@ function Admin(props) {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleChange = (event) => {
+    setFile(event.target.files[0]);
+  };
+
+  function handleUpload() {
+        return (<Redirect to="/admin" />)
   };
 
   return (
@@ -64,10 +77,7 @@ function Admin(props) {
                 <Typography variant="h4">
                 Questionnaires
                 </Typography>
-                <IconButton color="primary" aria-label="upload picture" component="label">
-                    <form enctype="multipart/form-data" method="post">
-                        <input hidden type="file" class="form-control-file" name="uploaded_file" />
-                    </form>
+                <IconButton color="primary" href="/admin/questionnaire_upd">
                     <FileUploadIcon />
                 </IconButton>
             </Stack>
@@ -99,7 +109,7 @@ function Admin(props) {
                     </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                    <Button onClick={handleClose}>Άκυρο</Button>
+                    <Button onClick={handleClose}>Ακυρο</Button>
                     <Button href="/admin/resetall/" autoFocus>
                         Ναι
                     </Button>
@@ -108,6 +118,35 @@ function Admin(props) {
             </Stack>
         </Stack>        
         {Questionnaires()}
+        <IconButton color="primary" href="/admin/create_questionnaire">
+            <AddCircleIcon fontSize="large" />
+        </IconButton>
+        <Dialog
+            open={props.upd}
+            //onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+        >
+            <DialogTitle id="alert-dialog-title">
+            {"Επιλέξτε αρχείο json με τα δεδομένα ενός νέου ερωτηματολογίου."}
+            </DialogTitle>
+            <DialogContent>
+                <Stack direction="row" justifyContent="center">
+                    <Box component="span" sx={{ p: 2, border: '1px dashed grey' }}>
+                        <Button component="label">
+                            <form enctype="multipart/form-data" method="post">
+                                <input hidden type="file" onChange={handleChange} class="form-control-file" name="uploaded_file" />
+                            </form>
+                        Select file
+                        </Button>             
+                    </Box>
+                </Stack>                    
+            </DialogContent>
+            <DialogActions>
+                <Button href="/admin" >Ακυρο</Button>
+                <Button onClick={handleUpload}>Συνεχεια</Button>
+            </DialogActions>
+        </Dialog>
     </Container> 
   )
 }

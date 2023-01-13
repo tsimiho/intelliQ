@@ -10,6 +10,8 @@ import GetQuestionAnswersPage from './components/pages/GetQuestionAnswersPage';
 import AdminPage from './components/pages/AdminPage';
 import Healthcheck from './components/Healthcheck';
 import Resetall from './components/Resetall';
+import QuestionnaireUploadPage from './components/pages/QuestionnaireUploadPage';
+import CreateQuestionnairePage from './components/pages/CreateQuestionnairePage';
 
 export default function App() {
   return (    
@@ -26,8 +28,10 @@ export default function App() {
           <Route exact path="/admin" component={AdminPage}  />
           <Route exact path="/admin/healthcheck" component={Healthcheck} />
           <Route exact path="/admin/healthcheck/:check" component={AdminPage} />
+          <Route exact path="/admin/questionnaire_upd" component={QuestionnaireUploadPage} />
           <Route exact path="/admin/resetall" component={Resetall} />
           <Route exact path="/admin/resetall/:result" component={AdminPage} />
+          <Route exact path="/admin/create_questionnaire" component={CreateQuestionnairePage} />
         </Switch>    
       </Router>      
     </>  

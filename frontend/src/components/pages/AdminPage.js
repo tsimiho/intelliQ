@@ -7,7 +7,7 @@ function AdminPage(props) {
     let r = params.result;
 
     return (
-        <Admin check={c} result={r} />
+        <Admin check={c} result={r} upd={false} />
     );
 }
 
