@@ -20,15 +20,15 @@ app.use(express.json());
 
 // routes
 
-app.use("/questionnaire", questionnaire);
-app.use("/question", question);
-app.use("/admin", admin);
-app.use("/doanswer", doanswer);
-app.use("/getsessionanswers", getsessionanswers);
-app.use("/getquestionanswers", getquestionanswers);
-app.use("/extract", extract);
-app.use("/graph", graph);
-app.use("/history", history);
+app.use("intelliq_api/questionnaire", questionnaire);
+app.use("intelliq_api/question", question);
+app.use("intelliq_apiadmin", admin);
+app.use("intelliq_api/doanswer", doanswer);
+app.use("intelliq_api/getsessionanswers", getsessionanswers);
+app.use("intelliq_api/getquestionanswers", getquestionanswers);
+app.use("intelliq_api/extract", extract);
+app.use("intelliq_api/graph", graph);
+app.use("intelliq_api/history", history);
 
 const port = 9103;
 
