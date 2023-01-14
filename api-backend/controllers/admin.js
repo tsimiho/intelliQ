@@ -6,6 +6,7 @@ const UserSchema = require("../models/user");
 
 const healthcheck = async (req, res) => {
     try {
+        console.log(req.query.format);
         const status = mongoose.connection.readyState;
         const connection_string =
             "mongodb+srv://SoftEng22-44:kgI1Hn1NaqTrGUDl@intelliqdatabase.at9uftu.mongodb.net/?retryWrites=true&w=majority";
