@@ -1,9 +1,5 @@
 import React, {useState} from 'react'
 import FormControl from '@mui/material/FormControl';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import RadioGroup from '@mui/material/RadioGroup';
-import Radio from '@mui/material/Radio';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { TextField } from '@mui/material';
 import Box from '@mui/material/Box';
@@ -15,14 +11,16 @@ import Stack from '@mui/material/Stack';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import CancelIcon from '@mui/icons-material/Cancel';
 
-function CreateQuestion() {
-  const Qnumber = 1;
-  const [qtext, setQtext] = React.useState('');
-  const [type, setType] = React.useState('question');
-  const [answertype, setAnswertype] = React.useState('text');
-  const [required, setRequired] = React.useState('TRUE');
-  const [number, setNumber] = React.useState(2);
+function CreateQuestion(props) {
+  const [qtext, setQtext] = useState('');
+  const [type, setType] = useState('question');
+  const [answertype, setAnswertype] = useState('multi');
+  const [required, setRequired] = useState('TRUE');
+  const [number, setNumber] = useState(2);
+  const [countCheck, setCountCheck] = useState(0);
+  const [nextIfText, setNextIfText] = useState('-');
   const [options, setOptions] = useState([
     { optID: 1, opttxt: '', nextqID: '-' },
     { optID: 2, opttxt: '', nextqID: '-' }
@@ -42,6 +40,10 @@ function CreateQuestion() {
 
   const ChangeRequired = (event) => {
     setRequired(event.target.value);
+  };
+
+  const ChangeNextIfText = (event) => {
+    setNextIfText(event.target.value);
   };
 
   const handleChangeOption = (id, event) => {
@@ -74,7 +76,7 @@ function CreateQuestion() {
 
   const findNext = id => {
     let L = ['-'];
-    for (let i = id+1; i <= Qnumber; i++) {
+    for (let i = id+1; i <= props.number; i++) {
       L.push(String(i));
     }
     return L.map(i => ( 
@@ -83,13 +85,40 @@ function CreateQuestion() {
       );
   }
 
+  let UpdatedOptions = options.map(i => {
+    if(i.nextqID > String(props.number)) {
+      i['nextqID'] = '-'
+    }
+    return i;
+  }) 
+
+  if (countCheck < props.check) { 
+    setOptions(UpdatedOptions);
+    setCountCheck(countCheck+1);
+  }
+
+  if(props.qID === props.countQuestions) {
+    props.setFinalQuestions([...props.finalQuestions, { 
+      qID:props.qID , qtext:qtext , required:required, type:type, 
+      options:(answertype === 'multi' ? options: {optID: 1, opttxt: "<open string>",nextqID:nextIfText }) 
+    }]);
+      props.setcountQuestions(props.countQuestions+1);
+  }
+
   return (
     <>
-        <Box sx={{ mt: 5, width: 640 }}>
+        <Box sx={{ mt: 3, width: 640 }}>
             <Paper sx={{ p:2 }}>
-                <Typography variant="h6" gutterBottom>
-                    Ερώτηση
-                </Typography>
+                <Stack direction="row" justifyContent="space-between" alignItems="center">
+                  <Typography variant="h6" gutterBottom>
+                      {`Ερώτηση ${props.qID}`}
+                  </Typography> 
+                  <IconButton disabled={(props.qID < props.number)} color="primary" sx={{ mr: 2 }} 
+                  onClick={() => {props.handleRemoveQuestion(props.qID)}}
+                  >
+                    <CancelIcon sx={{ fontSize: 35 }}/>
+                  </IconButton>                 
+                </Stack>
                 <FormControl fullWidth>
                   <TextField 
                       required 
@@ -147,6 +176,26 @@ function CreateQuestion() {
                         </FormControl>
                     </Stack>
                 </Box>
+                { answertype === 'text' ?
+                (<Stack direction="row" justifyContent="flex-start" alignItems="center" sx={{ mt: 2 }}>
+                  <Typography variant="h6">
+                      Επόμενη Ερώτηση : 
+                  </Typography>
+                  <FormControl sx={{ ml: 2 }}>
+                      <InputLabel id="demo-simple-select-label"></InputLabel>
+                      <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      name="nextqID"
+                      value={nextIfText}
+                      label=""
+                      onChange={ChangeNextIfText}
+                      sx={{ width: 120 }}
+                      >
+                      {findNext(props.qID)}
+                      </Select>
+                  </FormControl>
+                </Stack>) : (
                 <Box sx={{ mt: 2 }} fullWidth>
                   <Paper sx={{ p:2 }}>
                       <Stack direction="row" alignItems="center" spacing={1}>
@@ -185,7 +234,7 @@ function CreateQuestion() {
                               onChange={event => handleChangeOption(option.optID, event)}
                               sx={{ width: 130 }}
                               >
-                              {findNext(option.optID)}
+                              {findNext(props.qID)}
                               </Select>
                           </FormControl>
                           <IconButton color="primary" sx={{ mt: 0.5 }} onClick={() => handleRemoveOption(option.optID)}>
@@ -194,7 +243,7 @@ function CreateQuestion() {
                         </Stack> 
                       ))}                                                                
                   </Paper>                      
-              </Box>
+                </Box>)}
             </Paper>                      
         </Box>       
     </>    
