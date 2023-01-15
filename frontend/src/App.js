@@ -11,7 +11,7 @@ import AdminPage from './components/pages/AdminPage';
 import Healthcheck from './components/Healthcheck';
 import Resetall from './components/Resetall';
 import QuestionnaireUploadPage from './components/pages/QuestionnaireUploadPage';
-import CreateQuestionnairePage from './components/pages/CreateQuestionnairePage';
+import CreateQuestionnairePage2 from './components/pages/CreateQuestionnairePage2';
 
 export default function App() {
   return (    
@@ -31,7 +31,7 @@ export default function App() {
           <Route exact path="/admin/questionnaire_upd" component={QuestionnaireUploadPage} />
           <Route exact path="/admin/resetall" component={Resetall} />
           <Route exact path="/admin/resetall/:result" component={AdminPage} />
-          <Route exact path="/admin/create_questionnaire" component={CreateQuestionnairePage} />
+          <Route exact path="/admin/create_questionnaire" component={CreateQuestionnairePage2} />
         </Switch>    
       </Router>      
     </>  
