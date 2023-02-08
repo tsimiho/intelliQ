@@ -1,1 +1,5 @@
-Add query parameter
+- switch language
+- questionnaire upload: how does admin know ids
+- complete cli
+- testing
+- user auth with http
