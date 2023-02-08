@@ -1,5 +1,3 @@
-// const Questionnaire = require("../models/questionnaire");
-// const Admin = require("../models/admin");
 const mongoose = require("mongoose");
 const QuestionnaireSchema = require("../models/questionnaire");
 const UserSchema = require("../models/user");
