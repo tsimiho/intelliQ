@@ -1,13 +1,9 @@
 #!/usr/bin/env node
 
-const yargs = require("yargs");
-const axios = require("axios");
 const { program } = require("commander");
-const fetch = require("fetch");
 const http = require("http");
 const fs = require("fs");
 const request = require("request");
-const multer = require("multer");
 
 const baseURL = "http://localhost:9103/intelliq_api";
 
@@ -175,6 +171,5 @@ program.parse();
 /*
 login
 logout
-questionnaire_upd
 admin
 */
