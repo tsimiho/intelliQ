@@ -7,6 +7,7 @@ const fetch = require("fetch");
 const http = require("http");
 const fs = require("fs");
 const request = require("request");
+const multer = require("multer");
 
 const baseURL = "http://localhost:9103/intelliq_api";
 
@@ -147,29 +148,23 @@ program
     .requiredOption("--source <value>", "command test option")
     .action((options) => {
         try {
-            const path = options.source;
-
-            var fileData = fs.readFileSync(path, "utf8");
-
-            console.log(fileData);
-            request.post(
-                {
-                    url: baseURL + "/admin/questionnaire_upd",
-                    headers: {
-                        enctype: "multipart/form-data",
-                    },
-                    formData: fileData,
-                },
-                function optionalCallback(err, httpResponse, body) {
+            var req = request.post(
+                baseURL + "/admin/questionnaire_upd",
+                function (err, resp, body) {
                     if (err) {
-                        return console.error("upload failed:", err);
+                        console.log("Error!");
+                    } else {
+                        console.log("Success!");
                     }
-                    console.log(
-                        "Upload successful!  Server responded with:",
-                        body
-                    );
                 }
             );
+
+            const data = fs.readFileSync(options.source);
+            var form = req.form();
+            form.append("uploaded_file", data, {
+                filename: "uploaded_file.txt",
+                contentType: "multipart/form_data",
+            });
         } catch (error) {
             console.log(error);
         }
