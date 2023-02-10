@@ -1,9 +1,8 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 
-
 const OptionSchema = new mongoose.Schema({
-    opttext: {
+    opttxt: {
         type: String,
         required: false,
     },
