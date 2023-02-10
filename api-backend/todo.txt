@@ -2,4 +2,5 @@
 - questionnaire upload: how does admin know ids
 - complete cli
 - testing
-- user auth with http
+- user auth with http and custom http header
+- json or csv
