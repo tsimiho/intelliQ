@@ -14,6 +14,13 @@ const getQuestionnaire = async (req, res) => {
 
             // const { qID, qtext, required, type } = questions;
 
+            for (const j in questions) {
+                delete questions[j]["_id"];
+                // for (const i in questions[j].options) {
+                //     delete options[i]["_id"];
+                // }
+            }
+
             const result = {
                 questionnaireID: questionnaireID,
                 questionnaireTitle: questionnaireTitle,

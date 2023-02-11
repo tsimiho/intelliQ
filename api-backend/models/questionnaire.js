@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 
 const OptionSchema = new mongoose.Schema({
+    _id: {
+        type: mongoose.Schema.Types.ObjectId,
+        default: undefined,
+    },
     optID: {
         type: String,
         required: true,
@@ -17,6 +21,10 @@ const OptionSchema = new mongoose.Schema({
 });
 
 const QuestionSchema = new mongoose.Schema({
+    _id: {
+        type: mongoose.Schema.Types.ObjectId,
+        default: undefined,
+    },
     qID: {
         type: String,
         required: true,
@@ -44,6 +52,10 @@ const QuestionSchema = new mongoose.Schema({
 });
 
 const SessionSchema = new mongoose.Schema({
+    _id: {
+        type: mongoose.Schema.Types.ObjectId,
+        default: undefined,
+    },
     sessionID: {
         type: String,
         required: true,

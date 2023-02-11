@@ -2,30 +2,30 @@ const QuestionnaireSchema = require("../models/questionnaire");
 
 const getQuestion = async (req, res) => {
     try {
-        const { questionnaireID, questionID } = req.params;
-        const questionnaire = await QuestionnaireSchema.findOne({
+        var { questionnaireID, questionID } = req.params;
+        var questionnaire = await QuestionnaireSchema.findOne({
             questionnaireID: questionnaireID,
         });
         if (!questionnaire) {
             res.status(400).json({ msg: "Bad request" });
         } else {
-            const { questionnaireID, questions } = questionnaire;
+            var { questionnaireID, questions } = questionnaire;
 
             var question;
-            for (const i in questions) {
+            for (var i in questions) {
                 if (questions[i].qID == questionID) {
                     question = questions[i];
                     break;
                 }
             }
 
-            const { qID, qtext, required, type, options } = question;
+            var { qID, qtext, required, type, options } = question;
 
-            for (const i in options) {
+            for (var i in options) {
                 delete options[i]["_id"];
             }
 
-            const result = {
+            var result = {
                 questionnaireID: questionnaireID,
                 qID: qID,
                 qtext: qtext,
