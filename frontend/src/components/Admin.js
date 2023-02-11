@@ -12,7 +12,6 @@ import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
 import QEx2 from './QEx2';
 import MySnackBar from './MySnackBar';
-// import ResetallDialog from './ResetallDialog';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -23,6 +22,7 @@ import FileUploadIcon from '@mui/icons-material/FileUpload';
 import Box from '@mui/material/Box';
 import { Redirect } from 'react-router-dom';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import axios from "axios";
 
 const Q = QEx2();
 function Questionnaires () {
@@ -40,16 +40,37 @@ function Questionnaires () {
 }
 
 function Admin(props) {
+  const [healthcheck, setHelathcheck] = React.useState(false);
+  const [openHealthcheck, setOpenHealthcheck] = React.useState(false);
+  const [resetall, setResetall] = React.useState(true);
+  const [openResetall, setOpenResetall] = React.useState(false);
   const [open, setOpen] = React.useState(false);
-  const [openUpload, setOpenUpload] = React.useState(props.upd);
+  const [openUpload, setOpenUpload] = React.useState(false);
   const [file, setFile] = React.useState();
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const handleHealthcheck = () => {
+    axios
+        .get(
+            `/admin/healthcheck`,
+            { crossdomain: true }
+        )
+        .then((response) => {
+            setHelathcheck(response.data.status === 'OK');
+        });
+    setOpenHealthcheck(true);
   };
 
-  const handleClose = () => {
+  const handleResetall = () => {
     setOpen(false);
+    axios
+        .get(
+            `/admin/healthcheck`,
+            { crossdomain: true }
+        )
+        .then((response) => {
+            setResetall(response.data.status === 'OK');
+        });
+    setOpenResetall(true);
   };
 
   const handleChange = (event) => {
@@ -57,7 +78,8 @@ function Admin(props) {
   };
 
   function handleUpload() {
-        return (<Redirect to="/admin" />)
+    // post to backend
+    setOpenUpload(false);
   };
 
   return (
@@ -77,26 +99,30 @@ function Admin(props) {
                 <Typography variant="h4">
                 Questionnaires
                 </Typography>
-                <IconButton color="primary" href="/admin/questionnaire_upd">
+                <IconButton color="primary" onClick={()=> setOpenUpload(true)}>
                     <FileUploadIcon />
                 </IconButton>
             </Stack>
             <Stack direction="row" alignItems="flex-end" spacing={2}>
-                <Button href="/admin/healthcheck" variant="contained">Check connection</Button>
+                <Button onClick={handleHealthcheck} variant="contained">Check connection</Button>
                 <MySnackBar 
-                check={props.check}
+                open={openHealthcheck}
+                setOpen={setOpenHealthcheck}
+                check={healthcheck}
                 success_text="Connection is ok!" 
                 failure_text="There is no connection with DB."
                 />
-                <Button onClick={handleClickOpen} variant="outlined">Reset all</Button>
+                <Button onClick={() => setOpen(true)} variant="outlined">Reset all</Button>
                 <MySnackBar 
-                check={props.result}
+                open={openResetall}
+                setOpen={setOpenResetall}
+                check={resetall}
                 success_text="H αρχικοποίηση των δεδομένων ολοκληρώθηκε με επιτυχία!" 
                 failure_text="Η αρχικοποίηση των δεδομένων απέτυχε."
                 />
                 <Dialog
                     open={open}
-                    onClose={handleClose}
+                    //onClose={() => setOpen(false)}
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
                 >
@@ -109,8 +135,8 @@ function Admin(props) {
                     </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                    <Button onClick={handleClose}>Ακυρο</Button>
-                    <Button href="/admin/resetall/" autoFocus>
+                    <Button onClick={() => setOpen(false)}>Ακυρο</Button>
+                    <Button onClick={handleResetall} autoFocus>
                         Ναι
                     </Button>
                     </DialogActions>
@@ -122,7 +148,7 @@ function Admin(props) {
             <AddCircleIcon fontSize="large" />
         </IconButton>
         <Dialog
-            open={props.upd}
+            open={openUpload}
             //onClose={handleClose}
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
@@ -131,7 +157,7 @@ function Admin(props) {
             {"Επιλέξτε αρχείο json με τα δεδομένα ενός νέου ερωτηματολογίου."}
             </DialogTitle>
             <DialogContent>
-                <Stack direction="row" justifyContent="center">
+                <Stack direction="row" justifyContent="center" alignItems="center" spacing={2}>
                     <Box component="span" sx={{ p: 2, border: '1px dashed grey' }}>
                         <Button component="label">
                             <form enctype="multipart/form-data" method="post">
@@ -140,10 +166,13 @@ function Admin(props) {
                         Select file
                         </Button>             
                     </Box>
+                    <Typography variant="h7">
+                        {file && `${file.name}`}
+                    </Typography>
                 </Stack>                    
             </DialogContent>
             <DialogActions>
-                <Button href="/admin" >Ακυρο</Button>
+                <Button onClick={() => setOpenUpload(false)} >Ακυρο</Button>
                 <Button onClick={handleUpload}>Συνεχεια</Button>
             </DialogActions>
         </Dialog>

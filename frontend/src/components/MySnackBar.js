@@ -7,16 +7,12 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 export default function MySnackBar(props) {
-  const [open, setOpen] = 
-    React.useState(props.check === "succeded" || props.check === "failed" ?
-    true : false);
-
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
 
-    setOpen(false);
+    props.setOpen(false);
   };
 
   function Success() {
@@ -37,8 +33,8 @@ export default function MySnackBar(props) {
 
   return (
     <>
-        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-            {props.check === "succeded" ? Success() : Failure()}
+        <Snackbar open={props.open} autoHideDuration={6000} onClose={handleClose}>
+            {props.check ? Success() : Failure()}
         </Snackbar>
     </>
       

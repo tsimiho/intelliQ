@@ -1,10 +1,27 @@
 import React from 'react'
 import Questionnaire from '../Questionnaire';
 import QExample from '../QExample';
+import axios from "axios";
 
-function QuestionnairePage() {
-    const Q = QExample();
-  
+function QuestionnairePage(props) {
+    //const Q = QExample();
+    const { params } = props.match;
+    const [Q, setQ] = React.useState({
+      "questionnaireID": "",
+      "questionnaireTitle": "",
+      "keywords": [],
+      "questions": []
+    });
+
+    axios
+        .get(
+            `/questionnaire/${params.questionnaireID}`,
+            { crossdomain: true }
+        )
+        .then((response) => {
+          setQ(response.data.questionnaire);
+        });
+
     return (
         // Κανονικά εδώ παίρνει το σωστό questionnaire
         <Questionnaire
