@@ -1,8 +1,6 @@
 - switch language
-- questionnaire upload: how does admin know ids
-- complete cli
 - testing
-- user auth with http and custom http header
+- user auth with http and custom http header and cli
 - json or csv
 - get title
 - all questionnaire titles and ids

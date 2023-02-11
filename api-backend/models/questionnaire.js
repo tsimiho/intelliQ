@@ -33,6 +33,7 @@ const QuestionSchema = new mongoose.Schema({
     },
     type: {
         type: String,
+        enum: ["queston", "profile"],
         required: true,
         trim: true,
     },
