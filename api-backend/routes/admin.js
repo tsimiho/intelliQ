@@ -4,6 +4,8 @@ const multer = require("multer");
 const upload = multer({ storage: multer.memoryStorage() });
 const QuestionnaireSchema = require("../models/questionnaire");
 const { addtodb } = require("../controllers/addtodb");
+const { badreq } = require("../controllers/badrequest");
+
 
 const {
     healthcheck,

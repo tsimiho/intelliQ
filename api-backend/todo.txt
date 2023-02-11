@@ -4,4 +4,3 @@
 - json or csv
 - get title
 - all questionnaire titles and ids
-- drop schema in reset all
