@@ -4,3 +4,9 @@
 - json or csv
 - get title
 - all questionnaire titles and ids
+
+
+- flow in answers
+- admin: questionnaireID-questionnaireTitle pairs
+         guestionnaireTitle-qtext pairs
+         all info about questionnaire
