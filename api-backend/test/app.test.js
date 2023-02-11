@@ -1,38 +1,35 @@
 //const assert = require("chai").assert;
-const app = require("../app");
-const questionnaire = app.questionnaire;
-const question = app.question;
-const sessions = app.getsessionanswers;
+// const app = require("../app");
+// const questionnaire = app.questionnaire;
+// const question = app.question;
+// const sessions = app.getsessionanswers;
 const fs = require("fs");
 const chai = require("chai");
-const chaiHttp = require("chai-http");
-chai.use(chaiHttp);
+// const chaiHttp = require("chai-http");
+// chai.use(chaiHttp);
 const should = chai.should();
 const http = require("http");
 const file = fs.readFileSync("./example.json", { encoding: "utf8" });
 
-process.on("uncaughtException", function (err) {
-  console.log(err);
-});
-
-describe("/GET/:questionnaireID", () => {
-  it("it should GET a questionnaire with the given id", async (done) => {
-    const data = await http.get(
-      "http://localhost:9103/intelliq_api/questionnaire/QQ000"
-    );
-    chai.expect(data.body).is.eql(file);
-    //   .request(app)
-    //   .get("http://localhost:9103/intelliq_api/questionnaire/QQ000")
-    //   .send(questionnaire)
-    //   .end((err, res) => {
-    //     res.body.should.have
-    //       .property("questionnaireID")
-    //       .eql(JSON(file.questionnaireID));
-    //     res.should.have.status(200);
-    //     res.body.should.have.property("_id").eql(questionnaire.questionnaireID);
-    //   });
+describe("/GET/:questionnaireID", async () => {
+    it("it should GET a questionnaire with the given id", async (done) => {
+        const data = await http.get(
+            "http://localhost:9103/intelliq_api/questionnaire/QQ000"
+        );
+        await chai.expect(data.body).is.eql(file);
+        //   .request(app)
+        //   .get("http://localhost:9103/intelliq_api/questionnaire/QQ000")
+        //   .send(questionnaire)
+        //   .end((err, res) => {
+        //     res.body.should.have
+        //       .property("questionnaireID")
+        //       .eql(JSON(file.questionnaireID));
+        //     res.should.have.status(200);
+        //     res.body.should.have.property("_id").eql(questionnaire.questionnaireID);
+        //   });
+        done();
+    });
     done();
-  });
 });
 
 // describe("/GET/:questionID", () => {
