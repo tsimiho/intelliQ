@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 
 const OptionSchema = new mongoose.Schema({
+    optID: {
+        type: String,
+        required: true,
+    },
     opttxt: {
         type: String,
         required: false,
@@ -13,16 +17,19 @@ const OptionSchema = new mongoose.Schema({
 });
 
 const QuestionSchema = new mongoose.Schema({
+    qID: {
+        type: String,
+    },
     qtext: {
         type: String,
         required: true,
         trim: true,
     },
-    require: {
-        type: Boolean,
-        required: true,
+    required: {
+        type: String,
+        enum: ["TRUE", "FALSE"],
     },
-    qtype: {
+    type: {
         type: String,
         required: true,
         trim: true,
@@ -36,7 +43,6 @@ const QuestionSchema = new mongoose.Schema({
 const SessionSchema = new mongoose.Schema({
     sessionID: {
         type: String,
-        unique: true,
         required: true,
     },
     pairs: {
@@ -57,6 +63,11 @@ const SessionSchema = new mongoose.Schema({
 });
 
 const QuestionnaireSchema = new mongoose.Schema({
+    questionnaireID: {
+        type: String,
+        required: true,
+        unique: true,
+    },
     questionnaireTitle: {
         type: String,
         required: true,
@@ -67,7 +78,7 @@ const QuestionnaireSchema = new mongoose.Schema({
     },
     admin: {
         type: String,
-        required: true,
+        required: false,
     },
     keywords: {
         type: [String],
@@ -80,6 +91,7 @@ const QuestionnaireSchema = new mongoose.Schema({
     sessions: {
         type: [SessionSchema],
         required: false,
+        default: [],
     },
 });
 

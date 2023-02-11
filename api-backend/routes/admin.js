@@ -3,7 +3,7 @@ const router = express.Router();
 const multer = require("multer");
 const upload = multer({ storage: multer.memoryStorage() });
 const QuestionnaireSchema = require("../models/questionnaire");
-// const mongoose = require('mongoose')
+const { addtodb } = require("../controllers/addtodb");
 
 const {
     healthcheck,
@@ -15,6 +15,7 @@ const {
 } = require("../controllers/admin");
 
 router.route("/healthcheck").get(healthcheck);
+
 router
     .route("/questionnaire_upd")
     .get(upload_questionnaire)
@@ -22,7 +23,7 @@ router
         try {
             const data = JSON.parse(req.file.buffer.toString());
             try {
-                QuestionnaireSchema.create(data);
+                addtodb(data);
             } catch (error) {
                 console.log(error);
             }

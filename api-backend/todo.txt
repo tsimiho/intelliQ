@@ -4,3 +4,6 @@
 - testing
 - user auth with http and custom http header
 - json or csv
+- get title
+- all questionnaire titles and ids
+- drop schema in reset all

@@ -19,29 +19,29 @@ const ItemSchema = new mongoose.Schema({
         required: true,
         ref: QuestionnaireSchema,
     },
-    Session: {
-        type: Number,
-        randomGeneratedString: {
-            type: String,
-            default: (generateRandom = () => {
-                function makeid(length) {
-                    var result = "";
-                    var characters =
-                        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-                    var charactersLength = characters.length;
-                    for (var i = 0; i < length; i++) {
-                        result += characters.charAt(
-                            Math.floor(Math.random() * charactersLength)
-                        );
-                    }
-                    return result;
-                }
-                return makeid(4);
-            }),
-        },
-        unique: true,
-        required: true,
-    },
+    // Session: {
+    //     type: Number,
+    //     randomGeneratedString: {
+    //         type: String,
+    //         default: (generateRandom = () => {
+    //             function makeid(length) {
+    //                 var result = "";
+    //                 var characters =
+    //                     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    //                 var charactersLength = characters.length;
+    //                 for (var i = 0; i < length; i++) {
+    //                     result += characters.charAt(
+    //                         Math.floor(Math.random() * charactersLength)
+    //                     );
+    //                 }
+    //                 return result;
+    //             }
+    //             return makeid(4);
+    //         }),
+    //     },
+    //     unique: true,
+    //     required: true,
+    // },
 });
 
 const UserSchema = new mongoose.Schema({
