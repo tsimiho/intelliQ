@@ -19,6 +19,8 @@ const OptionSchema = new mongoose.Schema({
 const QuestionSchema = new mongoose.Schema({
     qID: {
         type: String,
+        required: true,
+        trim: true,
     },
     qtext: {
         type: String,

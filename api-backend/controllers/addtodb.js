@@ -22,7 +22,7 @@ async function addtodb(data) {
         });
     }
 
-    data.questionnaireID = tempID;
+    data.questionnaireID = temp_id;
 
     // data.questionnaireID = result;
 

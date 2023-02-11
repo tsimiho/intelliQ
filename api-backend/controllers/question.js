@@ -4,7 +4,7 @@ const getQuestion = async (req, res) => {
     try {
         const { questionnaireID, questionID } = req.params;
         const questionnaire = await QuestionnaireSchema.findOne({
-            _id: questionnaireID,
+            questionnaireID: questionnaireID,
         });
         if (!questionnaire) {
             res.status(400).json({ msg: "Bad request" });
@@ -13,7 +13,7 @@ const getQuestion = async (req, res) => {
 
             var question;
             for (const i in questions) {
-                if (questions[i].qID.toHexString() === questionID) {
+                if (questions[i].qID == questionID) {
                     question = questions[i];
                     break;
                 }
