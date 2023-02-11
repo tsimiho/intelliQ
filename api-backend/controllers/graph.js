@@ -10,16 +10,16 @@ const graph = async (req, res) => {
         if (!questionnaire) {
             res.status(400).json({ msg: "Bad Request" });
         } else {
-            const { sessions, questions } = questionnaire;
+            var { sessions, questions } = questionnaire;
 
             var qnas = [];
 
             for (var k in questions) {
-                const { qID: qid, options, qtext } = questions[k];
+                var { qID: qid, options, qtext } = questions[k];
 
                 var ops = [];
                 for (var l in options) {
-                    const { optID: oid, opttext } = options[l];
+                    var { optID: oid, opttext } = options[l];
                     ops.push({ optID: oid, opttxt: opttext, counter: 0 });
                 }
                 // var op = {};
@@ -31,14 +31,14 @@ const graph = async (req, res) => {
             }
 
             for (var i in sessions) {
-                const { pairs } = sessions[i];
+                var { pairs } = sessions[i];
                 for (var j in pairs) {
-                    const { qID, optID: optionID } = pairs[j];
+                    var { qID, optID: optionID } = pairs[j];
                     for (var f = 0; f < qnas.length; f++) {
-                        const { questionID, options } = qnas[f];
+                        var { questionID, options } = qnas[f];
                         if (questionID == qID) {
                             for (var g in options) {
-                                const { optID } = options[g];
+                                var { optID } = options[g];
                                 if (optID == optionID) {
                                     qnas[f].options[g].counter++;
                                 }
