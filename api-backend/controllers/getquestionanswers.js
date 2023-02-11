@@ -17,13 +17,17 @@ const getquestionanswers = async (req, res) => {
                 for (const j in pairs) {
                     const { qID, optionID } = pairs[j];
                     if (qID === questionID) {
-                        array.push({ session: sessionID, optionID: optionID });
+                        array.push({ session: sessionID, ans: optionID });
                         break;
                     }
                 }
             }
-
-            res.status(200).json({ array });
+            const result = {
+                questionnaireID: questionnaireID,
+                questionID: questionID,
+                answers: array,
+            };
+            res.status(200).json(result);
         }
     } catch (error) {
         res.status(500).json({ msg: error });

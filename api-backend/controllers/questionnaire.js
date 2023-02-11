@@ -9,7 +9,19 @@ const getQuestionnaire = async (req, res) => {
         if (!questionnaire) {
             res.status(400).json({ msg: "Bad request" });
         } else {
-            res.status(200).json({ questionnaire });
+            const { questionnaireID, questionnaireTitle, keywords, questions } =
+                questionnaire;
+
+            // const { qID, qtext, required, type } = questions;
+
+            const result = {
+                questionnaireID: questionnaireID,
+                questionnaireTitle: questionnaireTitle,
+                keywords: keywords,
+                questions: questions,
+            };
+
+            res.status(200).json(result);
         }
     } catch (error) {
         res.status(500).json({ msg: error });

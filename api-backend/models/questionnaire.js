@@ -33,7 +33,7 @@ const QuestionSchema = new mongoose.Schema({
     },
     type: {
         type: String,
-        enum: ["queston", "profile"],
+        enum: ["question", "profile"],
         required: true,
         trim: true,
     },
@@ -55,7 +55,7 @@ const SessionSchema = new mongoose.Schema({
                     type: String,
                     required: true,
                 },
-                optID: {
+                optionID: {
                     type: String,
                     required: false,
                 },

@@ -9,7 +9,7 @@ const getQuestion = async (req, res) => {
         if (!questionnaire) {
             res.status(400).json({ msg: "Bad request" });
         } else {
-            const { questions } = questionnaire;
+            const { questionnaireID, questions } = questionnaire;
 
             var question;
             for (const i in questions) {
@@ -19,7 +19,22 @@ const getQuestion = async (req, res) => {
                 }
             }
 
-            res.status(200).json({ question });
+            const { qID, qtext, required, type, options } = question;
+
+            for (const i in options) {
+                delete options[i]["_id"];
+            }
+
+            const result = {
+                questionnaireID: questionnaireID,
+                qID: qID,
+                qtext: qtext,
+                required: required,
+                type: type,
+                options: options,
+            };
+
+            res.status(200).json(result);
         }
     } catch (error) {
         res.status(500).json({ msg: error });

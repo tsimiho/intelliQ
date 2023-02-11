@@ -18,13 +18,13 @@ const getSessionanswers = async (req, res) => {
             }
         }
 
-        const { pairs } = ses;
+        const { sessionID, pairs } = ses;
 
         var arr = [];
 
         for (const j in pairs) {
             const { qID, optionID } = pairs[j];
-            const pair = { qID: qID, optionID: optionID };
+            const pair = { qID: qID, ans: optionID };
             arr.push(pair);
         }
 
@@ -40,7 +40,13 @@ const getSessionanswers = async (req, res) => {
 
         arr.sort(compare);
 
-        res.status(200).json({ arr });
+        const result = {
+            questionnaireID: questionnaireID,
+            session: sessionID,
+            answers: arr,
+        };
+
+        res.status(200).json(result);
     } catch (error) {
         res.status(500).json({ msg: error });
     }
