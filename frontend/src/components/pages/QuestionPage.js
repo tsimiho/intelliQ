@@ -13,28 +13,16 @@ function QuestionPage(props) {
         options: [],
         _id: "",
     });
-    // const Q = QExample();
     const { params } = props.match;
-    // const url = `/intelliq_api/question/${params.questionnaireID}/${params.questionID}`;
-
-    // const question = Q.questions.find((q) => q.qID === params.questionID);
-    console.log("hello");
-
-    console.log(
-        `http://localhost:9103/intelliq_api/question/${params.questionnaireID}/${params.questionID}`
-    );
 
     axios
         .get(
-            `http://localhost:9103/intelliq_api/question/${params.questionnaireID}/${params.questionID}`,
+            `/question/${params.questionnaireID}/${params.questionID}`,
             { crossdomain: true }
         )
         .then((response) => {
             setQuestion(response.data.question);
-            // console.log(response.data);
         });
-
-    console.log(question);
 
     return (
         <Container maxWidth="md" style={{ marginTop: "80px" }}>
