@@ -14,7 +14,7 @@ const http_request_get = (api) => {
             data += chunk;
         });
         res.on("end", () => {
-            console.log(JSON.parse(data));
+            console.log(console.log(JSON.stringify(JSON.parse(data), null, 4)));
         });
     }).on("error", (err) => {
         console.log("Error: " + err.message);
