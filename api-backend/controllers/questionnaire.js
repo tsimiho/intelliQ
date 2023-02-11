@@ -12,20 +12,23 @@ const getQuestionnaire = async (req, res) => {
             const { questionnaireID, questionnaireTitle, keywords, questions } =
                 questionnaire;
 
-            // const { qID, qtext, required, type } = questions;
-
-            for (const j in questions) {
-                delete questions[j]["_id"];
-                // for (const i in questions[j].options) {
-                //     delete options[i]["_id"];
-                // }
+            var qs = [];
+            for (const i in questions) {
+                const { qID, qtext, required, type } = questions[i];
+                const q = {
+                    qID: qID,
+                    qtext: qtext,
+                    required: required,
+                    type: type,
+                };
+                qs.push(q);
             }
 
             const result = {
                 questionnaireID: questionnaireID,
                 questionnaireTitle: questionnaireTitle,
                 keywords: keywords,
-                questions: questions,
+                questions: qs,
             };
 
             res.status(200).json(result);
