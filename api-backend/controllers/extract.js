@@ -5,7 +5,7 @@ const extract_json = async (req, res) => {
     try {
         const { questionnaireID } = req.params;
         const questionnaire = await QuestionnaireSchema.findOne({
-            _id: questionnaireID,
+            questionnaireID: questionnaireID,
         });
 
         if (!questionnaire) {
@@ -31,7 +31,7 @@ const extract_json = async (req, res) => {
                                 if (_id == op) {
                                     const p = {
                                         qtext: qtext,
-                                        opttext: opttext,
+                                        opttxt: opttext,
                                     };
                                     obj.pair.push(p);
                                     break;
@@ -89,7 +89,7 @@ const extract_csv = async (req, res) => {
                                 if (_id == op) {
                                     const p = {
                                         qtext: qtext,
-                                        opttext: opttext,
+                                        opttxt: opttext,
                                     };
                                     obj.pair.push(p);
                                     break;

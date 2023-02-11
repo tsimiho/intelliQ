@@ -13,7 +13,7 @@ const getQuestion = async (req, res) => {
 
             var question;
             for (const i in questions) {
-                if (questions[i]._id.toHexString() === questionID) {
+                if (questions[i].qID.toHexString() === questionID) {
                     question = questions[i];
                     break;
                 }

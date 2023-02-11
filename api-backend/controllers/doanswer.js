@@ -4,7 +4,7 @@ const postOptionID = async (req, res) => {
     try {
         const { questionnaireID, questionID, session, optionID } = req.params;
         const questionnaire = await QuestionnaireSchema.findOne({
-            _id: questionnaireID,
+            questionnaireID: questionnaireID,
         });
 
         const { sessions } = questionnaire;
@@ -28,7 +28,7 @@ const postOptionID = async (req, res) => {
         delete questionnaire._id;
 
         const q = await QuestionnaireSchema.findOneAndUpdate(
-            { _id: questionnaireID },
+            { questionnaireID: questionnaireID },
             questionnaire
         );
 

@@ -52,7 +52,7 @@ const SessionSchema = new mongoose.Schema({
                     type: String,
                     required: true,
                 },
-                optionID: {
+                optID: {
                     type: String,
                     required: false,
                 },

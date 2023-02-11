@@ -4,7 +4,7 @@ const getSessionanswers = async (req, res) => {
     try {
         const { questionnaireID, session } = req.params;
         const questionnaire = await QuestionnaireSchema.findOne({
-            _id: questionnaireID,
+            questionnaireID: questionnaireID,
         });
 
         const { sessions } = questionnaire;

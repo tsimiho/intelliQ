@@ -4,7 +4,7 @@ const graph = async (req, res) => {
     try {
         const { questionnaireID } = req.params;
         const questionnaire = await QuestionnaireSchema.findOne({
-            _id: questionnaireID,
+            questionnaireID: questionnaireID,
         });
 
         if (!questionnaire) {
@@ -15,25 +15,25 @@ const graph = async (req, res) => {
             var qnas = [];
 
             for (var k in questions) {
-                const { _id: qid, options, qtext } = questions[k];
+                const { qID: qid, options, qtext } = questions[k];
 
                 var ops = [];
                 for (var l in options) {
-                    const { _id: oid, opttext } = options[l];
-                    ops.push({ optID: oid, opttext: opttext, counter: 0 });
+                    const { optID: oid, opttext } = options[l];
+                    ops.push({ optID: oid, opttxt: opttext, counter: 0 });
                 }
                 // var op = {};
                 // for (var r = 0; r < ops.length; r++) {
                 //     var middle = { ...op, ...ops[r] };
                 //     op = middle;
                 // }
-                qnas.push({ questionID: qid, qtext: qtext, options: ops });
+                qnas.push({ qID: qid, qtext: qtext, options: ops });
             }
 
             for (var i in sessions) {
                 const { pairs } = sessions[i];
                 for (var j in pairs) {
-                    const { qID, optionID } = pairs[j];
+                    const { qID, optID: optionID } = pairs[j];
                     for (var f = 0; f < qnas.length; f++) {
                         const { questionID, options } = qnas[f];
                         if (questionID == qID) {

@@ -4,7 +4,7 @@ const getquestionanswers = async (req, res) => {
     try {
         const { questionnaireID, questionID } = req.params;
         const questionnaire = await QuestionnaireSchema.findOne({
-            _id: questionnaireID,
+            questionnaireID: questionnaireID,
         });
 
         if (!questionnaire) {

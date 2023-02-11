@@ -48,7 +48,7 @@ const resetall = async (req, res) => {
 const resetq = async (req, res) => {
     try {
         const { questionnaireID } = req.params;
-        await QuestionnaireSchema.deleteOne({ _id: questionnaireID });
+        await QuestionnaireSchema.deleteOne({ questionnaireID: questionnaireID });
 
         res.status(200).json({ status: "OK" });
     } catch (error) {

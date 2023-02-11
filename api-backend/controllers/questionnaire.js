@@ -4,7 +4,7 @@ const getQuestionnaire = async (req, res) => {
     try {
         const { questionnaireID } = req.params;
         const questionnaire = await QuestionnaireSchema.findOne({
-            _id: questionnaireID,
+            questionnaireID: questionnaireID,
         });
         if (!questionnaire) {
             res.status(400).json({ msg: "Bad request" });

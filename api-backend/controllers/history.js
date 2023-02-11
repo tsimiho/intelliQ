@@ -4,7 +4,7 @@ const history = async (req, res) => {
     try {
         const { questionnaireID } = req.params;
         const questionnaire = await QuestionnaireSchema.findOne({
-            _id: questionnaireID,
+            questionnaireID: questionnaireID,
         });
 
         if (!questionnaire) {
@@ -17,20 +17,20 @@ const history = async (req, res) => {
                 const { sessionID, pairs } = sessions[i];
                 var obj = { sessionID: sessionID, pair: [] };
                 for (var j in pairs) {
-                    const { qID, optionID } = pairs[j];
+                    const { qID, optID } = pairs[j];
 
-                    const op = optionID;
+                    const op = optID;
 
                     for (var k in questions) {
-                        const { _id, options, qtext } = questions[k];
-                        if (_id == qID) {
+                        const { qID: qi, options, qtext } = questions[k];
+                        if (qi == qID) {
                             for (var l in options) {
-                                const { _id, opttext } = options[l];
+                                const { optID, opttxt } = options[l];
 
-                                if (_id == op) {
+                                if (optID == op) {
                                     const p = {
                                         qtext: qtext,
-                                        opttext: opttext,
+                                        opttxt: opttext,
                                     };
                                     obj.pair.push(p);
                                     break;
