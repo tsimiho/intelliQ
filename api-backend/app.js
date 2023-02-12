@@ -13,6 +13,7 @@ const login = require("./routes/login");
 const signup = require("./routes/signup");
 const allquestionnaires = require("./routes/allquestionnaires");
 const fullquestionnaire = require("./routes/fullquestionnaire");
+const firstq = require("./routes/firstq");
 
 const connectDB = require("./database/connect");
 require("dotenv").config();
@@ -64,6 +65,7 @@ app.use("/intelliq_api/fullquestionnaire", fullquestionnaire);
 app.use("/intelliq_api/login", login);
 app.use("/intelliq_api/signup", signup);
 app.use("/intelliq_api/allquestionnaires", allquestionnaires);
+app.use("/intelliq_api/firstq", firstq);
 
 const port = 9103;
 
