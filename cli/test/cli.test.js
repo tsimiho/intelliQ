@@ -73,7 +73,7 @@ describe("reset questionnaire", () => {
         var response = await cmd.execute("cli.js", [
             "resetq",
             "--questionnaire_id",
-            "QQ005",
+            "QQ000",
         ]);
 
         chai.expect(JSON.parse(response).status).to.equal("OK");
