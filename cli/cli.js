@@ -4,6 +4,7 @@ const { program } = require("commander");
 const http = require("http");
 const fs = require("fs");
 const request = require("request");
+const util = require("util");
 
 const baseURL = "http://localhost:9103/intelliq_api";
 
@@ -14,7 +15,7 @@ const http_request_get = (api) => {
             data += chunk;
         });
         res.on("end", () => {
-            console.log(console.log(JSON.stringify(JSON.parse(data), null, 4)));
+            console.log(JSON.stringify(JSON.parse(data), null, 2));
         });
     }).on("error", (err) => {
         console.log("Error: " + err.message);
@@ -38,6 +39,7 @@ program.command("healthcheck").action((options) => {
 program.command("resetall").action((options) => {
     try {
         http_request_post("/admin/resetall");
+        console.log(JSON.stringify({ status: "OK" }));
     } catch (error) {
         console.log(error);
     }
@@ -60,6 +62,7 @@ program
     .action((options) => {
         try {
             http_request_post("/resetq/" + options.questionnaire_id);
+            console.log(JSON.stringify({ status: "OK" }));
         } catch (error) {
             console.log(error);
         }
@@ -124,7 +127,7 @@ program
     .requiredOption("--option_id <value>", "command test option")
     .action((options) => {
         try {
-            http_request_get(
+            http_request_post(
                 "/doanswer/" +
                     options.questionnaire_id +
                     "/" +
@@ -134,6 +137,7 @@ program
                     "/" +
                     options.option_id
             );
+            console.log("Success!");
         } catch (error) {
             console.log(error);
         }

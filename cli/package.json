@@ -4,7 +4,7 @@
     "description": "",
     "main": "cli.js",
     "bin": {
-        "./:se2244": "./cli.js"
+        "se2244": "./cli.js"
     },
     "scripts": {
         "test": "mocha"
