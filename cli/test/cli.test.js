@@ -35,6 +35,8 @@ describe("GET questionnaire", () => {
             "questionnaire",
             "--questionnaire_id",
             "QQ000",
+            "--format",
+            "json",
         ]);
         var parsed = JSON.parse(response);
 
@@ -72,6 +74,14 @@ describe("reset questionnaire", () => {
     });
 });
 
+describe("reset all", () => {
+    it("should print { status: 'OK' }", async () => {
+        var response = await cmd.execute("cli.js", ["resetall"]);
+
+        chai.expect(JSON.parse(response).status).to.equal("OK");
+    });
+});
+
 describe("GET question", () => {
     it("should print the correct output", async () => {
         var response = await cmd.execute("cli.js", [
@@ -80,6 +90,8 @@ describe("GET question", () => {
             "QQ000",
             "--question_id",
             "Q01",
+            "--format",
+            "json",
         ]);
 
         var parsed = JSON.parse(response).qtext;
@@ -103,6 +115,8 @@ describe("doanswer", () => {
             "SS000",
             "--option_id",
             "Q06A1",
+            "--format",
+            "json",
         ]);
 
         chai.expect(response).to.equal("Success!\n");
@@ -117,6 +131,8 @@ describe("getsessionanswers", () => {
             "QQ004",
             "--session_id",
             "SS000",
+            "--format",
+            "json",
         ]);
 
         chai.expect(JSON.parse(response).answers).to.be.an("array").that.is.not
@@ -132,6 +148,8 @@ describe("getquestionanswers", () => {
             "QQ004",
             "--question_id",
             "Q01",
+            "--format",
+            "json",
         ]);
 
         chai.expect(JSON.parse(response).answers).to.be.an("array").that.is.not

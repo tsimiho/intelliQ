@@ -5,17 +5,24 @@ const http = require("http");
 const fs = require("fs");
 const request = require("request");
 const util = require("util");
+const json2csv = require("json2csv").parse;
 
 const baseURL = "http://localhost:9103/intelliq_api";
 
-const http_request_get = (api) => {
+const http_request_get = (api, format) => {
     http.get(baseURL + api, (res) => {
         let data = "";
         res.on("data", (chunk) => {
             data += chunk;
         });
         res.on("end", () => {
-            console.log(JSON.stringify(JSON.parse(data), null, 2));
+            if (format === "json") {
+                console.log(JSON.stringify(JSON.parse(data), null, 2));
+            } else if (format === "csv") {
+                console.log(json2csv(JSON.parse(data)));
+            } else {
+                console.error("Unsupported format");
+            }
         });
     }).on("error", (err) => {
         console.log("Error: " + err.message);
@@ -28,13 +35,16 @@ const http_request_post = (api) => {
     });
 };
 
-program.command("healthcheck").action((options) => {
-    try {
-        http_request_get("/admin/healthcheck");
-    } catch (error) {
-        console.log(error);
-    }
-});
+program
+    .command("healthcheck")
+    .requiredOption("--format <value>", "please provide format")
+    .action((options) => {
+        try {
+            http_request_get("/admin/healthcheck", options.format);
+        } catch (error) {
+            console.log(error);
+        }
+    });
 
 program.command("resetall").action((options) => {
     try {
@@ -48,9 +58,13 @@ program.command("resetall").action((options) => {
 program
     .command("questionnaire")
     .requiredOption("--questionnaire_id <value>", "command test option")
+    .requiredOption("--format <value>", "please provide format")
     .action((options) => {
         try {
-            http_request_get("/questionnaire/" + options.questionnaire_id);
+            http_request_get(
+                "/questionnaire/" + options.questionnaire_id,
+                options.format
+            );
         } catch (error) {
             console.log(error);
         }
@@ -72,13 +86,15 @@ program
     .command("question")
     .requiredOption("--questionnaire_id <value>", "command test option")
     .requiredOption("--question_id <value>", "command test option")
+    .requiredOption("--format <value>", "please provide format")
     .action((options) => {
         try {
             http_request_get(
                 "/question/" +
                     options.questionnaire_id +
                     "/" +
-                    options.question_id
+                    options.question_id,
+                options.format
             );
         } catch (error) {
             console.log(error);
@@ -89,13 +105,15 @@ program
     .command("getsessionanswers")
     .requiredOption("--questionnaire_id <value>", "command test option")
     .requiredOption("--session_id <value>", "command test option")
+    .requiredOption("--format <value>", "please provide format")
     .action((options) => {
         try {
             http_request_get(
                 "/getsessionanswers/" +
                     options.questionnaire_id +
                     "/" +
-                    options.session_id
+                    options.session_id,
+                options.format
             );
         } catch (error) {
             console.log(error);
@@ -106,13 +124,15 @@ program
     .command("getquestionanswers")
     .requiredOption("--questionnaire_id <value>", "command test option")
     .requiredOption("--question_id <value>", "command test option")
+    .requiredOption("--format <value>", "please provide format")
     .action((options) => {
         try {
             http_request_get(
                 "/getquestionanswers/" +
                     options.questionnaire_id +
                     "/" +
-                    options.question_id
+                    options.question_id,
+                options.format
             );
         } catch (error) {
             console.log(error);
