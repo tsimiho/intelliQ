@@ -25,13 +25,7 @@ function httpPostStatus(theUrl, sent) {
 }
 
 function httpPostUpload(theUrl, source) {
-    var req = request.post(baseURL + theUrl, function (err, resp, body) {
-        if (err) {
-            console.log("Error!");
-        } else {
-            console.log("Success!");
-        }
-    });
+    var req = request.post(baseURL + theUrl, function (err, resp, body) {});
 
     const data = fs.readFileSync(source);
     var form = req.form();
