@@ -1,18 +1,20 @@
 import React, { useState } from "react";
-// import QExample from "../QExample";
 import Question from "../Question";
-// import Typography from "@mui/material/Typography";
+import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import axios from "axios";
 
 function QuestionPage(props) {
-    const [question, setQuestion] = useState({
+    const [question, setQuestion] = useState(
+    {
+        questionnaireID: "",
+        qID: "",
         qtext: "",
-        require: true,
-        qtype: "",
-        options: [],
-        _id: "",
+        required: true,
+        type: "",
+        options: [{nextqID: ''}],
     });
+    const [questionnaireTitle, setQuestionnaireTitle] = useState('');
     const { params } = props.match;
 
     axios
@@ -21,20 +23,31 @@ function QuestionPage(props) {
             { crossdomain: true }
         )
         .then((response) => {
-            setQuestion(response.data.question);
+            setQuestion(response.data);
         });
+
+    axios
+        .get(
+            `/questionnaire/${params.questionnaireID}`,
+            { crossdomain: true }
+        )
+        .then((response) => {
+            setQuestionnaireTitle(response.data.questionnaireTitle);
+        });
+
 
     return (
         <Container maxWidth="md" style={{ marginTop: "80px" }}>
-            {/* <Typography variant="h4" gutterBottom>
-                {Q.questionnaireTitle}
-            </Typography> */}
+            <Typography variant="h4" gutterBottom>
+                {questionnaireTitle}
+            </Typography>
             <Question
+                questionnaireID={question.questionnaireID}
                 qID={question.qID}
                 qtext={question.qtext}
                 options={question.options}
                 required={question.required}
-                type={question.type}
+                session={params.session}
             />
         </Container>
     );

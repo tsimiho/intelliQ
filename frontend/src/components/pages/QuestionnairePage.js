@@ -1,10 +1,8 @@
 import React from 'react'
 import Questionnaire from '../Questionnaire';
-import QExample from '../QExample';
 import axios from "axios";
 
 function QuestionnairePage(props) {
-    //const Q = QExample();
     const { params } = props.match;
     const [Q, setQ] = React.useState({
       "questionnaireID": "",
@@ -19,7 +17,7 @@ function QuestionnairePage(props) {
             { crossdomain: true }
         )
         .then((response) => {
-          setQ(response.data.questionnaire);
+          setQ(response.data);
         });
 
     return (
