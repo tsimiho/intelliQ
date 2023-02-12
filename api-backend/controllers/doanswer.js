@@ -29,7 +29,7 @@ const postOptionID = async (req, res) => {
                     break;
                 }
             }
-            console.log(ses_index);
+            // console.log(ses_index);
 
             var pair = { qID: questionID, optionID: optionID };
 
