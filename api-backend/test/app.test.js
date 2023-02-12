@@ -1,44 +1,62 @@
-let chai = require("chai");
-let chaiHttp = require("chai-http");
-let server = require("../app");
-const request = require("supertest");
-const { deleteOne } = require("../models/questionnaire");
-const questionnaire = require("../routes/questionnaire");
-const { getQuestionnaire } = require("../controllers/questionnaire");
-// //Assertion Style
-chai.should();
+const supertest = require("supertest");
+const app = require("../app");
+//const { MongoMemoryServer } = require("mongodb-memory-server");
+const mongoose = require("mongoose");
 
-chai.use(chaiHttp);
+describe("given the product does exist", () => {
+  it("should return a 200 status and the product", async (done) => {
+    // @ts-ignore
 
-chai.request("http://localhost:9103").get("/");
-
-describe("GET /api/tasks/:id", () => {
-  it("It should GET a task by ID", (done) => {
     const questionnaireID = "QQ000";
-    chai
-      .request(server)
-      .get("/intelliq_api/questionnaire/" + questionnaireID)
-      .end((err, response) => {
-        response.should.have.status(200);
-        response.body.should.be.a("object");
-        // response.body.should.have.property("id");
-        // response.body.should.have.property("name");
-        // response.body.should.have.property("completed");
-        // response.body.should.have.property("id").eq(1);
-        done();
-      });
+    const { body, statusCode } = await supertest(app).get(
+      `/intelliq_api/healthcheck`
+    );
+
+    expect(statusCode).toBe(200);
+
+    expect(body.questionnaireID).toBe(questionnaireID);
     done();
   });
 });
 
-//     // it("It should NOT GET all the tasks", (done) => {
-//     //   chai
-//     //     .request(server)
-//     //     .get("/intelliq_api/question/QQ000/Q09")
-//     //     .end((err, response) => {
-//     //       response.should.have.status(404);
-//     //       done();
-//     //     });
-//     //   done();
+// const request = require("supertest");
+// const app = require("../app");
 
-//http://localhost:9103/intelliq_api
+// describe("get Endpoints", () => {
+//   // it("should create a new post", async () => {
+//   //   const res = await request(app).post("/api/posts").send({
+//   //     userId: 1,
+//   //     title: "test is cool",
+//   //     content: "Lorem ipsum",
+//   //   });
+//   //   expect(res.statusCode).toEqual(201);
+//   //   expect(res.body).toHaveProperty("post");
+//   // });
+
+//   it("should get a single post", async (done) => {
+//     const questionnaireID = "QQ000";
+//     const res = await request(app).get(
+//       `/intelliq_api/questionnaire/${questionnaireID}`
+//     );
+//     expect(res.statusCode).toEqual(200);
+//     expect(res.body).toHaveProperty("questionnaireTitle");
+//     done();
+//   });
+//   // it("should fetch all posts", async () => {
+//   //   const res = await request(app).get("/api/posts");
+//   //   expect(res.statusCode).toEqual(200);
+//   //   expect(res.body).toHaveProperty("posts");
+//   //   expect(res.body.posts).toHaveLength(1);
+//   // });
+
+//   // it("should update a post", async () => {
+//   //   const res = await request(app).put("/api/posts/1").send({
+//   //     userId: 1,
+//   //     title: "updated title",
+//   //     content: "Lorem ipsum",
+//   //   });
+
+//   //   expect(res.statusCode).toEqual(200);
+//   //  / expect(res.body).toHaveProperty("post");
+//   //   expect(res.body.post).toHaveProperty("title", "updated title");
+// });
