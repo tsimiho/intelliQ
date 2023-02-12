@@ -2,35 +2,35 @@ const QuestionnaireSchema = require("../models/questionnaire");
 
 const history = async (req, res) => {
     try {
-        const { questionnaireID } = req.params;
-        const questionnaire = await QuestionnaireSchema.findOne({
+        var { questionnaireID } = req.params;
+        var questionnaire = await QuestionnaireSchema.findOne({
             questionnaireID: questionnaireID,
         });
 
         if (!questionnaire) {
             res.status(400).json({ msg: "Bad Request" });
         } else {
-            const { questions, sessions } = questionnaire;
+            var { questions, sessions } = questionnaire;
 
             var result = [];
             for (var i in sessions) {
-                const { sessionID, pairs } = sessions[i];
+                var { sessionID, pairs } = sessions[i];
                 var obj = { sessionID: sessionID, pair: [] };
                 for (var j in pairs) {
-                    const { qID, optID } = pairs[j];
+                    var { qID, optionID } = pairs[j];
 
-                    const op = optID;
+                    var op = optionID;
 
                     for (var k in questions) {
-                        const { qID: qi, options, qtext } = questions[k];
+                        var { qID: qi, options, qtext } = questions[k];
                         if (qi == qID) {
                             for (var l in options) {
-                                const { optID, opttxt } = options[l];
-
+                                var { optID, opttxt } = options[l];
+                                console.log(optID, op);
                                 if (optID == op) {
-                                    const p = {
+                                    var p = {
                                         qtext: qtext,
-                                        opttxt: opttext,
+                                        opttxt: opttxt,
                                     };
                                     obj.pair.push(p);
                                     break;
