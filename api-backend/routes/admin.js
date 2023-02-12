@@ -6,7 +6,6 @@ const QuestionnaireSchema = require("../models/questionnaire");
 const { addtodb } = require("../controllers/addtodb");
 const { badreq } = require("../controllers/badrequest");
 
-
 const {
     healthcheck,
     upload_questionnaire,
@@ -21,7 +20,7 @@ router.route("/healthcheck").get(healthcheck);
 router
     .route("/questionnaire_upd")
     .get(upload_questionnaire)
-    .post(upload.single("uploaded_file"), function (req, res) {
+    .post(upload.single("file"), function (req, res) {
         try {
             const data = JSON.parse(req.file.buffer.toString());
             try {
