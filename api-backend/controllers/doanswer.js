@@ -11,7 +11,7 @@ const postOptionID = async (req, res) => {
         if (questionnaire) {
             var { sessions } = questionnaire;
 
-            var ses_index;
+            var ses_index = -1;
             for (const i in sessions) {
                 if (sessions[i].sessionID === session) {
                     ses_index = i;
@@ -19,38 +19,49 @@ const postOptionID = async (req, res) => {
                 }
             }
 
-            if (!ses_index) {
-                questionnaire.sessions.push({ sessionID: session, pairs: [] });
-                ses_index = questionnaire.sessions.length;
+            if (ses_index == -1) {
+                sessions.push({ sessionID: session, pairs: [] });
             }
+
+            for (const i in sessions) {
+                if (sessions[i].sessionID === session) {
+                    ses_index = i;
+                    break;
+                }
+            }
+            // console.log(ses_index);
 
             var pair = { qID: questionID, optionID: optionID };
 
             var check = false;
-            for (const i in questionnaire.sessions[ses_index].pairs) {
-                if (
-                    (questionnaire.sessions[ses_index].pairs[i].qID =
-                        questionID)
-                ) {
-                    questionnaire.sessions[ses_index].pairs[i].optionID =
-                        optionID;
-                    check = true;
-                    break;
+            if (sessions[ses_index].pairs.length > 0) {
+                for (const i in sessions[ses_index].pairs) {
+                    if ((sessions[ses_index].pairs[i].qID = questionID)) {
+                        sessions[ses_index].pairs[i].optionID = optionID;
+                        check = true;
+                        break;
+                    }
                 }
             }
-            
             if (!check) {
-                questionnaire.sessions[ses_index].pairs.push(pair);
+                sessions[ses_index].pairs.push(pair);
             }
 
-            questionnaire.questionnaireID = questionnaireID;
+            // questionnaire.questionnaireID = questionnaireID;
 
-            var q = await QuestionnaireSchema.findOneAndUpdate(questionnaire);
+            var q = await QuestionnaireSchema.findOneAndUpdate(
+                { questionnaireID: questionnaireID },
+                { sessions: sessions }
+            );
+
+            var newq = await QuestionnaireSchema.findOne({
+                questionnaireID: questionnaireID,
+            });
 
             if (!q) {
                 res.status(400).json({ msg: "Bad Request" });
             } else {
-                res.status(200).json(q);
+                res.status(200).json(newq);
             }
         } else {
             res.status(400).json({ msg: "Bad Request" });
