@@ -8,9 +8,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
-import QEx2 from './QEx2';
 import MySnackBar from './MySnackBar';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -20,24 +18,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { IconButton } from '@mui/material';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import Box from '@mui/material/Box';
-import { Redirect } from 'react-router-dom';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import axios from "axios";
-
-const Q = QEx2();
-function Questionnaires () {
-    return (
-        <List sx={{ mt: 2 }}>
-            {Q.Questionnaires.map((q) =>
-            <ListItem disablePadding>
-                <ListItemButton href={`/admin/view/${q.questionnaireID}`}>
-                    <ListItemText primary={q.questionnaireTitle} />
-                </ListItemButton>
-            </ListItem>
-            )}            
-        </List>
-    )
-}
 
 function Admin(props) {
   const [healthcheck, setHelathcheck] = React.useState(false);
@@ -47,6 +29,30 @@ function Admin(props) {
   const [open, setOpen] = React.useState(false);
   const [openUpload, setOpenUpload] = React.useState(false);
   const [file, setFile] = React.useState();
+  const [Q, setQ] = React.useState([]);
+
+  axios
+    .get(
+        `/allquestionnaires`,
+        { crossdomain: true }
+    )
+    .then((response) => {
+        setQ(response.data);
+    });
+
+  function Questionnaires () {
+    return (
+        <List sx={{ mt: 2 }}>
+            {Q.map((q) =>
+            <ListItem disablePadding>
+                <ListItemButton href={`/admin/view_questionnaire/${q.questionnaireID}`}>
+                    <ListItemText primary={q.questionnaireTitle} />
+                </ListItemButton>
+            </ListItem>
+            )}            
+        </List>
+    )
+  }   
 
   const handleHealthcheck = () => {
     axios

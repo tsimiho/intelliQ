@@ -30,7 +30,7 @@ function Questionnaire(props) {
 
     return (
         <>
-            <Container maxWidth="md" style={{ marginTop: '80px' }}>
+            <Container maxWidth="md" style={{ marginTop: '80px', marginBottom: '80px' }}>
             <Typography variant="h4" gutterBottom>
                 { props.questionnaireTitle }
             </Typography>

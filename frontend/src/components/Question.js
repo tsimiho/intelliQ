@@ -6,11 +6,19 @@ import Radio from "@mui/material/Radio";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { TextField } from "@mui/material";
+import { Redirect } from 'react-router-dom';
+import axios from 'axios';
 
 function Question(props) {
     const [answer, setAnswer] = useState("");
+    const [currOption, setCurrOption] = useState({nextqID: ''});
     const handleChange = (event) => {
         setAnswer(event.target.value);
+        setCurrOption(
+            props.options.length === 1 ? 
+            props.options[0] :
+            props.options.find((o) => o.optID === event.target.value)
+        );
     };
     function MultiOptions(props) {
         return (
@@ -22,10 +30,10 @@ function Question(props) {
             >
                 {props.options.map((option) => (
                     <FormControlLabel
-                        key={option._id}
-                        value={option._id}
+                        key={option.optID}
+                        value={option.optID}
                         control={<Radio />}
-                        label={option.opttext}
+                        label={option.opttxt}
                     />
                 ))}
             </RadioGroup>
@@ -36,12 +44,27 @@ function Question(props) {
             <TextField
                 id="outlined-multiline-flexible"
                 label=""
-                //multiline
+                multiline
                 maxRows={4}
                 onChange={handleChange}
                 sx={{ mt: 2, width: 400 }}
             />
         );
+    }
+    function Submit () {
+        console.log('hello');
+        let option = (
+            props.options.length === 1 ? 
+            props.options[0] :
+            props.options.find((o) => o.optID === answer));
+        axios
+            .post(
+                `/doanswer/${props.questionnaireID}/${props.qID}/${props.session}/${option.optID}`,
+                { crossdomain: true }
+            );
+        return (
+            <Redirect to={`/question/${props.questionnaireID}/${option.nextqID}/${props.session}`}/>
+        )        
     }
     function MyButton() {
         return props.required === "TRUE" && answer === "" ? (
@@ -50,7 +73,9 @@ function Question(props) {
             </Button>
         ) : (
             <Button
-                href={`/doanswer/QQ000/${props._id}/ABCD/${answer}`}
+                href={`/doanswer/${props.questionnaireID}/${props.qID}/${props.session}/
+${currOption.nextqID === '' ? props.options[0].nextqID : currOption.nextqID }/${answer}`}
+                onClick={Submit}
                 variant="contained"
                 sx={{ mt: 3 }}
             >
