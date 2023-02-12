@@ -17,17 +17,35 @@ const fullquestionnaire = require("./routes/fullquestionnaire");
 const connectDB = require("./database/connect");
 require("dotenv").config();
 
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
+// function authentication(req, res, next) {
+//     var authheader = req.headers.authorization;
+//     console.log(req.headers);
 
-// middleware
+//     if (!authheader) {
+//         var err = new Error("You are not authenticated!");
+//         res.setHeader("WWW-Authenticate", "Basic");
+//         err.status = 401;
+//         return next(err);
+//     }
 
+//     var auth = new Buffer.from(authheader.split(" ")[1], "base64")
+//         .toString()
+//         .split(":");
+//     var user = auth[0];
+//     var pass = auth[1];
+
+//     if (user == "admin" && pass == "password") {
+//         // If Authorized user
+//         next();
+//     } else {
+//         var err = new Error("You are not authenticated!");
+//         res.setHeader("WWW-Authenticate", "Basic");
+//         err.status = 401;
+//         return next(err);
+//     }
+// }
+
+// app.use(authentication);
 app.use(express.static("./public"));
 app.use(express.json());
 
@@ -50,14 +68,14 @@ app.use("/intelliq_api/allquestionnaires", allquestionnaires);
 const port = 9103;
 
 const start = async () => {
-  try {
-    await connectDB(process.env.MONGO_URI);
-    app.listen(port, () =>
-      console.log(`Server is listening on port ${port}...`)
-    );
-  } catch (error) {
-    console.log(error);
-  }
+    try {
+        await connectDB(process.env.MONGO_URI);
+        app.listen(port, () =>
+            console.log(`Server is listening on port ${port}...`)
+        );
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 start();

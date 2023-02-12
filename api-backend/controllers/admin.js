@@ -48,9 +48,19 @@ const resetall = async (req, res) => {
 const resetq = async (req, res) => {
     try {
         const { questionnaireID } = req.params;
-        await QuestionnaireSchema.deleteOne({ questionnaireID: questionnaireID });
+        var questionnaire = await QuestionnaireSchema.findOne({
+            questionnaireID: questionnaireID,
+        });
 
-        res.status(200).json({ status: "OK" });
+        questionnaire.sessions = [];
+
+        var q = await QuestionnaireSchema.findOneAndUpdate(questionnaire);
+
+        if (!q) {
+            res.status(400).json({ msg: "Bad Request" });
+        } else {
+            res.status(200).json({ status: "OK" });
+        }
     } catch (error) {
         res.status(500).json({ status: "failed", reason: error });
     }

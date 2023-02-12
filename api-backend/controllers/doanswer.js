@@ -1,41 +1,59 @@
+const { boolean } = require("yargs");
 const QuestionnaireSchema = require("../models/questionnaire");
 
 const postOptionID = async (req, res) => {
     try {
-        const { questionnaireID, questionID, session, optionID } = req.params;
-        const questionnaire = await QuestionnaireSchema.findOne({
+        var { questionnaireID, questionID, session, optionID } = req.params;
+        var questionnaire = await QuestionnaireSchema.findOne({
             questionnaireID: questionnaireID,
         });
 
-        const { sessions } = questionnaire;
+        if (questionnaire) {
+            var { sessions } = questionnaire;
 
-        var ses_index;
-        for (const i in sessions) {
-            if (sessions[i].sessionID === session) {
-                ses_index = i;
-                break;
+            var ses_index;
+            for (const i in sessions) {
+                if (sessions[i].sessionID === session) {
+                    ses_index = i;
+                    break;
+                }
             }
-        }
 
-        if (!ses_index) {
-            questionnaire.sessions.push({ sessionID: session, pairs: [] });
-            ses_index = 0;
-        }
+            if (!ses_index) {
+                questionnaire.sessions.push({ sessionID: session, pairs: [] });
+                ses_index = questionnaire.sessions.length;
+            }
 
-        const pair = { qID: questionID, optionID: optionID };
-        questionnaire.sessions[ses_index].pairs.push(pair);
+            var pair = { qID: questionID, optionID: optionID };
 
-        delete questionnaire._id;
+            var check = false;
+            for (const i in questionnaire.sessions[ses_index].pairs) {
+                if (
+                    (questionnaire.sessions[ses_index].pairs[i].qID =
+                        questionID)
+                ) {
+                    questionnaire.sessions[ses_index].pairs[i].optionID =
+                        optionID;
+                    check = true;
+                    break;
+                }
+            }
+            
+            if (!check) {
+                questionnaire.sessions[ses_index].pairs.push(pair);
+            }
 
-        const q = await QuestionnaireSchema.findOneAndUpdate(
-            { questionnaireID: questionnaireID },
-            questionnaire
-        );
+            questionnaire.questionnaireID = questionnaireID;
 
-        if (!q) {
-            res.status(400).json({ msg: "Bad Request" });
+            var q = await QuestionnaireSchema.findOneAndUpdate(questionnaire);
+
+            if (!q) {
+                res.status(400).json({ msg: "Bad Request" });
+            } else {
+                res.status(200).json(q);
+            }
         } else {
-            res.status(200).json(q);
+            res.status(400).json({ msg: "Bad Request" });
         }
     } catch (error) {
         res.status(500).json({ msg: error });
