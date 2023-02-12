@@ -26,7 +26,6 @@ const history = async (req, res) => {
                         if (qi == qID) {
                             for (var l in options) {
                                 var { optID, opttxt } = options[l];
-                                console.log(optID, op);
                                 if (optID == op) {
                                     var p = {
                                         qtext: qtext,
