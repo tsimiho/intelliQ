@@ -25,20 +25,24 @@ router
 router
     .route("/questionnaire_upd")
     .get(passport.authenticate("jwt", { session: false }), upload_questionnaire)
-    .post(upload.single("file"), function (req, res) {
-        try {
-            const data = JSON.parse(req.file.buffer.toString());
+    .post(
+        passport.authenticate("jwt", { session: false }),
+        upload.single("file"),
+        function (req, res) {
             try {
-                addtodb(data, req, res);
-            } catch (error) {
-                console.log(error);
-            }
+                const data = JSON.parse(req.file.buffer.toString());
+                try {
+                    addtodb(data, req, res);
+                } catch (error) {
+                    console.log(error);
+                }
 
-            res.status(200).json({ data });
-        } catch (error) {
-            res.status(500).json({ msg: error });
+                res.status(200).json({ data });
+            } catch (error) {
+                res.status(500).json({ msg: error });
+            }
         }
-    });
+    );
 
 router
     .route("/resetall")
