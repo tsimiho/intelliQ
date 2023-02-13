@@ -67,7 +67,6 @@ function issueJWT(admin) {
     });
 
     return {
-        username: username,
         token: signedToken,
         expires: expiresIn,
     };
