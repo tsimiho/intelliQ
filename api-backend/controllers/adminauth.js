@@ -24,10 +24,14 @@ const login = (req, res, next) => {
             if (isValid) {
                 const tokenObject = utils.issueJWT(admin);
 
-                res.status(200).json({
-                    success: true,
-                    token: tokenObject.token,
-                    expiresIn: tokenObject.expires,
+                res.status(200).format({
+                    "application/x-www-form-urlencoded": () => {
+                        res.json({
+                            success: true,
+                            token: tokenObject.token,
+                            expiresIn: tokenObject.expires,
+                        });
+                    },
                 });
             } else {
                 res.status(401).json({
