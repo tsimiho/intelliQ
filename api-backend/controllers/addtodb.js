@@ -5,10 +5,10 @@ const { findOneAndUpdate } = require("../models/questionnaire");
 async function addtodb(data) {
     var temp_id = data.questionnaireID;
 
-    const admin_id = res.user._id;
+    // const admin_id = req.user._id;
 
-    var admin = await AdminSchema.findOne({ _id: admin_id });
-    var admin_history = admin.history;
+    // var admin = await AdminSchema.findOne({ _id: admin_id });
+    // var admin_history = admin.history;
 
     makeid = (n) => {
         var prefix = "QQ";
@@ -31,16 +31,16 @@ async function addtodb(data) {
 
     data.questionnaireID = temp_id;
 
-    admin_history.push(temp_id);
+    // admin_history.push(temp_id);
 
-    try {
-        await AdminSchema.findOneAndUpdate(
-            { _id: admin_id },
-            { history: admin_history }
-        );
-    } catch (error) {
-        res.status(500).json({ error: error });
-    }
+    // try {
+    //     await AdminSchema.findOneAndUpdate(
+    //         { _id: admin_id },
+    //         { history: admin_history }
+    //     );
+    // } catch (error) {
+    //     res.status(500).json({ error: error });
+    // }
 
     QuestionnaireSchema.create(data);
 }
