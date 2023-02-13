@@ -27,7 +27,7 @@ router
         try {
             const data = JSON.parse(req.file.buffer.toString());
             try {
-                addtodb(data);
+                addtodb(data, req, res);
             } catch (error) {
                 console.log(error);
             }

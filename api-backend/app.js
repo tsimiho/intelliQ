@@ -42,7 +42,7 @@ app.use("/intelliq_api/history", history);
 app.use("/intelliq_api/fullquestionnaire", fullquestionnaire);
 app.use("/intelliq_api/allquestionnaires", allquestionnaires);
 app.use("/intelliq_api/firstq", firstq);
-app.use("intelliq_api/summary", summary);
+app.use("/intelliq_api/summary", summary);
 
 const port = 9103;
 
