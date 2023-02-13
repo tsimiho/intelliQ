@@ -31,12 +31,16 @@ const postOptionID = async (req, res) => {
             }
             // console.log(ses_index);
 
+            if (optionID === "TXT") {
+                optionID = res.body.answer;
+            }
+
             var pair = { qID: questionID, optionID: optionID };
 
             var check = false;
             if (sessions[ses_index].pairs.length > 0) {
                 for (const i in sessions[ses_index].pairs) {
-                    if ((sessions[ses_index].pairs[i].qID == questionID)) {
+                    if (sessions[ses_index].pairs[i].qID == questionID) {
                         sessions[ses_index].pairs[i].optionID = optionID;
                         check = true;
                         break;
