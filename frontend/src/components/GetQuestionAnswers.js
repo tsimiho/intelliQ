@@ -37,7 +37,7 @@ function GetQuestionAnswers(props) {
             </TableRow>
             </TableHead>
             <TableBody>
-            {props.Hist.List.map((row) => (
+            {props.answers.map((row) => (
                 <StyledTableRow key={row.session}>
                 <StyledTableCell align="center">{row.session}</StyledTableCell>
                 <StyledTableCell align="center">{row.ans}</StyledTableCell>

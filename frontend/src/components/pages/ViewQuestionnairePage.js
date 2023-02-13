@@ -11,6 +11,7 @@ import TableContainer from '@mui/material/TableContainer';
 import Paper from '@mui/material/Paper';
 import Divider from '@mui/material/Divider';
 import FullQuestionnaire from '../FullQuestionnaire';
+import Statistics from '../Statistics';
 import { Typography } from '@mui/material';
 import axios from 'axios';
 
@@ -24,6 +25,7 @@ function ViewQuestionnairePage(props) {
     "keywords": [],
     "questions": []
   });
+  const [bars, setBars] = React.useState([]);
 
   const handleInfoClick = () => {
     setInfo(!info);
@@ -37,11 +39,20 @@ function ViewQuestionnairePage(props) {
 
   axios
       .get(
-          `/questionnaire/${params.questionnaireID}`,
+          `/fullquestionnaire/${params.questionnaireID}`,
           { crossdomain: true }
       )
       .then((response) => {
-        setQ(response.data.questionnaire);
+        setQ(response.data);
+      });
+
+  axios
+      .get(
+          `/graph/${params.questionnaireID}`,
+          { crossdomain: true }
+      )
+      .then((response) => {
+        setBars(response.data);
       });
 
   return (
@@ -70,15 +81,11 @@ function ViewQuestionnairePage(props) {
               {statistics ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
             <Collapse in={statistics} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItemButton>
-                  <ListItemText primary="Starred" />
-                </ListItemButton>
-              </List>
+              <Statistics questions={bars}/>
             </Collapse>
           </List>
         </Table>
-      </TableContainer>
+      </TableContainer>      
     </Container>
   )
 }

@@ -1,30 +1,25 @@
-import React from 'react'
-import GetQuestionAnswers from '../GetQuestionAnswers'
+import React from 'react';
+import GetQuestionAnswers from '../GetQuestionAnswers';
+import axios from "axios";
 
-const D = {
-    "List" : [
-        {
-            "session":"ABCD",
-            "ans":"A2"
-        },
-        {
-            "session":"KLMN",
-            "ans":"A1"
-        },
-        {
-            "session":"OPIY",
-            "ans":"A3"
-        },
-        {
-            "session":"SDFG",
-            "ans":"A1"
-        }
-    ]
-}
+function GetQuestionAnswersPage(props) {
+    const { params } = props.match;
+    const [answers, setAnswers] = React.useState([{
+        "session":"",
+        "ans":""
+    }]);
+    axios
+    .get(
+        `/getquestionanswers/${params.questionnaireID}/${params.qID}`,
+        { crossdomain: true }
+    )
+    .then((response) => {
+        setAnswers(response.data.answers);
+    });
 
-function GetQuestionAnswersPage() {
+    
   return (
-    <GetQuestionAnswers Hist={D} />
+    <GetQuestionAnswers answers={answers} />
   )
 }
 

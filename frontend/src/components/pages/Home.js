@@ -9,13 +9,16 @@ function Home() {
         <Button href="/questionnaire/QQ000" variant="contained">Ερωτηματολογιο</Button>
       </Container>
       <Container maxWidth="sm" style={{ marginTop: '100px' }}>
-        <Button href="/question/QQ000/P00/ABCD" variant="contained">Ερωτηση</Button>
+        <Button href="/answer_questionnaire/QQ000" variant="contained">Απαντηση</Button>
       </Container>
       <Container maxWidth="sm" style={{ marginTop: '100px' }}>
         <Button href="/getquestionanswers/QQ000/P00" variant="contained">e</Button>
       </Container>
       <Container maxWidth="sm" style={{ marginTop: '100px' }}>
         <Button href="/admin" variant="contained">Admin</Button>
+      </Container>
+      <Container maxWidth="sm" style={{ marginTop: '100px' }}>
+        <Button href="/answer_questionnaire/QQ000/ABCD" variant="contained">Ερωτηση ?</Button>
       </Container>
     </>   
   )
