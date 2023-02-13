@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const passport = require("passport");
+const cors = require("cors");
 
 const questionnaire = require("./routes/questionnaire");
 const question = require("./routes/question");
@@ -22,6 +23,7 @@ require("dotenv").config();
 app.use(express.static("./public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 require("./config/passport")(passport);
 app.use(passport.initialize());
