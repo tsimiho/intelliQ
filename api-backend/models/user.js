@@ -45,18 +45,27 @@ const ItemSchema = new mongoose.Schema({
 });
 
 const UserSchema = new mongoose.Schema({
-    email: {
-        type: String,
-        required: true,
-        trim: true,
-    },
-    domain: {
+    username: {
         type: String,
     },
-    History: {
-        type: [ItemSchema],
-        required: true,
+    hash: {
+        type: String,
     },
+    salt: {
+        type: String,
+    },
+    // email: {
+    //     type: String,
+    //     required: true,
+    //     trim: true,
+    // },
+    // domain: {
+    //     type: String,
+    // },
+    // History: {
+    //     type: [ItemSchema],
+    //     required: true,
+    // },
 });
 
 module.exports = mongoose.model("UserSchema", UserSchema);

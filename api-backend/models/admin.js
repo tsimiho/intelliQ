@@ -11,7 +11,7 @@ const AdminSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        required: true,
+        required: false,
         trim: true,
         validate: {
             validator: validator.isEmail,
@@ -20,12 +20,19 @@ const AdminSchema = new mongoose.Schema({
     },
     history: {
         type: [QuestionnaireSchema.schema],
-        required: true,
+        required: false,
     },
     password: {
         type: String,
-        required: [true, "Please provide password"],
+        // required: [true, "Please provide password"],
+        required: false,
         minlength: 6,
+    },
+    hash: {
+        type: String,
+    },
+    salt: {
+        type: String,
     },
 });
 
