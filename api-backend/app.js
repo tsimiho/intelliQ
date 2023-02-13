@@ -14,7 +14,7 @@ const history = require("./routes/history");
 const allquestionnaires = require("./routes/allquestionnaires");
 const fullquestionnaire = require("./routes/fullquestionnaire");
 const firstq = require("./routes/firstq");
-const authroutes = require("./routes/authroutes");
+const summary = requier("./routes/summary");
 
 const connectDB = require("./database/connect");
 require("dotenv").config();
@@ -40,7 +40,7 @@ app.use("/intelliq_api/history", history);
 app.use("/intelliq_api/fullquestionnaire", fullquestionnaire);
 app.use("/intelliq_api/allquestionnaires", allquestionnaires);
 app.use("/intelliq_api/firstq", firstq);
-app.use("/intelliq_api", authroutes);
+app.use("intelliq_api/summary", summary);
 
 const port = 9103;
 

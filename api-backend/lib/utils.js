@@ -49,10 +49,10 @@ function genPassword(password) {
 }
 
 /**
- * @param {*} user - The user object.  We need this to set the JWT `sub` payload property to the MongoDB user ID
+ * @param {*} admin - The user object.  We need this to set the JWT `sub` payload property to the MongoDB user ID
  */
-function issueJWT(user) {
-    const _id = user._id;
+function issueJWT(admin) {
+    const _id = admin._id;
 
     const expiresIn = "10d";
 
@@ -67,38 +67,12 @@ function issueJWT(user) {
     });
 
     return {
+        username: username,
         token: signedToken,
         expires: expiresIn,
     };
 }
 
-// function authMiddleware(req, res, next) {
-//     const token = req.headers["x-observatory-auth"];
-
-//     if (token.match(/\S+\.\S+\.\S+/) !== null) {
-//         console.log("hey");
-//         try {
-//             const verification = jsonwebtoken.verify(token, PUB_KEY, {
-//                 algorithms: ["RS256"],
-//             });
-//             req.jwt = verification;
-//             next();
-//         } catch (err) {
-//             res.status(401).json({
-//                 success: false,
-//                 msg: "You are not authorized to visit this route",
-//                 error: err,
-//             });
-//         }
-//     } else {
-//         res.status(401).json({
-//             success: false,
-//             msg: "You are not authorized to visit this route",
-//         });
-//     }
-// }
-
 module.exports.validPassword = validPassword;
 module.exports.genPassword = genPassword;
 module.exports.issueJWT = issueJWT;
-// module.exports.authMiddleware = authMiddleware;

@@ -5,6 +5,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 const QuestionnaireSchema = require("../models/questionnaire");
 const { addtodb } = require("../controllers/addtodb");
 const { badreq } = require("../controllers/badrequest");
+const passport = require("passport");
 
 const {
     healthcheck,
@@ -14,6 +15,8 @@ const {
     usermod,
     users,
 } = require("../controllers/admin");
+
+const { login, register, protected } = require("../controllers/adminauth");
 
 router.route("/healthcheck").get(healthcheck);
 
@@ -39,5 +42,13 @@ router.route("/resetall").post(resetall);
 router.route("/resetq/:questionnaireID").post(resetq);
 router.route("/usermod/:username/:password").post(usermod);
 router.route("users/:username").get(users);
+
+router.route("/login").post(login);
+
+router.route("/register").post(register);
+
+router
+    .route("/protected")
+    .get(passport.authenticate("jwt", { session: false }), protected);
 
 module.exports = router;

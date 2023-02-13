@@ -13,21 +13,18 @@ const AdminSchema = new mongoose.Schema({
         type: String,
         required: false,
         trim: true,
+        default: undefined,
         validate: {
             validator: validator.isEmail,
             message: "Please provide valid email",
         },
     },
     history: {
-        type: [QuestionnaireSchema.schema],
+        type: [String],
         required: false,
+        default: [],
     },
-    password: {
-        type: String,
-        // required: [true, "Please provide password"],
-        required: false,
-        minlength: 6,
-    },
+
     hash: {
         type: String,
     },
@@ -35,10 +32,5 @@ const AdminSchema = new mongoose.Schema({
         type: String,
     },
 });
-
-AdminSchema.methods.comparePassword = async function (canditatePassword) {
-    const isMatch = await bcrypt.compare(canditatePassword, this.password);
-    return isMatch;
-};
 
 module.exports = mongoose.model("AdminSchema", AdminSchema);
