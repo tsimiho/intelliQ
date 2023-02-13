@@ -14,7 +14,7 @@ const history = require("./routes/history");
 const allquestionnaires = require("./routes/allquestionnaires");
 const fullquestionnaire = require("./routes/fullquestionnaire");
 const firstq = require("./routes/firstq");
-const summary = requier("./routes/summary");
+const summary = require("./routes/summary");
 
 const connectDB = require("./database/connect");
 require("dotenv").config();
