@@ -9,17 +9,37 @@ const summary = async (req, res) => {
         if (!questionnaire) {
             res.status(400).json({ msg: "Bad request" });
         } else {
-            var { questionnaireID, sessions } = questionnaire;
+            var { questionnaireID, questions, sessions } = questionnaire;
 
-            var ses = {};
+            var session = {};
             for (var i in sessions) {
                 if (sessions[i].sessionID == sessionID) {
-                    ses = sessions[i];
+                    session = sessions[i];
                     break;
                 }
             }
 
-            res.status(200).json(ses);
+            var session_text = { sessionID: session.sessionID, pairs: [] };
+
+            for (var i in session.pairs) {
+                var pair = session.pairs[i];
+                for (var j in questions) {
+                    if (questions[j].qID == pair.qID) {
+                        for (var k in questions[j].options) {
+                            if (
+                                questions[j].options[k].optID == pair.optionID
+                            ) {
+                                session_text.pairs.push({
+                                    qtext: questions[j].qtext,
+                                    opttxt: questions[j].options[k].opttxt,
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+
+            res.status(200).json(session_text);
         }
     } catch (error) {
         res.status(500).json({ msg: error });

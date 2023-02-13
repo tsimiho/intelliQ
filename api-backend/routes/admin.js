@@ -18,13 +18,11 @@ const {
 
 const { login, register, protected } = require("../controllers/adminauth");
 
-router
-    .route("/healthcheck")
-    .get(passport.authenticate("jwt", { session: false }), healthcheck);
+router.route("/healthcheck").get(healthcheck);
 
 router
     .route("/questionnaire_upd")
-    .get(passport.authenticate("jwt", { session: false }), upload_questionnaire)
+    .get(upload_questionnaire)
     .post(upload.single("file"), function (req, res) {
         try {
             const data = JSON.parse(req.file.buffer.toString());
@@ -40,18 +38,10 @@ router
         }
     });
 
-router
-    .route("/resetall")
-    .post(passport.authenticate("jwt", { session: false }), resetall);
-router
-    .route("/resetq/:questionnaireID")
-    .post(passport.authenticate("jwt", { session: false }), resetq);
-router
-    .route("/usermod/:username/:password")
-    .post(passport.authenticate("jwt", { session: false }), usermod);
-router
-    .route("users/:username")
-    .get(passport.authenticate("jwt", { session: false }), users);
+router.route("/resetall").post(resetall);
+router.route("/resetq/:questionnaireID").post(resetq);
+router.route("/usermod/:username/:password").post(usermod);
+router.route("users/:username").get(users);
 
 router.route("/login").post(login);
 
