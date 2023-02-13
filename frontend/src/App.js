@@ -11,10 +11,21 @@ import GetQuestionAnswersPage from './components/pages/GetQuestionAnswersPage';
 import AdminPage from './components/pages/AdminPage';
 import CreateQuestionnairePage2 from './components/pages/CreateQuestionnairePage2';
 import ViewQuestionnairePage from './components/pages/ViewQuestionnairePage';
+import AnswerQuestionnairePage from './components/pages/AnswerQuestionnairePage';
+import QuestionPage2 from './components/pages/QuestionPage2';
+
+const lightTheme = createTheme({
+  palette: {
+    background: {
+      default: "#eceff1"
+    },
+    mode: 'light',
+  },
+});
 
 const darkTheme = createTheme({
   palette: {
-    mode: 'light',
+    mode: 'dark',
   },
 });
 
@@ -23,13 +34,15 @@ export default function App() {
   return (    
     <>
       <Router>
-        <ThemeProvider theme={darkTheme}>
+        <ThemeProvider theme={lightTheme}>
           <CssBaseline />
           <MenuAppBar />   
           <Switch>
             <Route path="/" exact component={Home}/>
+            <Route path="/answer_questionnaire/:questionnaireID/:session" component={QuestionPage2} />
+            <Route path="/answer_questionnaire/:questionnaireID" component={AnswerQuestionnairePage} />
             <Route path="/questionnaire/:questionnaireID" component={QuestionnairePage} /> 
-            <Route path="/question/:questionnaireID/:questionID/:session" component={QuestionPage} /> 
+            <Route path="/question/:questionnaireID/:questionID/:session" component={QuestionPage} />  
             <Route path="/doanswer/:questionnaireID/:questionID/:session/:nextqID/:optID?" component={DoAnswerPage} /> 
             <Route path="/getquestionanswers/:questionnaireID/:questionID" component={GetQuestionAnswersPage} />
             <Route exact path="/admin" component={AdminPage}  />

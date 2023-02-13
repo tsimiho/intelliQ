@@ -57,13 +57,12 @@ function Admin(props) {
   const handleHealthcheck = () => {
     axios
         .get(
-            `/admin/healthcheck`,
-            { crossdomain: true }
+            `/admin/healthcheck`
         )
         .then((response) => {
             setHelathcheck(response.data.status === 'OK');
         });
-    setOpenHealthcheck(true);
+    setTimeout(() => {setOpenHealthcheck(true);}, 500);
   };
 
   const handleResetall = () => {
@@ -84,12 +83,20 @@ function Admin(props) {
   };
 
   function handleUpload() {
-    // post to backend
     setOpenUpload(false);
+    let form = new FormData();
+    form.append('file', file);
+    axios.post(`/admin/questionnaire_upd`,
+          form, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          }
+        );
   };
 
   return (
-    <Container maxWidth="md" style={{ marginTop: '80px' }}>
+    <Container maxWidth="md" style={{ marginTop: '80px', marginBottom: '80px'}}>
         <Stack direction="row" alignItems="center" spacing={2}>
         <Avatar
             sx={{ bgcolor: grey[500], width: 56, height: 56  }}
@@ -167,7 +174,7 @@ function Admin(props) {
                     <Box component="span" sx={{ p: 2, border: '1px dashed grey' }}>
                         <Button component="label">
                             <form enctype="multipart/form-data" method="post">
-                                <input hidden type="file" onChange={handleChange} class="form-control-file" name="uploaded_file" />
+                                <input hidden type="file" onChange={handleChange} class="form-control-file" name="file" />
                             </form>
                         Select file
                         </Button>             
