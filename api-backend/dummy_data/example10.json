@@ -1,7 +1,7 @@
 {
   "questionnaireID": "QQ000",
-  "questionnaireTitle": "Are you a Chef?",
-  "keywords": ["cuisine", "chef", "pizza"],
+  "questionnaireTitle": "Random",
+  "keywords": ["Cuisine", "food", "painting"],
   "questions": [
     {
       "qID": "P00",
@@ -46,30 +46,30 @@
     },
     {
       "qID": "Q01",
-      "qtext": "Ποια είναι η αγαπημένη σας κουζίνα;",
+      "qtext": "Ποιος είναι ο αγαπημένος σας χαρακτήρας κινουμένων σχεδίων;",
       "required": "TRUE",
       "type": "question",
       "options": [
         {
           "optID": "Q01A1",
-          "opttxt": "Ιταλική",
+          "opttxt": "Mickey Mouse",
           "nextqID": "Q02"
         },
         {
           "optID": "Q01A2",
-          "opttxt": "Κινέζικη",
+          "opttxt": "Pluto",
           "nextqID": "Q02"
         },
         {
           "optID": "Q01A3",
-          "opttxt": "Μεσογειακή",
+          "opttxt": "Scooby Doo",
           "nextqID": "Q02"
         }
       ]
     },
     {
       "qID": "Q02",
-      "qtext": "Ασχολείστε με μαγειρική;",
+      "qtext": "Ασχολείστε με σχέδιο;",
       "required": "TRUE",
       "type": "question",
       "options": [
@@ -87,30 +87,30 @@
     },
     {
       "qID": "Q03",
-      "qtext": "Τι προτιμάτε;",
+      "qtext": "Ποιο σας άρεσε περισσότερο;",
       "required": "TRUE",
       "type": "question",
       "options": [
         {
           "optID": "Q03A1",
-          "opttxt": "Pizza",
+          "opttxt": "Μπομπ σφουγγαράκης",
           "nextqID": "Q04"
         },
         {
           "optID": "Q03A2",
-          "opttxt": "Burger",
+          "opttxt": "Ντορα η μικρή εξερευνήτρια ",
           "nextqID": "Q04"
         },
         {
           "optID": "Q03A3",
-          "opttxt": "Noodles",
+          "opttxt": "scooby doo",
           "nextqID": "Q04"
         }
       ]
     },
     {
       "qID": "Q04",
-      "qtext": "Έχετε κάνει ποτέ Barbeque;",
+      "qtext": "Έχετε τραγουδήσει karaoke;",
       "required": "TRUE",
       "type": "question",
       "options": [
@@ -128,35 +128,30 @@
     },
     {
       "qID": "Q05",
-      "qtext": "Με δεδομένο ότι απαντήσατε [*Q04A1] στην ερώτηση [*Q04]: Πόσο πιθανό είναι να το ξαναδοκιμάσετε;",
+      "qtext": "Με δεδομένο ότι απαντήσατε [*Q04A1] στην ερώτηση [*Q04]: Ποια ήταν η ανταπόκριση του κοινού;",
       "required": "TRUE",
       "type": "question",
       "options": [
         {
           "optID": "Q05A1",
-          "opttxt": "Καθόλου",
+          "opttxt": "Καμία",
           "nextqID": "Q07"
         },
         {
           "optID": "Q05A2",
-          "opttxt": "Λίγο",
+          "opttxt": "Θετική",
           "nextqID": "Q07"
         },
         {
           "optID": "Q05A3",
-          "opttxt": "Αρκετά",
-          "nextqID": "Q07"
-        },
-        {
-          "optID": "Q05A4",
-          "opttxt": "Πολύ",
+          "opttxt": "Πολύ θετική",
           "nextqID": "Q07"
         }
       ]
     },
     {
       "qID": "Q06",
-      "qtext": "Έχετε διακόψει ποτέ Barbeque λόγω βροχής",
+      "qtext": "Έχετε γωρίσει κάποιον ηθοποιό",
       "required": "TRUE",
       "type": "question",
       "options": [
@@ -174,7 +169,7 @@
     },
     {
       "qID": "Q07",
-      "qtext": "Πόσο συχνά μαγειρεύετε για φίλους;",
+      "qtext": "Πόσο συχνά ακούτε κλασσική μουσική;",
       "required": "TRUE",
       "type": "question",
       "options": [
@@ -197,7 +192,7 @@
     },
     {
       "qID": "Q08",
-      "qtext": "Σας έχει καλέσει ποτέ φίλος σας για φαγητό σπίτι του;",
+      "qtext": "Συμφωνείτε να ενταχθεί η θεατρική αγωγή ως μάθημα στο Λύκειο;",
       "required": "TRUE",
       "type": "question",
       "options": [
@@ -215,18 +210,18 @@
     },
     {
       "qID": "Q09",
-      "qtext": "Με δεδομένο ότι απαντήσατε [*Q08A2] στην ερώτηση [*Q08]: Σας άρεσε η μαγειρική του;",
+      "qtext": "Με δεδομένο ότι απαντήσατε [*Q08A2] στην ερώτηση [*Q08]: Πόσες ώρες;",
       "required": "TRUE",
       "type": "question",
       "options": [
         {
           "optID": "Q09A1",
-          "opttxt": "Ναι",
+          "opttxt": "1",
           "nextqID": "-"
         },
         {
           "optID": "Q09A2",
-          "opttxt": "Όχι",
+          "opttxt": "παραπάνω από 1",
           "nextqID": "-"
         }
       ]
