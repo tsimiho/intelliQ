@@ -21,7 +21,6 @@ function QuestionnairePage(props) {
         });
 
     return (
-        // Κανονικά εδώ παίρνει το σωστό questionnaire
         <Questionnaire
         questionnaireID={Q.questionnaireID}
         questionnaireTitle={Q.questionnaireTitle}

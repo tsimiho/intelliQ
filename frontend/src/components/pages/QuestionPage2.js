@@ -7,6 +7,10 @@ import RadioGroup from "@mui/material/RadioGroup";
 import Radio from "@mui/material/Radio";
 import Button from "@mui/material/Button";
 import { TextField } from "@mui/material";
+import Table from '@mui/material/Table';
+import TableContainer from '@mui/material/TableContainer';
+import Paper from '@mui/material/Paper';
+import Stack from '@mui/material/Stack';
 import axios from "axios";
 
 function QuestionPage2(props) {
@@ -63,7 +67,7 @@ function QuestionPage2(props) {
             question.options.length === 1 ? 
             question.options[0] :
             question.options.find((o) => o.optID === answer));
-        console.log(params.questionnaireID,question.qID,params.session,option.optID);
+        //console.log(params.questionnaireID,question.qID,params.session,option.optID);
         axios
             .post(
                 `/doanswer/${params.questionnaireID}/${question.qID}/${params.session}/${option.optID}`
@@ -113,21 +117,31 @@ function QuestionPage2(props) {
             });
     }   
 
-
     return (
-        <Container maxWidth="md" style={{ marginTop: "80px" }}>
-            <Typography variant="h4" gutterBottom>
-                {questionnaireTitle}
-            </Typography>
-            <Typography variant="h5" style={{ marginTop: "30px" }} gutterBottom>
-                {question.qtext}
-            </Typography>
-            <FormControl>
-                {question.options.length === 1
-                    ? TextOption()
-                    : MultiOptions()}
-            </FormControl>
-            <div>{MyButton()}</div>
+        <Container maxWidth="md" style={{ marginTop: "80px", marginBottom: '80px'}}>
+            <TableContainer component={Paper} style={{ marginTop: '20px'}}>
+                    <Table aria-label="customized table">
+                        <Stack 
+                        direction="column" 
+                        justifyContent="center" 
+                        alignItems="left" 
+                        //spacing={2}
+                        style={{ padding: '30px'}}>
+                            <Typography variant="h4">
+                                {questionnaireTitle}
+                            </Typography>
+                            <Typography variant="h5" style={{ marginTop: '30px', marginBottom: '10px'}}>
+                                {question.qtext}
+                            </Typography>
+                            <FormControl>
+                                {question.options.length === 1
+                                    ? TextOption()
+                                    : MultiOptions()}
+                            </FormControl>
+                            <div>{MyButton()}</div>
+                        </Stack>
+                    </Table>
+                </TableContainer>
         </Container>
     );
 }

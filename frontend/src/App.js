@@ -13,6 +13,8 @@ import CreateQuestionnairePage2 from './components/pages/CreateQuestionnairePage
 import ViewQuestionnairePage from './components/pages/ViewQuestionnairePage';
 import AnswerQuestionnairePage from './components/pages/AnswerQuestionnairePage';
 import QuestionPage2 from './components/pages/QuestionPage2';
+import LogIn from './components/pages/LoginPage';
+import axios from 'axios';
 
 const lightTheme = createTheme({
   palette: {
@@ -31,6 +33,15 @@ const darkTheme = createTheme({
 
 
 export default function App() {
+  (function() {
+      const token = localStorage.getItem('token');
+      if (token) {
+          axios.defaults.headers.common['X-OBSERVATORY-AUTH'] = token;
+      } else {
+          axios.defaults.headers.common['X-OBSERVATORY-AUTH'] = null;
+      }
+  })();
+
   return (    
     <>
       <Router>
@@ -39,6 +50,7 @@ export default function App() {
           <MenuAppBar />   
           <Switch>
             <Route path="/" exact component={Home}/>
+            <Route path="/login" component={LogIn} />
             <Route path="/answer_questionnaire/:questionnaireID/:session" component={QuestionPage2} />
             <Route path="/answer_questionnaire/:questionnaireID" component={AnswerQuestionnairePage} />
             <Route path="/questionnaire/:questionnaireID" component={QuestionnairePage} /> 

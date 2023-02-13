@@ -5,6 +5,10 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
+import Table from '@mui/material/Table';
+import TableContainer from '@mui/material/TableContainer';
+import Paper from '@mui/material/Paper';
+import Stack from '@mui/material/Stack';
 
 function Questionnaire(props) {
     function sec(req, type) {
@@ -31,21 +35,32 @@ function Questionnaire(props) {
     return (
         <>
             <Container maxWidth="md" style={{ marginTop: '80px', marginBottom: '80px' }}>
-            <Typography variant="h4" gutterBottom>
-                { props.questionnaireTitle }
-            </Typography>
-            <Typography variant="h6" gutterBottom>
-                { Keywords }
-            </Typography>
-            <List
-                sx={{
-                    width: '100%',
-                    bgcolor: 'background.paper',
-                    mt:2
-                }}
-                >
-                { Questions }
-                </List>              
+                <TableContainer component={Paper} style={{ marginTop: '20px'}}>
+                    <Table aria-label="customized table">
+                        <Stack 
+                        direction="column" 
+                        justifyContent="center" 
+                        alignItems="left" 
+                        spacing={3}
+                        style={{ padding: '20px'}}>
+                            <Typography variant="h4">
+                                { props.questionnaireTitle }
+                            </Typography>
+                            <Typography variant="h6">
+                                { Keywords }
+                            </Typography>
+                            <List
+                                sx={{
+                                    width: '100%',
+                                    bgcolor: 'background.paper',
+                                }}
+                                >
+                                { Questions }
+                            </List>
+                        </Stack>
+                    </Table>
+                </TableContainer>
+                              
             </Container>        
         </>
         

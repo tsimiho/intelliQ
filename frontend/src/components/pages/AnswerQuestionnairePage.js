@@ -18,15 +18,23 @@ function AnswerQuestionnairePage(props) {
   const [questionnaireTitle, setQuestionnaireTitle] = React.useState('');
 
   if (check) {
+    // axios
+    //     .get(
+    //         `/questionnaire/${params.questionnaireID}`,
+    //         { crossdomain: true }
+    //     )
+    //     .then((response) => {
+    //         setQuestionnaireTitle(response.data.questionnaireTitle);
+    //         setCheck(false);
+    //     });
     axios
-    .get(
-        `/questionnaire/${params.questionnaireID}`,
-        { crossdomain: true }
-    )
-    .then((response) => {
-        setQuestionnaireTitle(response.data.questionnaireTitle);
-        setCheck(false);
-    });
+        .get(
+            `/admin/protected`,
+            { crossdomain: true }
+        )
+        .then((response) => {
+            console.log(response);
+        });
   }
 
   const generateRandom = () => {
@@ -44,18 +52,6 @@ function AnswerQuestionnairePage(props) {
     }
     return makeid(4);
   }
-
-//   function Submit () {
-//     axios
-//         .get(
-//             `/firstq/${params.questionnaireID}`,
-//             { crossdomain: true }
-//         )
-//         .then((response) => {
-//             setQuestion(response.data);
-//             ;
-//         });           
-//   }
 
   return (
     <Container maxWidth="md" style={{ marginTop: '80px', marginBottom: '80px'}}>
