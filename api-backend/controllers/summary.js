@@ -33,6 +33,11 @@ const summary = async (req, res) => {
                                     qtext: questions[j].qtext,
                                     opttxt: questions[j].options[k].opttxt,
                                 });
+                            } else if (questions[j].options.length == 1) {
+                                session_text.pairs.push({
+                                    qtext: questions[j].qtext,
+                                    opttxt: pair.optionID,
+                                });
                             }
                         }
                     }
