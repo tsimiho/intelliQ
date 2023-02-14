@@ -2,12 +2,11 @@ const QuestionnaireSchema = require("../models/questionnaire");
 const AdminSchema = require("../models/admin");
 const { findOneAndUpdate } = require("../models/questionnaire");
 
-async function addtodb(data, req, res) {
+async function addtodb(req, res, data) {
     var temp_id = data.questionnaireID;
-
     makeid = (n) => {
         var prefix = "QQ";
-        var postfix = n.toString().padStart(4 - n.toString().length, "0");
+        var postfix = n.toString().padStart(3, "0");
         const result = prefix + postfix;
         return result;
     };
