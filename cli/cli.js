@@ -250,13 +250,13 @@ program
     .command("admin")
     .requiredOption("--usermod", "command test option")
     .requiredOption("--username <value>", "command test option")
-    .requiredOption("--password <value>", "please provide format")
+    .requiredOption("--passw <value>", "please provide format")
     .action((options) => {
         try {
             axios
                 .post(baseURL + "/register", {
                     username: options.username,
-                    password: options.password,
+                    password: options.passw,
                 })
                 .catch((error) => {
                     console.log("You are not authorized");
