@@ -34,6 +34,13 @@ const history = async (req, res) => {
                                     };
                                     obj.pair.push(p);
                                     break;
+                                } else if (options.length == 1) {
+                                    var p = {
+                                        qtext: qtext,
+                                        opttxt: optionID,
+                                    };
+                                    obj.pair.push(p);
+                                    break;
                                 }
                             }
                             break;
