@@ -18,17 +18,25 @@ const login = (username, password) => {
         })
         .then((req, res) => {
             if (fs.existsSync("jwt.txt")) {
-                fs.unlink("jwt.txt");
+                fs.unlink("jwt.txt", function (err) {
+                    if (err) throw err;
+                });
             }
             fs.writeFile("jwt.txt", req.data.token, function (err) {
                 if (err) throw err;
                 console.log("Login Successful!");
             });
+        })
+        .catch((error) => {
+            console.log("You are not authorized");
         });
 };
 
 (function () {
-    const token = fs.existsSync("jwt.txt") ? fs.readFileSync("jwt.txt") : "";
+    var token;
+    if (fs.existsSync("jwt.txt")) {
+        token = fs.readFileSync("jwt.txt");
+    }
     if (token) {
         axios.defaults.headers.common["X-OBSERVATORY-AUTH"] = token;
     } else {
@@ -54,8 +62,8 @@ const http_request_get = (api, format) => {
 };
 
 const http_request_post = (api) => {
-    axios.post(baseURL + api).catch("error", (err) => {
-        console.log("Error: " + err.message);
+    axios.post(baseURL + api).catch((error) => {
+        console.log(error);
     });
 };
 
@@ -70,7 +78,6 @@ program.command("healthcheck").action((options) => {
 program.command("resetall").action((options) => {
     try {
         http_request_post("/admin/resetall");
-        console.log(JSON.stringify({ status: "OK" }));
     } catch (error) {
         console.log(error);
     }
@@ -96,8 +103,7 @@ program
     .requiredOption("--questionnaire_id <value>", "command test option")
     .action((options) => {
         try {
-            http_request_post("/resetq/" + options.questionnaire_id);
-            console.log(JSON.stringify({ status: "OK" }));
+            http_request_post("/admin/resetq/" + options.questionnaire_id);
         } catch (error) {
             console.log(error);
         }
@@ -247,12 +253,21 @@ program
     .requiredOption("--password <value>", "please provide format")
     .action((options) => {
         try {
-            axios.post(baseURL + "/register", {
-                username: options.username,
-                password: options.password,
-            });
+            axios
+                .post(baseURL + "/register", {
+                    username: options.username,
+                    password: options.password,
+                })
+                .catch((error) => {
+                    console.log("You are not authorized");
+                });
+            // .then((req, res) => {
+            //     if (req.status == 401) {
+            //         console.log("You are not authorized");
+            //     }
+            // });
         } catch (error) {
-            console.log(error);
+            console.log("error");
         }
     });
 

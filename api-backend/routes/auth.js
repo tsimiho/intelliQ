@@ -7,7 +7,9 @@ const { login, register, protected } = require("../controllers/adminauth");
 
 router.route("/login").post(login);
 
-router.route("/register").post(register);
+router
+    .route("/register")
+    .post(passport.authenticate("jwt", { session: false }), register);
 
 router
     .route("/protected")

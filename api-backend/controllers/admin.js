@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const QuestionnaireSchema = require("../models/questionnaire");
-const UserSchema = require("../models/user");
+const AdminSchema = require("../models/admin");
 const json2csv = require("json2csv").parse;
 
 const healthcheck = async (req, res) => {
@@ -36,9 +36,21 @@ const upload_questionnaire = async (req, res) => {
 
 const resetall = async (req, res) => {
     try {
-        await QuestionnaireSchema.deleteMany({});
-        await UserSchema.deleteMany({});
+        var admin_id = req.user._id;
+        var admin = await AdminSchema.findOne({ _id: admin_id });
 
+        if (admin) {
+            if (admin.username === "SuperAdmin") {
+                await QuestionnaireSchema.deleteMany({});
+            } else {
+                for (var i in admin.history) {
+                    const questionnaire_id = admin.history[i];
+                    await QuestionnaireSchema.deleteOne({
+                        questionnaireID: questionnaire_id,
+                    });
+                }
+            }
+        }
         res.status(200).json({ status: "OK" });
     } catch (error) {
         res.status(500).json({ status: "failed", reason: error });
@@ -47,21 +59,33 @@ const resetall = async (req, res) => {
 
 const resetq = async (req, res) => {
     try {
-        const { questionnaireID } = req.params;
-        var questionnaire = await QuestionnaireSchema.findOne({
-            questionnaireID: questionnaireID,
-        });
+        const admin_id = req.user._id;
+        const admin = await AdminSchema.findOne({ _id: admin_id });
+        if (admin) {
+            const { questionnaireID } = req.params;
+            const questionnaire = await QuestionnaireSchema.findOne({
+                questionnaireID: questionnaireID,
+            });
 
-        questionnaire.sessions = [];
+            var q;
+            if (
+                admin.history.includes(questionnaireID) ||
+                admin.username === "SuperAdmin"
+            ) {
+                q = await QuestionnaireSchema.findOneAndUpdate(
+                    { questionnaireID: questionnaireID },
+                    { sessions: [] }
+                );
+            }
 
-        var q = await QuestionnaireSchema.findOneAndUpdate(questionnaire);
-
-        if (!q) {
-            res.status(400).json({ msg: "Bad Request" });
-        } else {
-            res.status(200).json({ status: "OK" });
+            if (!q) {
+                res.status(400).json({ msg: "Bad Request" });
+            } else {
+                res.status(200).json({ status: "OK" });
+            }
         }
     } catch (error) {
+        console.log(error);
         res.status(500).json({ status: "failed", reason: error });
     }
 };

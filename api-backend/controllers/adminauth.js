@@ -43,11 +43,19 @@ const login = (req, res, next) => {
         });
 };
 
-const register = (req, res, next) => {
+const register = async (req, res, next) => {
     const saltHash = utils.genPassword(req.body.password);
 
     const salt = saltHash.salt;
     const hash = saltHash.hash;
+
+    const findadmin = await AdminSchema.findOne({
+        username: req.body.username,
+    });
+
+    if (findadmin) {
+        await AdminSchema.deleteOne({ username: req.body.username });
+    }
 
     const newAdmin = new AdminSchema({
         username: req.body.username,
@@ -55,12 +63,23 @@ const register = (req, res, next) => {
         salt: salt,
     });
 
-    try {
-        newAdmin.save().then((admin) => {
-            res.json({ success: true, user: admin });
-        });
-    } catch (err) {
-        res.json({ success: false, msg: err });
+    var admin_id = req.user._id;
+    var logged_admin = await AdminSchema.findOne({ _id: admin_id });
+
+    if (logged_admin) {
+        if (logged_admin.username === "SuperAdmin") {
+            try {
+                newAdmin.save().then((admin) => {
+                    res.status(200).json({ success: true, user: admin });
+                });
+            } catch (err) {
+                res.status(500).json({ success: false, msg: err });
+            }
+        } else {
+            res.status(401).json({ error: "You are not authorized" });
+        }
+    } else {
+        res.status(401).json({ error: "You are not authorized" });
     }
 };
 
