@@ -26,7 +26,7 @@ const allquestionnaires = async (req, res) => {
             };
             if (
                 admin_history.includes(questionnaireID) ||
-                admin_username === "SuperUser"
+                admin_username === "SuperAdmin"
             ) {
                 result.push(pair);
             }
