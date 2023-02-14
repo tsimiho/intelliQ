@@ -11,6 +11,7 @@ import Table from '@mui/material/Table';
 import TableContainer from '@mui/material/TableContainer';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
+import { Redirect } from 'react-router-dom';
 import axios from "axios";
 
 function QuestionPage2(props) {
@@ -27,7 +28,8 @@ function QuestionPage2(props) {
     const [questionnaireTitle, setQuestionnaireTitle] = useState('');
     const [answer, setAnswer] = useState("");
     const [check, setCheck] = useState(true);
-    
+    const [stat, setStat] = React.useState('');
+
     const handleChange = (event) => {
         setAnswer(event.target.value);
     };
@@ -67,10 +69,11 @@ function QuestionPage2(props) {
             question.options.length === 1 ? 
             question.options[0] :
             question.options.find((o) => o.optID === answer));
-        //console.log(params.questionnaireID,question.qID,params.session,option.optID);
+        let ID = question.options.length === 1 ? 'TXT' : option.optID;
         axios
             .post(
-                `/doanswer/${params.questionnaireID}/${question.qID}/${params.session}/${option.optID}`
+                `http://localhost:9103/intelliq_api/doanswer/${params.questionnaireID}/${question.qID}/${params.session}/${ID}`, 
+                {'answer': answer}
             );
         axios
             .get(
@@ -79,6 +82,9 @@ function QuestionPage2(props) {
             )
             .then((response) => {
                 setQuestion(response.data);
+            })
+            .catch((error) => {
+                setStat(error.response.status);
             });           
     }
     function MyButton() {
@@ -106,6 +112,9 @@ function QuestionPage2(props) {
             .then((response) => {
                 setQuestion(response.data);
                 setCheck(false);
+            })
+            .catch((error) => {
+                setStat(error.response.status);
             });
             axios
             .get(
@@ -114,8 +123,17 @@ function QuestionPage2(props) {
             )
             .then((response) => {
                 setQuestionnaireTitle(response.data.questionnaireTitle);
+            })
+            .catch((error) => {
+                setStat(error.response.status);
             });
     }   
+
+    if (stat !== '') {
+        return (
+            <Redirect to={`/error/${stat}`} />
+        )
+      }
 
     return (
         <Container maxWidth="md" style={{ marginTop: "80px", marginBottom: '80px'}}>

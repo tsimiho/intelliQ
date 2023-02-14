@@ -1,5 +1,6 @@
 import React from 'react'
 import Questionnaire from '../Questionnaire';
+import { Redirect } from 'react-router-dom';
 import axios from "axios";
 
 function QuestionnairePage(props) {
@@ -10,6 +11,7 @@ function QuestionnairePage(props) {
       "keywords": [],
       "questions": []
     });
+    const [stat, setStat] = React.useState('');
 
     axios
         .get(
@@ -18,7 +20,15 @@ function QuestionnairePage(props) {
         )
         .then((response) => {
           setQ(response.data);
+        }).catch((error) => {
+          setStat(error.response.status);
         });
+
+    if (stat !== '') {
+      return (
+          <Redirect to={`/error/${stat}`} />
+      )
+    }
 
     return (
         <Questionnaire

@@ -22,6 +22,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Table from '@mui/material/Table';
 import TableContainer from '@mui/material/TableContainer';
 import Paper from '@mui/material/Paper';
+import { Redirect } from 'react-router-dom';
 import axios from "axios";
 
 function Admin(props) {
@@ -33,15 +34,29 @@ function Admin(props) {
   const [openUpload, setOpenUpload] = React.useState(false);
   const [file, setFile] = React.useState();
   const [Q, setQ] = React.useState([]);
+  const [stat, setStat] = React.useState('');
+  const [check, setCheck] = React.useState(true);
 
-  axios
+  if (check) {
+    axios
     .get(
         `/allquestionnaires`,
         { crossdomain: true }
     )
     .then((response) => {
         setQ(response.data);
+        setCheck(false);
+    })
+    .catch((error) => {
+        setStat(error.response.status);
     });
+  }
+  
+  if (stat !== '') {
+    return (
+        <Redirect to={`/error/${stat}`} />
+    )
+  }
 
   function Questionnaires () {
     return (
@@ -64,6 +79,9 @@ function Admin(props) {
         )
         .then((response) => {
             setHelathcheck(response.data.status === 'OK');
+        })
+        .catch((error) => {
+            setStat(error.response.status);
         });
     setTimeout(() => {setOpenHealthcheck(true);}, 500);
   };
@@ -77,6 +95,9 @@ function Admin(props) {
         )
         .then((response) => {
             setResetall(response.data.status === 'OK');
+        })
+        .catch((error) => {
+            setStat(error.response.status);
         });
     setOpenResetall(true);
   };

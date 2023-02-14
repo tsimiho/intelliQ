@@ -29,7 +29,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 function GetQuestionAnswers(props) {
   return (
-    <Container maxWidth="sm" style={{ marginTop: '80px' }}>
+    <Container maxWidth="sm" style={{ marginTop: '80px', marginBottom: '80px' }}>
         <TableContainer component={Paper} style={{ marginTop: '20px'}}>
             <Table aria-label="customized table">
                 <Stack 

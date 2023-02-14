@@ -13,6 +13,7 @@ import Divider from '@mui/material/Divider';
 import FullQuestionnaire from '../FullQuestionnaire';
 import Statistics from '../Statistics';
 import { Typography } from '@mui/material';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 function ViewQuestionnairePage(props) {
@@ -26,6 +27,8 @@ function ViewQuestionnairePage(props) {
     "questions": []
   });
   const [bars, setBars] = React.useState([]);
+  const [stat, setStat] = React.useState('');
+  const [check, setCheck] = React.useState(true);
 
   const handleInfoClick = () => {
     setInfo(!info);
@@ -37,13 +40,17 @@ function ViewQuestionnairePage(props) {
     setInfo(false);
   };
 
-  axios
+  if (check) {
+    axios
       .get(
           `/fullquestionnaire/${params.questionnaireID}`,
           { crossdomain: true }
       )
       .then((response) => {
         setQ(response.data);
+      })
+      .catch((error) => {
+        setStat(error.response.status);
       });
 
   axios
@@ -53,7 +60,19 @@ function ViewQuestionnairePage(props) {
       )
       .then((response) => {
         setBars(response.data);
+        setCheck(true);
+      })
+      .catch((error) => {
+        setStat(error.response.status);
       });
+  }
+  
+  
+  if (stat !== '') {
+    return (
+        <Redirect to={`/error/${stat}`} />
+    )
+  }
 
   return (
     <Container maxWidth="md" style={{ marginTop: '80px', marginBottom: '80px'}}>

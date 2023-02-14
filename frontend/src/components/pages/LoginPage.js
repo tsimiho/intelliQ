@@ -26,18 +26,22 @@ export default function LogIn() {
     console.log(pair);
     axios
     .post(
-        `/admin/login`, pair
+        `/login`, pair
     )
     .then((response) => {
         const res = response.data;
-        const expires = moment().add(res.expiresIn);
+        const expires = moment().add(1, 'days');
         localStorage.setItem('token', res.token);
         localStorage.setItem('expires', expires);
         localStorage.setItem('username', pair.username);
-        setSuccess(true);
+        setTimeout(() => {setSuccess(true);}, 500);
     });    
 
   };
+
+  if (success) {
+      window.location.href = 'http://localhost:3000/admin';
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -87,7 +91,6 @@ export default function LogIn() {
             </Button>
           </Box>
         </Box>
-        {success ? <Redirect to='/admin' /> : <></>}
       </Container>
     </ThemeProvider>
   );

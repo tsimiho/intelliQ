@@ -14,6 +14,8 @@ import Select from '@mui/material/Select';
 import Paper from '@mui/material/Paper';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CancelIcon from '@mui/icons-material/Cancel';
+import Table from '@mui/material/Table';
+import TableContainer from '@mui/material/TableContainer';
 
 function CreateQuestionnairePage2() {
   const [title, setTitle] = useState('');
@@ -149,211 +151,224 @@ function CreateQuestionnairePage2() {
   }
 
   return (
-    <Container maxWidth="md" style={{ marginTop: '80px', marginBottom: '80px'}}>
-        <Typography variant="h4" gutterBottom>
-            Δημιουργία Ερωτηματολογίου
-        </Typography>
-        <Box sx={{ mt: 5 }}>
-        <TextField 
-            required 
-            id="outlined-required" 
-            label="Τίτλος ερωτηματολογίου"
-            value={title}
-            onChange={event => ChangeTitle(event)}
-            multiline
-            sx={{ width: 640 }}
-        />
-        </Box>  
-        <Box sx={{ mt: 2, width: 640  }}>
-            <Stack direction="row" justifyContent="space-between" alignItems="center">
-                <Typography variant="h6">
-                    Λέξεις κλειδιά : 
-                </Typography>
-                <TextField 
-                    required
-                    id="outlined-required" 
-                    label="Λέξι κλειδί 1"
-                    value={keyword1}
-                    onChange={event => ChangeKeyword1(event)}
-                    multiline
-                    sx={{ width: 160}}
-                />
-                <TextField 
-                    required
-                    id="outlined-required" 
-                    label="Λέξι κλειδί 2"
-                    value={keyword2}
-                    onChange={event => ChangeKeyword2(event)}
-                    multiline
-                    sx={{ width: 160 }}
-                />
-                <TextField  
-                    required
-                    id="outlined-required" 
-                    label="Λέξι κλειδί 3"
-                    value={keyword3}
-                    onChange={event => ChangeKeyword3(event)}
-                    multiline
-                    sx={{ width: 160 }}
-                />
-            </Stack>
-        </Box>      
-        <Box sx={{ mt: 5 }}>
-            <Typography variant="h5">
-                Ερωτήσεις
-            </Typography>
-            { questions.map(question => (
-                <Box sx={{ mt: 3, width: 640 }}>
-                <Paper sx={{ p:2 }}>
-                    <Stack direction="row" justifyContent="space-between" alignItems="center">
-                      <Typography variant="h6" gutterBottom>
-                          {`Ερώτηση ${question.qID}`}
-                      </Typography> 
-                      <IconButton color="primary" sx={{ mr: 2 }} 
-                      onClick={() => handleRemoveQuestion(question.qID)}
-                      >
-                        <CancelIcon sx={{ fontSize: 35 }}/>
-                      </IconButton>                 
-                    </Stack>
-                    <FormControl fullWidth>
-                      <TextField 
-                          required 
-                          id="outlined-required" 
-                          label="Κείμενο ερώτησης"
-                          name="qtext"
-                          value={question.qtext}
-                          onChange={event => ChangeField(question.qID, event)}
-                          multiline
-                          sx={{ mt:1 }}
-                      />
-                    </FormControl>
-                    <Box sx={{ mt: 4 }} fullWidth>
-                        <Stack direction="row" justifyContent="space-between" alignItems="center">
-                            <FormControl>
-                                <InputLabel id="demo-simple-select-label">Τύπος ερώτησης</InputLabel>
-                                <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                name="type"
-                                value={question.type}
-                                label="Τύπος ερώτησης"
-                                onChange={event => ChangeField(question.qID, event)}
-                                sx={{ width: 190 }}
-                                >
-                                <MenuItem value="question">Ερώτηση</MenuItem>
-                                <MenuItem value="profile">Προφίλ</MenuItem>
-                                </Select>
-                            </FormControl>
-                            <FormControl>
-                                <InputLabel id="demo-simple-select-label">Είδος απάντησης</InputLabel>
-                                <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                name="answertype"
-                                value={question.answertype}
-                                label="Είδος απάντησης"
-                                onChange={event => ChangeField(question.qID, event)}
-                                sx={{ width: 190 }}
-                                >
-                                <MenuItem value="text">Κείμενο</MenuItem>
-                                <MenuItem value="multi">Επιλογή</MenuItem>
-                                </Select>
-                            </FormControl>
-                            <FormControl>
-                                <InputLabel id="demo-simple-select-label">Υποχρεωτική</InputLabel>
-                                <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                name="required"
-                                value={question.required}
-                                label="Υποχρεωτική"
-                                onChange={event =>ChangeField(question.qID, event)}
-                                sx={{ width: 190 }}
-                                >
-                                <MenuItem value="TRUE">Ναι</MenuItem>
-                                <MenuItem value="FALSE">Όχι</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Stack>
-                    </Box>
-                    { question.answertype === 'text' ?
-                    (<Stack direction="row" justifyContent="flex-start" alignItems="center" sx={{ mt: 2 }}>
+    <Container maxWidth="md" style={{ marginTop: '80px', marginBottom: '80px'}} sx={{ width: 760 }}>
+      <TableContainer component={Paper} style={{ marginTop: '20px'}}>
+          <Table aria-label="customized table">
+              <Stack 
+              direction="column" 
+              justifyContent="center" 
+              alignItems="left" 
+              //spacing={2}
+              style={{ padding: '30px'}}>
+              <Typography variant="h4" gutterBottom>
+                  Δημιουργία Ερωτηματολογίου
+              </Typography>
+              <Box sx={{ mt: 5 }}>
+              <TextField 
+                  required 
+                  id="outlined-required" 
+                  label="Τίτλος ερωτηματολογίου"
+                  value={title}
+                  onChange={event => ChangeTitle(event)}
+                  multiline
+                  sx={{ width: 640 }}
+              />
+              </Box>  
+              <Box sx={{ mt: 2, width: 640  }}>
+                  <Stack direction="row" justifyContent="space-between" alignItems="center">
                       <Typography variant="h6">
-                          Επόμενη Ερώτηση : 
+                          Λέξεις κλειδιά : 
                       </Typography>
-                      <FormControl sx={{ ml: 2 }}>
-                          <InputLabel id="demo-simple-select-label"></InputLabel>
-                          <Select
-                          labelId="demo-simple-select-label"
-                          id="demo-simple-select"
-                          name="nextIfText"
-                          value={question.nextIfText}
-                          label=""
-                          onChange={event => ChangeField(question.qID,event)}
-                          sx={{ width: 120 }}
-                          >
-                          {findNext(question.qID)}
-                          </Select>
-                      </FormControl>
-                    </Stack>) : (
-                    <Box sx={{ mt: 2 }} fullWidth>
+                      <TextField 
+                          required
+                          id="outlined-required" 
+                          label="Λέξι κλειδί 1"
+                          value={keyword1}
+                          onChange={event => ChangeKeyword1(event)}
+                          multiline
+                          sx={{ width: 160}}
+                      />
+                      <TextField 
+                          required
+                          id="outlined-required" 
+                          label="Λέξι κλειδί 2"
+                          value={keyword2}
+                          onChange={event => ChangeKeyword2(event)}
+                          multiline
+                          sx={{ width: 160 }}
+                      />
+                      <TextField  
+                          required
+                          id="outlined-required" 
+                          label="Λέξι κλειδί 3"
+                          value={keyword3}
+                          onChange={event => ChangeKeyword3(event)}
+                          multiline
+                          sx={{ width: 160 }}
+                      />
+                  </Stack>
+              </Box>      
+              <Box sx={{ mt: 5 }}>
+                  <Typography variant="h5">
+                      Ερωτήσεις
+                  </Typography>
+                  { questions.map(question => (
+                      <Box sx={{ mt: 3, width: 640 }}>
                       <Paper sx={{ p:2 }}>
-                          <Stack direction="row" alignItems="center" spacing={1}>
-                            <Typography variant="h6">
-                                Επιλογές
-                            </Typography>
-                            <IconButton color="primary" onClick={() => handleAddOption(question.qID)}>
-                              <AddCircleIcon sx={{ fontSize: 35 }}/>
-                            </IconButton>
-                          </Stack>
-                          { question.options.map(option => (
-                            <Stack key={option.optID} direction="row" 
-                            justifyContent="space-between" alignItems="center" 
-                            sx={{ mt: option.optID>1 ? 1 : 0 }} fullWidth
+                          <Stack direction="row" justifyContent="space-between" alignItems="center">
+                            <Typography variant="h6" gutterBottom>
+                                {`Ερώτηση ${question.qID}`}
+                            </Typography> 
+                            <IconButton color="primary" sx={{ mr: 2 }} 
+                            onClick={() => handleRemoveQuestion(question.qID)}
                             >
-                              <FormControl >
-                                <TextField 
-                                    required 
-                                    id="outlined-required"
-                                    name="opttxt" 
-                                    label={`Επιλογή ${option.optID}`}
-                                    multiline
-                                    value={option.opttxt}
-                                    onChange={event => handleChangeOption(question.qID, option.optID, event)}
-                                    sx={{ mt:1, width: 370 }}
-                                />
-                              </FormControl> 
-                              <FormControl sx={{ mt: 1 }}>
-                                  <InputLabel id="demo-simple-select-label">Επόμενη Ερώτηση</InputLabel>
-                                  <Select
-                                  labelId="demo-simple-select-label"
-                                  id="demo-simple-select"
-                                  name="nextqID"
-                                  value={option.nextqID}
-                                  label="Επόμενη Ερώτηση"
-                                  onChange={event => handleChangeOption(question.qID, option.optID, event)}
-                                  sx={{ width: 130 }}
+                              <CancelIcon sx={{ fontSize: 35 }}/>
+                            </IconButton>                 
+                          </Stack>
+                          <FormControl fullWidth>
+                            <TextField 
+                                required 
+                                id="outlined-required" 
+                                label="Κείμενο ερώτησης"
+                                name="qtext"
+                                value={question.qtext}
+                                onChange={event => ChangeField(question.qID, event)}
+                                multiline
+                                sx={{ mt:1 }}
+                            />
+                          </FormControl>
+                          <Box sx={{ mt: 4 }} fullWidth>
+                              <Stack direction="row" justifyContent="space-between" alignItems="center">
+                                  <FormControl>
+                                      <InputLabel id="demo-simple-select-label">Τύπος ερώτησης</InputLabel>
+                                      <Select
+                                      labelId="demo-simple-select-label"
+                                      id="demo-simple-select"
+                                      name="type"
+                                      value={question.type}
+                                      label="Τύπος ερώτησης"
+                                      onChange={event => ChangeField(question.qID, event)}
+                                      sx={{ width: 190 }}
+                                      >
+                                      <MenuItem value="question">Ερώτηση</MenuItem>
+                                      <MenuItem value="profile">Προφίλ</MenuItem>
+                                      </Select>
+                                  </FormControl>
+                                  <FormControl>
+                                      <InputLabel id="demo-simple-select-label">Είδος απάντησης</InputLabel>
+                                      <Select
+                                      labelId="demo-simple-select-label"
+                                      id="demo-simple-select"
+                                      name="answertype"
+                                      value={question.answertype}
+                                      label="Είδος απάντησης"
+                                      onChange={event => ChangeField(question.qID, event)}
+                                      sx={{ width: 190 }}
+                                      >
+                                      <MenuItem value="text">Κείμενο</MenuItem>
+                                      <MenuItem value="multi">Επιλογή</MenuItem>
+                                      </Select>
+                                  </FormControl>
+                                  <FormControl>
+                                      <InputLabel id="demo-simple-select-label">Υποχρεωτική</InputLabel>
+                                      <Select
+                                      labelId="demo-simple-select-label"
+                                      id="demo-simple-select"
+                                      name="required"
+                                      value={question.required}
+                                      label="Υποχρεωτική"
+                                      onChange={event =>ChangeField(question.qID, event)}
+                                      sx={{ width: 190 }}
+                                      >
+                                      <MenuItem value="TRUE">Ναι</MenuItem>
+                                      <MenuItem value="FALSE">Όχι</MenuItem>
+                                      </Select>
+                                  </FormControl>
+                              </Stack>
+                          </Box>
+                          { question.answertype === 'text' ?
+                          (<Stack direction="row" justifyContent="flex-start" alignItems="center" sx={{ mt: 2 }}>
+                            <Typography variant="h6">
+                                Επόμενη Ερώτηση : 
+                            </Typography>
+                            <FormControl sx={{ ml: 2 }}>
+                                <InputLabel id="demo-simple-select-label"></InputLabel>
+                                <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                name="nextIfText"
+                                value={question.nextIfText}
+                                label=""
+                                onChange={event => ChangeField(question.qID,event)}
+                                sx={{ width: 120 }}
+                                >
+                                {findNext(question.qID)}
+                                </Select>
+                            </FormControl>
+                          </Stack>) : (
+                          <Box sx={{ mt: 2 }} fullWidth>
+                            <Paper sx={{ p:2 }}>
+                                <Stack direction="row" alignItems="center" spacing={1}>
+                                  <Typography variant="h6">
+                                      Επιλογές
+                                  </Typography>
+                                  <IconButton color="primary" onClick={() => handleAddOption(question.qID)}>
+                                    <AddCircleIcon sx={{ fontSize: 35 }}/>
+                                  </IconButton>
+                                </Stack>
+                                { question.options.map(option => (
+                                  <Stack key={option.optID} direction="row" 
+                                  justifyContent="space-between" alignItems="center" 
+                                  sx={{ mt: option.optID>1 ? 1 : 0 }} fullWidth
                                   >
-                                  {findNext(question.qID)}
-                                  </Select>
-                              </FormControl>
-                              <IconButton color="primary" sx={{ mt: 0.5 }} onClick={() => handleRemoveOption(question.qID, option.optID)}>
-                                <DeleteIcon sx={{ fontSize: 35 }}/>
-                              </IconButton>
-                            </Stack> 
-                          ))}                                                                
+                                    <FormControl >
+                                      <TextField 
+                                          required 
+                                          id="outlined-required"
+                                          name="opttxt" 
+                                          label={`Επιλογή ${option.optID}`}
+                                          multiline
+                                          value={option.opttxt}
+                                          onChange={event => handleChangeOption(question.qID, option.optID, event)}
+                                          sx={{ mt:1, width: 370 }}
+                                      />
+                                    </FormControl> 
+                                    <FormControl sx={{ mt: 1 }}>
+                                        <InputLabel id="demo-simple-select-label">Επόμενη Ερώτηση</InputLabel>
+                                        <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        name="nextqID"
+                                        value={option.nextqID}
+                                        label="Επόμενη Ερώτηση"
+                                        onChange={event => handleChangeOption(question.qID, option.optID, event)}
+                                        sx={{ width: 130 }}
+                                        >
+                                        {findNext(question.qID)}
+                                        </Select>
+                                    </FormControl>
+                                    <IconButton color="primary" sx={{ mt: 0.5 }} onClick={() => handleRemoveOption(question.qID, option.optID)}>
+                                      <DeleteIcon sx={{ fontSize: 35 }}/>
+                                    </IconButton>
+                                  </Stack> 
+                                ))}                                                                
+                            </Paper>                      
+                          </Box>)}
                       </Paper>                      
-                    </Box>)}
-                </Paper>                      
-            </Box>
-            ))}
-        </Box>
-        <IconButton sx={{ mt: 3 }} color="primary" onClick={handleAddQuestion}>
-            <AddCircleIcon sx={{ fontSize: 40 }}/>
-        </IconButton>
-        <Stack direction="row" justifyContent="flex-end" sx={{ width: 640 }}>
-            <Button onClick={handleSubmit} variant="contained" sx={{ mt: 1 }} >Δημιουργια</Button>
-        </Stack>              
+                  </Box>
+                  ))}
+              </Box>
+              <Stack direction="row" allignment='left'>
+                <IconButton sx={{ mt: 2 }} color="primary" onClick={handleAddQuestion}>
+                    <AddCircleIcon sx={{ fontSize: 40 }}/>
+                </IconButton>
+              </Stack>
+              <Stack direction="row" justifyContent="flex-end" sx={{ width: 640 }}>
+                  <Button onClick={handleSubmit} variant="contained" sx={{ mt: 1 }} >Δημιουργια</Button>
+              </Stack>   
+            </Stack>
+          </Table>
+        </TableContainer>           
     </Container> 
   )
 }

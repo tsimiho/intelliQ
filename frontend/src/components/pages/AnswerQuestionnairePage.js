@@ -13,29 +13,24 @@ import logo from '../../fixed_logo3.png';
 
 function AnswerQuestionnairePage(props) {
   const { params } = props.match;
-  const [check, setCheck] = React.useState(true);
   const [session, setSession] = React.useState('');
   const [questionnaireTitle, setQuestionnaireTitle] = React.useState('');
+  const [stat, setStat] = React.useState('');
 
-  if (check) {
-    // axios
-    //     .get(
-    //         `/questionnaire/${params.questionnaireID}`,
-    //         { crossdomain: true }
-    //     )
-    //     .then((response) => {
-    //         setQuestionnaireTitle(response.data.questionnaireTitle);
-    //         setCheck(false);
-    //     });
-    axios
+  if(questionnaireTitle === '') {
+        axios
         .get(
-            `/admin/protected`,
+            `/questionnaire/${params.questionnaireID}`,
             { crossdomain: true }
         )
         .then((response) => {
-            console.log(response);
-        });
+            setQuestionnaireTitle(response.data.questionnaireTitle);
+        })
+        .catch((error) => {
+            setStat(error.response.status);
+        })
   }
+
 
   const generateRandom = () => {
     function makeid(length) {
@@ -51,6 +46,12 @@ function AnswerQuestionnairePage(props) {
         return result;
     }
     return makeid(4);
+  }
+
+  if (stat !== '') {
+    return (
+        <Redirect to={`/error/${stat}`} />
+    )
   }
 
   return (
