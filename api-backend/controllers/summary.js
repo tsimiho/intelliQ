@@ -19,10 +19,6 @@ const summary = async (req, res) => {
                 }
             }
 
-            if (optionID === "TXT") {
-                optionID = req.body.answer;
-            }
-
             var session_text = { sessionID: session.sessionID, pairs: [] };
 
             for (var i in session.pairs) {
