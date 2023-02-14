@@ -44,9 +44,9 @@ const history = async (req, res) => {
             }
 
             if (req.query && req.query.format === "csv") {
-                res.status(200).send(json2csv(qnas));
+                res.status(200).send(json2csv(result));
             } else {
-                res.status(200).json(qnas);
+                res.status(200).json(result);
             }
         }
     } catch (error) {
