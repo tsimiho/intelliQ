@@ -16,8 +16,6 @@ const {
     users,
 } = require("../controllers/admin");
 
-const { login, register, protected } = require("../controllers/adminauth");
-
 router
     .route("/healthcheck")
     .get(passport.authenticate("jwt", { session: false }), healthcheck);
@@ -56,13 +54,5 @@ router
 router
     .route("users/:username")
     .get(passport.authenticate("jwt", { session: false }), users);
-
-router.route("/login").post(login);
-
-router.route("/register").post(register);
-
-router
-    .route("/protected")
-    .get(passport.authenticate("jwt", { session: false }), protected);
 
 module.exports = router;

@@ -29,11 +29,6 @@ const postOptionID = async (req, res) => {
                     break;
                 }
             }
-            // console.log(ses_index);
-
-            if (optionID === "TXT") {
-                optionID = req.body.answer;
-            }
 
             var pair = { qID: questionID, optionID: optionID };
 

@@ -27,9 +27,7 @@ const login = (req, res, next) => {
                 res.status(200).format({
                     "application/x-www-form-urlencoded": () => {
                         res.json({
-                            success: true,
                             token: tokenObject.token,
-                            expiresIn: tokenObject.expires,
                         });
                     },
                 });
