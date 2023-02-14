@@ -1,4 +1,5 @@
 const QuestionnaireSchema = require("../models/questionnaire");
+const json2csv = require("json2csv").parse;
 
 const getquestionanswers = async (req, res) => {
     try {
@@ -27,7 +28,12 @@ const getquestionanswers = async (req, res) => {
                 questionID: questionID,
                 answers: array,
             };
-            res.status(200).json(result);
+
+            if (req.query && req.query.format === "csv") {
+                res.status(200).send(json2csv(result));
+            } else {
+                res.status(200).json(result);
+            }
         }
     } catch (error) {
         res.status(500).json({ msg: error });
