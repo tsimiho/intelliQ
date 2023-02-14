@@ -6,45 +6,66 @@ const fs = require("fs");
 const request = require("request");
 const util = require("util");
 const json2csv = require("json2csv").parse;
+const axios = require("axios");
 
 const baseURL = "http://localhost:9103/intelliq_api";
 
-const http_request_get = (api, format) => {
-    http.get(baseURL + api, (res) => {
-        let data = "";
-        res.on("data", (chunk) => {
-            data += chunk;
+const login = (username, password) => {
+    axios
+        .post(baseURL + "/login", {
+            username: username,
+            password: password,
+        })
+        .then((req, res) => {
+            if (fs.existsSync("jwt.txt")) {
+                fs.unlink("jwt.txt");
+            }
+            fs.writeFile("jwt.txt", req.data.token, function (err) {
+                if (err) throw err;
+                console.log("Login Successful!");
+            });
         });
-        res.on("end", () => {
+};
+
+(function () {
+    const token = fs.existsSync("jwt.txt") ? fs.readFileSync("jwt.txt") : "";
+    if (token) {
+        axios.defaults.headers.common["X-OBSERVATORY-AUTH"] = token;
+    } else {
+        axios.defaults.headers.common["X-OBSERVATORY-AUTH"] = null;
+    }
+})();
+
+const http_request_get = (api, format) => {
+    axios
+        .get(baseURL + api)
+        .then((res) => {
             if (format === "json") {
-                console.log(JSON.stringify(JSON.parse(data), null, 2));
+                console.log(JSON.stringify(res.data, null, 2));
             } else if (format === "csv") {
-                console.log(json2csv(JSON.parse(data)));
+                console.log(json2csv(res.data));
             } else {
                 console.error("Unsupported format");
             }
+        })
+        .catch((err) => {
+            console.log("Error: " + err.message);
         });
-    }).on("error", (err) => {
-        console.log("Error: " + err.message);
-    });
 };
 
 const http_request_post = (api) => {
-    request.post(baseURL + api).on("error", (err) => {
+    axios.post(baseURL + api).catch("error", (err) => {
         console.log("Error: " + err.message);
     });
 };
 
-program
-    .command("healthcheck")
-    .requiredOption("--format <value>", "please provide format")
-    .action((options) => {
-        try {
-            http_request_get("/admin/healthcheck", options.format);
-        } catch (error) {
-            console.log(error);
-        }
-    });
+program.command("healthcheck").action((options) => {
+    try {
+        http_request_get("/admin/healthcheck", "json");
+    } catch (error) {
+        console.log(error);
+    }
+});
 
 program.command("resetall").action((options) => {
     try {
@@ -184,6 +205,51 @@ program
             form.append("uploaded_file", data, {
                 filename: "uploaded_file.txt",
                 contentType: "multipart/form_data",
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    });
+
+program
+    .command("login")
+    .requiredOption("--username <value>", "command test option")
+    .requiredOption("--password <value>", "please provide format")
+    .action((options) => {
+        try {
+            login(options.username, options.password);
+        } catch (error) {
+            console.log(error);
+        }
+    });
+
+program.command("logout").action((options) => {
+    try {
+        axios.post(baseURL + "/logout").then((req, res) => {
+            if ((req.status = 200)) {
+                if (fs.existsSync("jwt.txt")) {
+                    fs.unlink("jwt.txt", function (err) {
+                        if (err) throw err;
+                        console.log("Logout Successful!");
+                    });
+                }
+            }
+        });
+    } catch (error) {
+        console.log(error);
+    }
+});
+
+program
+    .command("admin")
+    .requiredOption("--usermod", "command test option")
+    .requiredOption("--username <value>", "command test option")
+    .requiredOption("--password <value>", "please provide format")
+    .action((options) => {
+        try {
+            axios.post(baseURL + "/register", {
+                username: options.username,
+                password: options.password,
             });
         } catch (error) {
             console.log(error);

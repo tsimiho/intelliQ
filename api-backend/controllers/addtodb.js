@@ -26,23 +26,23 @@ async function addtodb(data, req, res) {
 
     data.questionnaireID = temp_id;
 
-    // var admin_id = req.user._id;
-    // var admin = await AdminSchema.findOne({ _id: admin_id });
+    var admin_id = req.user._id;
+    var admin = await AdminSchema.findOne({ _id: admin_id });
 
-    // if (admin) {
-    //     var admin_history = admin.history;
+    if (admin) {
+        var admin_history = admin.history;
 
-    //     admin_history.push(temp_id);
+        admin_history.push(temp_id);
 
-    //     try {
-    //         await AdminSchema.findOneAndUpdate(
-    //             { _id: admin_id },
-    //             { history: admin_history }
-    //         );
-    //     } catch (error) {
-    //         res.status(500).json({ error: error });
-    //     }
-    // }
+        try {
+            await AdminSchema.findOneAndUpdate(
+                { _id: admin_id },
+                { history: admin_history }
+            );
+        } catch (error) {
+            res.status(500).json({ error: error });
+        }
+    }
 
     QuestionnaireSchema.create(data);
 }
