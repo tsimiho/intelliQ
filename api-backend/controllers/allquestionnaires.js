@@ -11,9 +11,11 @@ const allquestionnaires = async (req, res) => {
         var admin = await AdminSchema.findOne({ _id: admin_id });
 
         var admin_history;
+        var admin_username;
 
         if (admin) {
             admin_history = admin.history;
+            admin_username = admin.username;
         }
 
         for (const i in questionnaires) {
@@ -22,7 +24,10 @@ const allquestionnaires = async (req, res) => {
                 questionnaireID: questionnaireID,
                 questionnaireTitle: questionnaireTitle,
             };
-            if (admin_history.includes(questionnaireID)) {
+            if (
+                admin_history.includes(questionnaireID) ||
+                admin_username === "SuperUser"
+            ) {
                 result.push(pair);
             }
         }
