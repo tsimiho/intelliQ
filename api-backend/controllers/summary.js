@@ -20,7 +20,7 @@ const summary = async (req, res) => {
             }
 
             if (optionID === "TXT") {
-                optionID = req.data.answer;
+                optionID = req.body.answer;
             }
 
             var session_text = { sessionID: session.sessionID, pairs: [] };
