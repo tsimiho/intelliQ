@@ -1,12 +1,4 @@
 - switch language
-- testing
-- user auth with http and custom http header and cli
-- json or csv
-- get title
-- all questionnaire titles and ids
-
-
-- flow in answers
-- admin: questionnaireID-questionnaireTitle pairs
-         guestionnaireTitle-qtext pairs
-         all info about questionnaire
+- postman + API Documantation
+- update NoSQL JSON schemas
+- database dump
