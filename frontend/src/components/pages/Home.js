@@ -1,26 +1,34 @@
 import React from 'react';
-import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import Table from '@mui/material/Table';
+import TableContainer from '@mui/material/TableContainer';
+import Paper from '@mui/material/Paper';
+import Stack from '@mui/material/Stack';
+import logo from '../../fixed_logo3.png';
 
 function Home() {
   return (
-    <>
-      <Container maxWidth="sm" style={{ marginTop: '100px' }}>
-        <Button href="/questionnaire/QQ000" variant="contained">Ερωτηματολογιο</Button>
-      </Container>
-      <Container maxWidth="sm" style={{ marginTop: '100px' }}>
-        <Button href="/answer_questionnaire/QQ000" variant="contained">Απαντηση</Button>
-      </Container>
-      <Container maxWidth="sm" style={{ marginTop: '100px' }}>
-        <Button href="/getquestionanswers/QQ000/P00" variant="contained">e</Button>
-      </Container>
-      <Container maxWidth="sm" style={{ marginTop: '100px' }}>
-        <Button href="/admin" variant="contained">Admin</Button>
-      </Container>
-      <Container maxWidth="sm" style={{ marginTop: '100px' }}>
-        <Button href="/answer_questionnaire/QQ000/ABCD" variant="contained">Ερωτηση ?</Button>
-      </Container>
-    </>   
+    <Container maxWidth="md" style={{ marginTop: '80px', marginBottom: '80px'}}>
+        <TableContainer component={Paper} style={{ marginTop: '20px'}}>
+            <Table aria-label="customized table">
+                <Stack 
+                direction="column" 
+                justifyContent="center" 
+                alignItems="center" 
+                spacing={4}
+                style={{ marginTop: '20px', marginBottom: '20px'}}>
+                    <Typography variant="h4">
+                        Welcome to intelliQ!
+                    </Typography>
+                    <img src={logo} alt="Logo" height={235} width={235}/>
+                    <Typography variant="h5">
+                        This is a website 
+                    </Typography>
+                </Stack>
+            </Table>
+        </TableContainer>
+    </Container> 
   )
 }
 

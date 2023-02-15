@@ -89,17 +89,19 @@ function Admin(props) {
   const handleResetall = () => {
     setOpen(false);
     axios
-        .get(
-            `/admin/healthcheck`,
-            { crossdomain: true }
+        .post(
+            `/admin/resetall`
         )
         .then((response) => {
             setResetall(response.data.status === 'OK');
         })
         .catch((error) => {
             setStat(error.response.status);
-        });
-    setOpenResetall(true);
+        })
+        .then(() => {
+            setTimeout(() => {setCheck(true); setOpenResetall(true);}, 2000);
+            }   
+        );;
   };
 
   const handleChange = (event) => {
@@ -111,12 +113,16 @@ function Admin(props) {
     let form = new FormData();
     form.append('file', file);
     axios.post(`/admin/questionnaire_upd`,
-          form, {
-            headers: {
-              'Content-Type': 'multipart/form-data'
-            }
-          }
-        );
+        form, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+        }
+    )
+    .then(() => {
+        setTimeout(() => {setCheck(true)}, 2000);
+        }   
+    );
   };
 
   return (

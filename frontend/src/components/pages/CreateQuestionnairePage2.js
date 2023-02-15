@@ -147,7 +147,34 @@ function CreateQuestionnairePage2() {
   }
 
   const handleSubmit = () => {
-    console.log(questions);
+    const Quest = {
+      'questionnaireTitle' : title,
+      'keywords': [keyword1, keyword2, keyword3],
+      'questions': [...questions].map(q => {
+        const qID = q.qID < 10 ? `Q0${q.qID}` : `Q${q.qID}`;
+        return {
+          'qID': qID,
+          'qtext' : q.qtext,
+          'required': q.required,
+          'type': q.type,
+          'options' : q.answertype === 'multi' ? 
+           [...q.options].map(o => {
+            return {
+              'optID': `${qID}A${o.optID}`,
+              'opttxt': o.opttxt,
+              'nextqID': o.nextqID === '-' ? '-' : 
+                (parseInt(o.nextqID) < 10 ? `Q0${parseInt(o.nextqID)}` : `Q${parseInt(o.nextqID)}`)
+            }
+          }) : [{
+            "optID": `${qID}TXT`,
+            "opttxt": "<open string>",
+            "nextqID": q.nextIfText === '-' ? '-' : 
+            (parseInt(q.nextIfText) < 10 ? `Q0${parseInt(q.nextIfText)}` : `Q${parseInt(q.nextIfText)}`)
+          }]
+        };
+      })
+    }
+    console.log(Quest);
   }
 
   return (
@@ -165,7 +192,7 @@ function CreateQuestionnairePage2() {
               </Typography>
               <Box sx={{ mt: 5 }}>
               <TextField 
-                  required 
+                  //required 
                   id="outlined-required" 
                   label="Τίτλος ερωτηματολογίου"
                   value={title}
@@ -180,7 +207,7 @@ function CreateQuestionnairePage2() {
                           Λέξεις κλειδιά : 
                       </Typography>
                       <TextField 
-                          required
+                          //required
                           id="outlined-required" 
                           label="Λέξι κλειδί 1"
                           value={keyword1}
@@ -189,7 +216,7 @@ function CreateQuestionnairePage2() {
                           sx={{ width: 160}}
                       />
                       <TextField 
-                          required
+                          //required
                           id="outlined-required" 
                           label="Λέξι κλειδί 2"
                           value={keyword2}
@@ -198,7 +225,7 @@ function CreateQuestionnairePage2() {
                           sx={{ width: 160 }}
                       />
                       <TextField  
-                          required
+                          //required
                           id="outlined-required" 
                           label="Λέξι κλειδί 3"
                           value={keyword3}
@@ -227,7 +254,7 @@ function CreateQuestionnairePage2() {
                           </Stack>
                           <FormControl fullWidth>
                             <TextField 
-                                required 
+                                //required 
                                 id="outlined-required" 
                                 label="Κείμενο ερώτησης"
                                 name="qtext"
@@ -323,7 +350,7 @@ function CreateQuestionnairePage2() {
                                   >
                                     <FormControl >
                                       <TextField 
-                                          required 
+                                          //required 
                                           id="outlined-required"
                                           name="opttxt" 
                                           label={`Επιλογή ${option.optID}`}

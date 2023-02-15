@@ -29,6 +29,7 @@ function QuestionPage2(props) {
     const [answer, setAnswer] = useState("");
     const [check, setCheck] = useState(true);
     const [stat, setStat] = React.useState('');
+    const [completed, setCompleted] = useState(false);
 
     const handleChange = (event) => {
         setAnswer(event.target.value);
@@ -72,10 +73,14 @@ function QuestionPage2(props) {
         let ID = question.options.length === 1 ? 'TXT' : option.optID;
         axios
             .post(
-                `http://localhost:9103/intelliq_api/doanswer/${params.questionnaireID}/${question.qID}/${params.session}/${ID}`, 
+                `/doanswer/${params.questionnaireID}/${question.qID}/${params.session}/${ID}`, 
                 {'answer': answer}
             );
-        axios
+        if (option.nextqID === '-') {
+            setCompleted(true);
+        }
+        else {
+            axios
             .get(
                 `/question/${params.questionnaireID}/${option.nextqID}`,
                 { crossdomain: true }
@@ -85,7 +90,8 @@ function QuestionPage2(props) {
             })
             .catch((error) => {
                 setStat(error.response.status);
-            });           
+            }); 
+        }         
     }
     function MyButton() {
         return question.required === "TRUE" && answer === "" ? (
@@ -133,7 +139,13 @@ function QuestionPage2(props) {
         return (
             <Redirect to={`/error/${stat}`} />
         )
-      }
+    }
+    if (completed) {
+        return (
+            <Redirect to={`/questionnaire_completed/${params.questionnaireID}/${params.session}`} />
+        )
+    }
+    
 
     return (
         <Container maxWidth="md" style={{ marginTop: "80px", marginBottom: '80px'}}>

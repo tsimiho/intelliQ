@@ -31,7 +31,6 @@ function AnswerQuestionnairePage(props) {
         })
   }
 
-
   const generateRandom = () => {
     function makeid(length) {
         var result = "";
@@ -52,6 +51,10 @@ function AnswerQuestionnairePage(props) {
     return (
         <Redirect to={`/error/${stat}`} />
     )
+  }
+
+  if (session !== '') {
+    window.location.href = `/answer_questionnaire/${params.questionnaireID}/${session}`;
   }
 
   return (
@@ -77,10 +80,6 @@ function AnswerQuestionnairePage(props) {
                 </Stack>
             </Table>
         </TableContainer>
-        {session === '' ? (
-            <></>
-        ) : <Redirect to={`/answer_questionnaire/${params.questionnaireID}/${session}`}/>
-        }
     </Container>
   )
 }
