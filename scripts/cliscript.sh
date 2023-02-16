@@ -28,6 +28,6 @@ se2244 getquestionanswers --questionnaire_id QQ000 --question_id Q01 --format js
 echo "---------------------------------------------------------------------------"
 se2244 resetall
 echo "---------------------------------------------------------------------------"
-se2244 questionnaire_upd --source ../api-backend/dummy_data/example5.json
+se2244 questionnaire_upd --source ../data/example5.json
 echo "---------------------------------------------------------------------------"
 se2244 questionnaire --questionnaire_id QQ000 --format json
