@@ -53,10 +53,14 @@ const graph = async (req, res) => {
                 }
             }
 
-            if (req.query && req.query.format === "csv") {
-                res.status(200).send(json2csv(qnas));
+            if (qnas.length == 0) {
+                res.status(402).json({ error: "No data" });
             } else {
-                res.status(200).json(qnas);
+                if (req.query && req.query.format === "csv") {
+                    res.status(200).send(json2csv(qnas));
+                } else {
+                    res.status(200).json(qnas);
+                }
             }
         }
     } catch (error) {

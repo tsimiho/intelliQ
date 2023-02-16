@@ -44,7 +44,11 @@ const summary = async (req, res) => {
                 }
             }
 
-            res.status(200).json(session_text);
+            if (JSON.stringify(session_text) === "{}") {
+                res.status(402).json({ error: "No data" });
+            } else {
+                res.status(200).json(session_text);
+            }
         }
     } catch (error) {
         res.status(500).json({ msg: error });

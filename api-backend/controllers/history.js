@@ -50,10 +50,14 @@ const history = async (req, res) => {
                 result.push(obj);
             }
 
-            if (req.query && req.query.format === "csv") {
-                res.status(200).send(json2csv(result));
+            if (JSON.stringify(result) === "{}") {
+                res.status(402).json({ error: "No data" });
             } else {
-                res.status(200).json(result);
+                if (req.query && req.query.format === "csv") {
+                    res.status(200).send(json2csv(result));
+                } else {
+                    res.status(200).json(result);
+                }
             }
         }
     } catch (error) {

@@ -9,7 +9,11 @@ const fullquestionnaire = async (req, res) => {
         if (!questionnaire) {
             res.status(400).json({ msg: "Bad request" });
         } else {
-            res.status(200).json(questionnaire);
+            if (JSON.stringify(questionnaire) === "{}") {
+                res.status(402).json({ error: "No data" });
+            } else {
+                res.status(200).json(questionnaire);
+            }
         }
     } catch (error) {
         res.status(500).json({ msg: error });

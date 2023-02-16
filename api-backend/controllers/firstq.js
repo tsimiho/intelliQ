@@ -13,7 +13,11 @@ const firstq = async (req, res) => {
 
             const result = { firstq: questions[0].qID };
 
-            res.status(200).json(result);
+            if (JSON.stringify(result) === "{}") {
+                res.status(402).json({ error: "No data" });
+            } else {
+                res.status(200).json(result);
+            }
         }
     } catch (error) {
         res.status(500).json({ msg: error });
