@@ -13,6 +13,7 @@ import Paper from '@mui/material/Paper';
 import Divider from '@mui/material/Divider';
 import FullQuestionnaire from '../FullQuestionnaire';
 import Statistics from '../Statistics';
+import History from '../History';
 import { Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
@@ -28,6 +29,7 @@ function ViewQuestionnairePage(props) {
   const { params } = props.match;
   const [info, setInfo] = React.useState(false);
   const [statistics, setStatistics] = React.useState(false);
+  const [history, setHistory] = React.useState(false);
   const [Q, setQ] = React.useState({
     "questionnaireID": "",
     "questionnaireTitle": "",
@@ -35,6 +37,7 @@ function ViewQuestionnairePage(props) {
     "questions": []
   });
   const [bars, setBars] = React.useState([]);
+  const [historyAnswers, setHistoryAnswers] = React.useState([]);
   const [stat, setStat] = React.useState('');
   const [check, setCheck] = React.useState(true);
   const [reset, setReset] = React.useState(true);
@@ -44,11 +47,19 @@ function ViewQuestionnairePage(props) {
   const handleInfoClick = () => {
     setInfo(!info);
     setStatistics(false);
+    setHistory(false);
   };
 
   const handleStatisticsClick = () => {
     setStatistics(!statistics);
     setInfo(false);
+    setHistory(false);
+  };
+
+  const handleHistoryClick = () => {
+    setHistory(!history);
+    setInfo(false);
+    setStatistics(false);
   };
 
   if (check) {
@@ -71,7 +82,20 @@ function ViewQuestionnairePage(props) {
       )
       .then((response) => {
         setBars(response.data);
-        setCheck(true);
+      })
+      .catch((error) => {
+        setStat(error.response.status);
+      });
+
+  axios
+      .get(
+          `/history/${params.questionnaireID}`,
+          { crossdomain: true }
+      )
+      .then((response) => {
+        setHistoryAnswers(response.data);
+        //console.log(response.data);
+        setCheck(false);
       })
       .catch((error) => {
         setStat(error.response.status);
@@ -157,6 +181,14 @@ function ViewQuestionnairePage(props) {
             </ListItemButton>
             <Collapse in={statistics} timeout="auto" unmountOnExit>
               <Statistics questions={bars}/>
+            </Collapse>
+            <Divider/>
+            <ListItemButton onClick={handleHistoryClick}>
+              <ListItemText primary="History" />
+              {history ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+            <Collapse in={history} timeout="auto" unmountOnExit>
+              <History history={historyAnswers}/>
             </Collapse>
           </List>
         </Table>

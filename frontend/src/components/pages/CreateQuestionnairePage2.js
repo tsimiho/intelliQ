@@ -16,6 +16,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import CancelIcon from '@mui/icons-material/Cancel';
 import Table from '@mui/material/Table';
 import TableContainer from '@mui/material/TableContainer';
+import axios from "axios";
 
 function CreateQuestionnairePage2() {
   const [title, setTitle] = useState('');
@@ -148,6 +149,7 @@ function CreateQuestionnairePage2() {
 
   const handleSubmit = () => {
     const Quest = {
+      'questionnaireID': 'QQ000',
       'questionnaireTitle' : title,
       'keywords': [keyword1, keyword2, keyword3],
       'questions': [...questions].map(q => {
@@ -172,9 +174,16 @@ function CreateQuestionnairePage2() {
             (parseInt(q.nextIfText) < 10 ? `Q0${parseInt(q.nextIfText)}` : `Q${parseInt(q.nextIfText)}`)
           }]
         };
-      })
+      }),
+      'sessions': []
     }
-    console.log(Quest);
+    axios
+      .post(
+          `/createquestionnaire`, 
+          Quest
+      );
+      
+    //console.log(Quest);
   }
 
   return (

@@ -22,8 +22,8 @@ function Home() {
                         Welcome to intelliQ!
                     </Typography>
                     <img src={logo} alt="Logo" height={235} width={235}/>
-                    <Typography variant="h5">
-                        This is a website 
+                    <Typography maxWidth="sm" variant="h5" align='center'>
+                        This is a website where you can create "intelligent" questionnaires for online surveys of all kinds!
                     </Typography>
                 </Stack>
             </Table>
