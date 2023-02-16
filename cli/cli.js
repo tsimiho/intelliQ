@@ -17,12 +17,12 @@ const login = (username, password) => {
             password: password,
         })
         .then((req, res) => {
-            if (fs.existsSync("jwt.txt")) {
-                fs.unlink("jwt.txt", function (err) {
+            if (fs.existsSync("../cli/jwt")) {
+                fs.unlink("../cli/jwt", function (err) {
                     if (err) throw err;
                 });
             }
-            fs.writeFile("jwt.txt", req.data.token, function (err) {
+            fs.writeFile("../cli/jwt", req.data.token, function (err) {
                 if (err) throw err;
                 console.log("Login Successful!");
             });
@@ -34,8 +34,8 @@ const login = (username, password) => {
 
 (function () {
     var token;
-    if (fs.existsSync("jwt.txt")) {
-        token = fs.readFileSync("jwt.txt");
+    if (fs.existsSync("../cli/jwt")) {
+        token = fs.readFileSync("../cli/jwt");
     }
     if (token) {
         axios.defaults.headers.common["X-OBSERVATORY-AUTH"] = token;
@@ -78,7 +78,7 @@ program.command("healthcheck").action((options) => {
 program.command("resetall").action((options) => {
     try {
         http_request_post("/admin/resetall");
-        console.log("ResetAll was successful!")
+        console.log("ResetAll was successful!");
     } catch (error) {
         console.log(error);
     }
@@ -234,8 +234,8 @@ program.command("logout").action((options) => {
     try {
         axios.post(baseURL + "/logout").then((req, res) => {
             if ((req.status = 200)) {
-                if (fs.existsSync("jwt.txt")) {
-                    fs.unlink("jwt.txt", function (err) {
+                if (fs.existsSync("../cli/jwt")) {
+                    fs.unlink("../cli/jwt", function (err) {
                         if (err) throw err;
                         console.log("Logout Successful!");
                     });
