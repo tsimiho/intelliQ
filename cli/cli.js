@@ -78,6 +78,7 @@ program.command("healthcheck").action((options) => {
 program.command("resetall").action((options) => {
     try {
         http_request_post("/admin/resetall");
+        console.log("ResetAll was successful!")
     } catch (error) {
         console.log(error);
     }
