@@ -1,112 +1,100 @@
 {
-  "title": "Questionnaire",
-  "description": "This is the general structure of a questionnaire",
-  "type": "object",
-  "properties": {
-    "questionnaireID": {
-      "desctription": "ID of Questionnaire",
-      "type": "number"
-    },
-    "questionnaireTitle": {
-      "description": "The title of the questionnaire",
-      "type": "String"
-    },
-    "domain": {
-      "description": "An array of valid domain",
-      "type": "array",
-      "items": {
-        "description": "Valid Domain",
-        "type": "String"
-      }
-    },
-    "admin": {
-      "description": "Admin id",
-      "type": "String"
-    },
-    "questions": {
-      "description": "This is an array of questions",
-      "type": "array",
-      "items": {
-        "title": "Question",
-        "description": "This is the general structure of a question",
-        "type": "object",
-        "properties": {
-          "qID": {
-            "desctription": "ID of Question",
-            "type": "String"
-          },
-          "qtext": {
-            "description": "The question",
-            "type": "String"
-          },
-          "require": {
-            "description": "Determines if the question is required or not",
-            "type": "boolean"
-          },
-          "qtype": {
-            "description": "Type of question",
-            "type": "String"
-          },
-          "keywords": {
-            "description": "General categories",
-            "type": "array",
-            "items": {
-              "description": "List of keywords",
-              "type": "String"
-            }
-          },
-          "options": {
-            "description": "An array of possible answers",
-            "type": "array",
-            "items": {
-              "title": "Option",
-              "description": "This is the general structure of an option",
-              "type": "object",
-              "properties": {
-                "optID": {
-                  "description": "ID of the option",
-                  "type": "String"
-                },
-                "opttxt": {
-                  "description": "Body of the option",
-                  "type": "String"
-                },
-                "nextqID": {
-                  "description": "ID of the next question",
-                  "type": "String"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "sessions": {
-      "description": "This is an array of sessions",
-      "type": "array",
-      "items": {
-        "sessionID": {
-          "description": "ID of the current session",
-          "type": "String"
+    "title": "Questionnaire",
+    "description": "This is the general structure of a questionnaire",
+    "type": "object",
+    "properties": {
+        "questionnaireID": {
+            "desctription": "ID of Questionnaire",
+            "type": "number"
         },
-        "pairs": {
-          "description": "Array of pairs of the question and the respective answer",
-          "type": "array",
-          "items": {
-            "title": "pair",
-            "description": "General structure of a question-answer pair",
-            "type": "object",
-            "properties": {
-              "qID": {
-                "description": "ID of the answered question",
-                "type": "String"
-              },
-              "optionID": "ID of the given answer",
-              "type": "String"
+        "questionnaireTitle": {
+            "description": "The title of the questionnaire",
+            "type": "String"
+        },
+        "questions": {
+            "description": "This is an array of questions",
+            "type": "array",
+            "items": {
+                "title": "Question",
+                "description": "This is the general structure of a question",
+                "type": "object",
+                "properties": {
+                    "qID": {
+                        "desctription": "ID of Question",
+                        "type": "String"
+                    },
+                    "qtext": {
+                        "description": "The question",
+                        "type": "String"
+                    },
+                    "require": {
+                        "description": "Determines if the question is required or not",
+                        "type": "boolean"
+                    },
+                    "qtype": {
+                        "description": "Type of question",
+                        "type": "String"
+                    },
+                    "keywords": {
+                        "description": "General categories",
+                        "type": "array",
+                        "items": {
+                            "description": "List of keywords",
+                            "type": "String"
+                        }
+                    },
+                    "options": {
+                        "description": "An array of possible answers",
+                        "type": "array",
+                        "items": {
+                            "title": "Option",
+                            "description": "This is the general structure of an option",
+                            "type": "object",
+                            "properties": {
+                                "optID": {
+                                    "description": "ID of the option",
+                                    "type": "String"
+                                },
+                                "opttxt": {
+                                    "description": "Body of the option",
+                                    "type": "String"
+                                },
+                                "nextqID": {
+                                    "description": "ID of the next question",
+                                    "type": "String"
+                                }
+                            }
+                        }
+                    }
+                }
             }
-          }
+        },
+        "sessions": {
+            "description": "This is an array of sessions",
+            "type": "array",
+            "items": {
+                "sessionID": {
+                    "description": "ID of the current session",
+                    "type": "String"
+                },
+                "pairs": {
+                    "description": "Array of pairs of the question and the respective answer",
+                    "type": "array",
+                    "items": {
+                        "title": "pair",
+                        "description": "General structure of a question-answer pair",
+                        "type": "object",
+                        "properties": {
+                            "qID": {
+                                "description": "ID of the answered question",
+                                "type": "String"
+                            },
+                            "optionID": "ID of the given answer",
+                            "type": "String"
+                        }
+                    }
+                }
+            }
         }
-      }
     }
-  }
 }

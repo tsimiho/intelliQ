@@ -87,14 +87,6 @@ const QuestionnaireSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    domain: {
-        type: [String],
-        required: false,
-    },
-    admin: {
-        type: String,
-        required: false,
-    },
     keywords: {
         type: [String],
         required: true,

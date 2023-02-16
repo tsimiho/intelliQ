@@ -1,92 +1,28 @@
 {
-  "title": "Admin Information",
-  "description": "This is the general structure of an admin profile",
-  "type": "object",
-  "properties": {
-    "email": {
-      "description": "Email of the user",
-      "type": "String"
-    },
-    "admin_id": {
-      "description": "Distinctive admin id",
-      "type": "String"
-    },
-    "Organization": {
-      "description": "Organization to which the admin belongs",
-      "type": "String"
-    },
-    "History": {
-      "description": "Questionnaires Created",
-      "type": "array",
-      "items": {
-        "title": "Questionnaire Created",
-        "description": "This is the general structure of a created questionnaire",
-        "type": "object",
-        "properties": {
-          "questionnaireID": {
-            "description": "ID of the questionnaire",
+    "title": "Admin Information",
+    "description": "This is the general structure of an admin profile",
+    "type": "object",
+    "properties": {
+        "admin_id": {
+            "description": "Distinctive admin id",
             "type": "String"
-          },
-          "questions": {
-            "description": "This is an array of questions",
+        },
+        "hash": {
+            "description": "Hashed Password",
+            "type": "String"
+        },
+        "salt": {
+            "description": "Salt Added To Password Before Hashing",
+            "type": "String"
+        },
+        "History": {
+            "description": "IDs of Created Questionnaires",
             "type": "array",
             "items": {
-              "title": "Question",
-              "description": "This is the general structure of a question",
-              "type": "object",
-              "properties": {
-                "qID": {
-                  "desctription": "ID of Question",
-                  "type": "String"
-                },
-                "qtext": {
-                  "description": "The question",
-                  "type": "String"
-                },
-                "require": {
-                  "description": "Determines if the question is required or not",
-                  "type": "boolean"
-                },
-                "qtype": {
-                  "description": "Type of question",
-                  "type": "String"
-                },
-                "keywords": {
-                  "description": "General categories",
-                  "type": "array",
-                  "items": {
-                    "description": "List of keywords",
-                    "type": "String"
-                  }
-                },
-                "options": {
-                  "description": "An array of possible answers",
-                  "type": "array",
-                  "items": {
-                    "title": "Option",
-                    "description": "This is the general structure of an option",
-                    "type": "object",
-                    "properties": {
-                      "optID": {
-                        "description": "ID of the option",
-                        "type": "String"
-                      },
-                      "opttxt": {
-                        "description": "Body of the option",
-                        "type": "String"
-                      },
-                      "nextqID": {
-                        "description": "ID of the next question",
-                        "type": "String"
-                      }
-                    }
-                  }
-                }
-              }
+                "title": "Questionnaire Created",
+                "description": "This is the general structure of a created questionnaire",
+                "type": "String"
             }
-          }
         }
-      }
     }
-  }
 }
