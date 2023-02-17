@@ -6,7 +6,7 @@ This project was conducted for the course of Software Engineering at the 2022-20
 
 **Scenario**
 
-The goal of this project was to develop an "intelligent" app for creating and answering questionnaires. The admins can login, create them, see the answer history and the relevant statistics while the users can answer the respective questionnaires. Light and dark themes are included, as well as "on the fly" translation option between English and Greek.
+The goal of this project was to develop an "intelligent" app for creating and answering questionnaires. The admins can login, create them, see the answer history and the relevant statistics while the users can answer the respective questionnaires. Light and dark themes are included.
 
 
 
