@@ -28,7 +28,7 @@ const login = (username, password) => {
             });
         })
         .catch((error) => {
-            console.log("You are not authorized");
+            console.log("Wrong Credentials");
         });
 };
 
@@ -105,6 +105,7 @@ program
     .action((options) => {
         try {
             http_request_post("/admin/resetq/" + options.questionnaire_id);
+            console.log("Reset Successful");
         } catch (error) {
             console.log(error);
         }

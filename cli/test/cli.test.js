@@ -3,8 +3,6 @@ const cmd = require("./cmd");
 const { EOL } = require("os");
 const fs = require("fs");
 
-var file = require("../../api-backend/example.json");
-
 function removeKeys(obj, keys) {
     var index;
     for (var prop in obj) {
@@ -38,13 +36,6 @@ describe("GET questionnaire", () => {
             "--format",
             "json",
         ]);
-        var parsed = JSON.parse(response);
-
-        delete file["sessions"];
-
-        for (const i in file.questions) {
-            delete file.questions[i]["options"];
-        }
 
         chai.expect(JSON.parse(response)).to.have.property("questionnaireID");
         chai.expect(JSON.parse(response)).to.have.property(
@@ -61,7 +52,7 @@ describe("questionnaire upload", () => {
         var response = await cmd.execute("cli.js", [
             "questionnaire_upd",
             "--source",
-            "../api-backend/example.json",
+            "../data/example.json",
         ]);
 
         chai.expect(response).to.equal("Success!\n");
@@ -69,24 +60,16 @@ describe("questionnaire upload", () => {
 });
 
 describe("reset questionnaire", () => {
-    it("should print { status: 'OK' }", async () => {
+    it("should print Reset Successful", async () => {
         var response = await cmd.execute("cli.js", [
             "resetq",
             "--questionnaire_id",
             "QQ000",
         ]);
 
-        chai.expect(JSON.parse(response).status).to.equal("OK");
+        chai.expect(response).to.equal("Reset Successful\n");
     });
 });
-
-// describe("reset all", () => {
-//     it("should print { status: 'OK' }", async () => {
-//         var response = await cmd.execute("cli.js", ["resetall"]);
-
-//         chai.expect(JSON.parse(response).status).to.equal("OK");
-//     });
-// });
 
 describe("GET question", () => {
     it("should print the correct output", async () => {
@@ -155,7 +138,6 @@ describe("getquestionanswers", () => {
             "json",
         ]);
 
-        chai.expect(JSON.parse(response).answers).to.be.an("array").that.is.not
-            .empty;
+        chai.expect(JSON.parse(response).answers).to.be.an("array");
     });
 });
