@@ -23,11 +23,10 @@ The goal of this project was to develop an "intelligent" app for creating and an
 Group: softeng2022-44
 
 **This project was a collaborate effort of a team of 4 members. Those members are:**
-
-| Name
-| ----- 
-| Achilleas Tsimihodimos - 03119140
-| Ioannis Tzachristas - 03119090
-| Nikolaos - Aggelos Skoumios - 03119091
-| Nikolaos Goutzoulias - 03119647
+| Name | Identification Number |
+| ----- | ----------- |
+| Achilleas Tsimihodimos | 03119140 |
+| Ioannis Tzachristas | 03119090 |
+| Nikolaos - Aggelos Skoumios | 03119091 |
+| Nikolaos Goutzoulias | 03119647 |
 
