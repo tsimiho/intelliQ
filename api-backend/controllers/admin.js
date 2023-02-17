@@ -42,6 +42,14 @@ const resetall = async (req, res) => {
         if (admin) {
             if (admin.username === "SuperAdmin") {
                 await QuestionnaireSchema.deleteMany({});
+                const admins = AdminSchema.find({});
+                for (const i in admins) {
+                    const ad_id = admins[i]._id;
+                    await AdminSchema.findOneAndUpdate(
+                        { _id: ad_id },
+                        { history: [] }
+                    );
+                }
             } else {
                 for (var i in admin.history) {
                     const questionnaire_id = admin.history[i];
@@ -49,6 +57,10 @@ const resetall = async (req, res) => {
                         questionnaireID: questionnaire_id,
                     });
                 }
+                await AdminSchema.findOneAndUpdate(
+                    { _id: admin._id },
+                    { history: [] }
+                );
             }
         }
         res.status(200).json({ status: "OK" });
