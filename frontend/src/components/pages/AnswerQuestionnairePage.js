@@ -68,11 +68,11 @@ function AnswerQuestionnairePage(props) {
                 spacing={4}
                 style={{ marginTop: '20px', marginBottom: '20px'}}>
                     <Typography variant="h4">
-                        Welcome to intelliQ!
+                        Welcome to intelliQ!'
                     </Typography>
                     <img src={logo} alt="Logo" height={235} width={235}/>
                     <Typography variant="h4">
-                        {`"${questionnaireTitle}"`}
+                        {'"' + questionnaireTitle + '"'}
                     </Typography>
                     <Button onClick={() => setSession(generateRandom())} variant="contained" endIcon={<SendIcon />}>
                         Answer Questionnaire

@@ -92,6 +92,7 @@ function QuestionPage2(props) {
             .catch((error) => {
                 setStat(error.response.status);
             }); 
+            
         }         
     }
     function MyButton() {
