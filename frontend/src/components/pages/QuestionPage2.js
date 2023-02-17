@@ -87,6 +87,7 @@ function QuestionPage2(props) {
             )
             .then((response) => {
                 setQuestion(response.data);
+                setAnswer('');
             })
             .catch((error) => {
                 setStat(error.response.status);

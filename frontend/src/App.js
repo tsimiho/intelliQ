@@ -4,9 +4,7 @@ import MenuAppBar from './components/MenuAppBar';
 import { CssBaseline } from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import QuestionnairePage from './components/pages/QuestionnairePage';
-//import QuestionPage from './components/pages/QuestionPage';
 import Home from './components//pages/Home';
-//import DoAnswerPage from './components/pages/DoAnswerPage';
 import GetQuestionAnswersPage from './components/pages/GetQuestionAnswersPage'; 
 import AdminPage from './components/pages/AdminPage';
 import CreateQuestionnairePage2 from './components/pages/CreateQuestionnairePage2';
@@ -86,8 +84,8 @@ export default function App() {
             <Route exact path="/admin/view_questionnaire/:questionnaireID" component={ViewQuestionnairePage} />
             <Route path="/" component={ErrorPageHelp}/>
           </Switch>  
-        </ThemeProvider>    
-      </Router>             
+        </ThemeProvider>
+      </Router>              
     </>  
   );
 }
