@@ -1,0 +1,10 @@
+{
+	"info": {
+		"_postman_id": "8f0e26ad-61fc-4e15-91a3-228617ca094c",
+		"name": "New Collection",
+		"description": "The definition of request data is equal to the regular call to create a post above. The response is identical except for adding one  \nadditional field:\n\nWe expect this call to return a questionnaire with the given ID.\n\nGET\n\nlocalhost:9103/intelliq_api/questionnaire/QQ000\n\nWe expect this call to return a question with the given ID from the questionnaire with the give questionnaire ID.\n\nGET\n\nlocalhost:9103/intelliq_api/question/QQ000/Q01\n\nWe expect this call to save our answer of the given questrion, of the given questionnaire to the database.\n\nPOST\n\nlocalhost:9103/intelliq_api/doanswer/QQ000/Q01/ANSW/Q01A1\n\nWe expect this call to return all the answers of the given questionnaire of the ssession with sessionID equal to the one in the below URL.\n\nGET\n\nlocalhost:9103/intelliq_api/getsessionanswers/QQ000/ANSW\n\nWe expect this call to return all the answers of the given questionnaire of the question with questionID equal to the one in the below URL.\n\nGET\n\nlocalhost:9103/intelliq_api/getquestionanswers/QQ000/Q01\n\nWe expect this healthcheck call to confirm the connectivity between the user and the database.\n\nGET\n\nlocalhost:9103/intelliq_api/admin/healthcheck\n\nWe expect this call to upload a given questionnaire from the front end to the database.\n\nPOST\n\nlocalhost:9103/intelliq_api/admin/questionnaire_upd\n\nWe expect this call to erease all the answers of all the sessions from the questionnaire with the given ID.\n\nPOST\n\nlocalhost:9103/intelliq_api/admin/resetq/QQ000\n\nPossible errors\n\n200 Success: Successful request that returns a non-empty data packet.\n\n400 Bad Request: Required fields were invalid, not specified.\n\n401 Unauthorised: The access token is invalid or has been revoked.\n\n402 No data: The user tried to reach a resource with no such data.\n\n500 Internal Server Error: Utility problem within the app.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25901964"
+	},
+	"item": []
+}
