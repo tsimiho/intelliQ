@@ -147,7 +147,7 @@ function Admin(props) {
                             style={{ marginTop: '15px', marginBottom: '10px', marginLeft: '20px', marginRight: '20px'}}>
                     <Stack direction="row" alignItems="flex-start" spacing={2}>
                         <Typography variant="h4">
-                        Questionnaires
+                            Questionnaires
                         </Typography>
                         <IconButton color="primary" onClick={()=> setOpenUpload(true)}>
                             <FileUploadIcon />
@@ -177,7 +177,7 @@ function Admin(props) {
                             aria-describedby="alert-dialog-description"
                         >
                             <DialogTitle id="alert-dialog-title">
-                            {"Είστε βέβαιοι ότι θέλετε να αρχικοποιήσετε όλα τα δεδομένα του συστήματος;"}
+                                {"Είστε βέβαιοι ότι θέλετε να αρχικοποιήσετε όλα τα δεδομένα του συστήματος;"}
                             </DialogTitle>
                             <DialogContent>
                             <DialogContentText id="alert-dialog-description">

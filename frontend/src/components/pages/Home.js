@@ -6,6 +6,7 @@ import TableContainer from '@mui/material/TableContainer';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import logo from '../../fixed_logo3.png';
+import Translate from '../Translate.js';
 
 function Home() {
   return (
@@ -23,7 +24,7 @@ function Home() {
                     </Typography>
                     <img src={logo} alt="Logo" height={235} width={235}/>
                     <Typography maxWidth="sm" variant="h5" align='center'>
-                        This is a website where you can create "intelligent" questionnaires for online surveys of all kinds!
+                        {Translate({text: 'This is a website where you can create "intelligent" questionnaires for online surveys of all kinds!', to: 'EL'})}
                     </Typography>
                 </Stack>
             </Table>
