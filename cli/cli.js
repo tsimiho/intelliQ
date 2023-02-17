@@ -7,9 +7,11 @@ const request = require("request");
 const util = require("util");
 const json2csv = require("json2csv").parse;
 const axios = require("axios");
-const { resolve } = require("path");
+const path = require("path");
 
 const baseURL = "http://localhost:9103/intelliq_api";
+
+const dir = __dirname;
 
 const login = (username, password) => {
     axios
@@ -18,12 +20,12 @@ const login = (username, password) => {
             password: password,
         })
         .then((req, res) => {
-            if (fs.existsSync(__dirname + "/jwt")) {
-                fs.unlink(__dirname + "/jwt", function (err) {
+            if (fs.existsSync(dir + "/jwt.json")) {
+                fs.unlink(dir + "/jwt.json", function (err) {
                     if (err) throw err;
                 });
             }
-            fs.writeFile(__dirname + "/jwt", req.data.token, function (err) {
+            fs.writeFile(dir + "/jwt.json", req.data.token, function (err) {
                 if (err) throw err;
                 console.log("Login Successful!");
             });
@@ -35,8 +37,8 @@ const login = (username, password) => {
 
 (function () {
     var token;
-    if (fs.existsSync(__dirname + "/jwt")) {
-        token = fs.readFileSync(__dirname + "/jwt");
+    if (fs.existsSync(dir + "/jwt.json")) {
+        token = fs.readFileSync(dir + "/jwt.json", "utf8");
     }
     if (token) {
         axios.defaults.headers.common["X-OBSERVATORY-AUTH"] = token;
@@ -198,20 +200,26 @@ program
     .requiredOption("--source <value>", "command test option")
     .action((options) => {
         try {
-            var req = request.post(
-                baseURL + "/admin/questionnaire_upd",
-                function (err, resp, body) {
-                    if (err) {
-                        console.log("Error!");
-                    } else {
-                        console.log("Success!");
-                    }
-                }
-            );
+            const t = fs.readFileSync(dir + "/jwt.json", "utf8");
+            const opts = {
+                url: baseURL + "/admin/questionnaire_upd",
+                headers: {
+                    "X-OBSERVATORY-AUTH": t,
+                },
+            };
 
-            const data = fs.readFileSync(options.source);
+            var req = request.post(opts, function (err, resp, body) {
+                if (err) {
+                    console.log("Error!");
+                } else {
+                    console.log("Success!");
+                }
+            });
+
+            const data = fs.readFileSync(options.source, "utf8");
+
             var form = req.form();
-            form.append("uploaded_file", data, {
+            form.append("file", data, {
                 filename: "uploaded_file.txt",
                 contentType: "multipart/form_data",
             });
@@ -236,8 +244,8 @@ program.command("logout").action((options) => {
     try {
         axios.post(baseURL + "/logout").then((req, res) => {
             if ((req.status = 200)) {
-                if (fs.existsSync(__dirname + "/jwt")) {
-                    fs.unlink(__dirname + "/jwt", function (err) {
+                if (fs.existsSync(dir + "/jwt.json")) {
+                    fs.unlink(dir + "/jwt.json", function (err) {
                         if (err) throw err;
                         console.log("Logout Successful!");
                     });
