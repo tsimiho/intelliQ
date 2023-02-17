@@ -31,6 +31,3 @@ Group: softeng2022-44
 | Nikolaos - Aggelos Skoumios - 03119091
 | Nikolaos Goutzoulias - 03119647
 
-  
-(your README.md content goes here)
-
