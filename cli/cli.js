@@ -7,6 +7,7 @@ const request = require("request");
 const util = require("util");
 const json2csv = require("json2csv").parse;
 const axios = require("axios");
+const { resolve } = require("path");
 
 const baseURL = "http://localhost:9103/intelliq_api";
 
@@ -17,12 +18,12 @@ const login = (username, password) => {
             password: password,
         })
         .then((req, res) => {
-            if (fs.existsSync("../cli/jwt")) {
-                fs.unlink("../cli/jwt", function (err) {
+            if (fs.existsSync(__dirname + "/jwt")) {
+                fs.unlink(__dirname + "/jwt", function (err) {
                     if (err) throw err;
                 });
             }
-            fs.writeFile("../cli/jwt", req.data.token, function (err) {
+            fs.writeFile(__dirname + "/jwt", req.data.token, function (err) {
                 if (err) throw err;
                 console.log("Login Successful!");
             });
@@ -34,8 +35,8 @@ const login = (username, password) => {
 
 (function () {
     var token;
-    if (fs.existsSync("../cli/jwt")) {
-        token = fs.readFileSync("../cli/jwt");
+    if (fs.existsSync(__dirname + "/jwt")) {
+        token = fs.readFileSync(__dirname + "/jwt");
     }
     if (token) {
         axios.defaults.headers.common["X-OBSERVATORY-AUTH"] = token;
@@ -235,8 +236,8 @@ program.command("logout").action((options) => {
     try {
         axios.post(baseURL + "/logout").then((req, res) => {
             if ((req.status = 200)) {
-                if (fs.existsSync("../cli/jwt")) {
-                    fs.unlink("../cli/jwt", function (err) {
+                if (fs.existsSync(__dirname + "/jwt")) {
+                    fs.unlink(__dirname + "/jwt", function (err) {
                         if (err) throw err;
                         console.log("Logout Successful!");
                     });
