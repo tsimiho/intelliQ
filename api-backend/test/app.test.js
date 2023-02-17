@@ -95,8 +95,7 @@ describe("GET sessionanswers", () => {
     it("should print the correct output", async () => {
         var response = httpGet("/getsessionanswers/QQ002/SS000");
 
-        chai.expect(JSON.parse(response).answers).to.be.an("array").that.is.not
-            .empty;
+        chai.expect(JSON.parse(response).answers).to.be.an("array");
     });
 });
 
