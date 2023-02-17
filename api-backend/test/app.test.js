@@ -93,7 +93,7 @@ describe("GET question", () => {
 
 describe("GET sessionanswers", () => {
     it("should print the correct output", async () => {
-        var response = httpGet("/getsessionanswers/QQ002/SS000");
+        var response = httpGet("/getsessionanswers/QQ001/SS000");
 
         chai.expect(JSON.parse(response).answers).to.be.an("array");
     });
