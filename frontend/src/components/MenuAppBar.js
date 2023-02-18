@@ -9,11 +9,12 @@ import MenuItem from '@mui/material/MenuItem';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import Menu from '@mui/material/Menu';
+// import ToggleButton from '@mui/material/ToggleButton';
+// import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
 export default function MenuAppBar(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const token = localStorage.getItem('token');
-  //const mode = localStorage.getItem('theme');
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -44,7 +45,25 @@ export default function MenuAppBar(props) {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             intelliQ
           </Typography>
+            {/* {!localStorage.getItem('token') ? 
             <div>
+              <ToggleButtonGroup
+                value={props.language}
+                exclusive
+                onChange={changeLanguage}
+                aria-label="language"
+                style={{ maxHeight: '40px', marginRight: '10px'}}
+              >
+                <ToggleButton value="EL" aria-label="EL">
+                  EL
+                </ToggleButton>
+                <ToggleButton value="EN" aria-label="EN">
+                  EN
+                </ToggleButton>
+              </ToggleButtonGroup>
+            </div> : 
+            <></>} */}
+            <div> 
             <IconButton
                 size="large"
                 onClick={changeTheme}

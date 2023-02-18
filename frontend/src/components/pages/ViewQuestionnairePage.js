@@ -22,8 +22,13 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import LinkIcon from '@mui/icons-material/Link';
+import Tooltip from '@mui/material/Tooltip';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
+import copy from 'copy-to-clipboard';
 
 function ViewQuestionnairePage(props) {
   const { params } = props.match;
@@ -43,6 +48,7 @@ function ViewQuestionnairePage(props) {
   const [reset, setReset] = React.useState(true);
   const [openReset, setOpenReset] = React.useState(false);
   const [open, setOpen] = React.useState(false);
+  const [copied, setCopied] = React.useState(false);
 
   const handleInfoClick = () => {
     setInfo(!info);
@@ -116,6 +122,11 @@ function ViewQuestionnairePage(props) {
         });
     setOpenReset(true);
   };
+
+  const handleCopyLink = () => {
+    setCopied(true);
+    copy(`http://localhost:3000/answer_questionnaire/${params.questionnaireID}`);
+  }
   
   if (stat !== '') {
     return (
@@ -125,11 +136,26 @@ function ViewQuestionnairePage(props) {
 
   return (
     <Container maxWidth="md" style={{ marginTop: '80px', marginBottom: '80px'}}>
-      <Stack direction="row" justifyContent="space-between" >
-        <Typography variant="h4">
-            { Q.questionnaireTitle }
-        </Typography>
-          <Button onClick={() => setOpen(true)} variant="contained">Reset</Button>
+      <Stack direction="row" justifyContent="space-between">
+          <Stack direction="row" justifyContent="left">
+            <Typography variant="h4">
+                { Q.questionnaireTitle }
+            </Typography>
+            <Tooltip title={copied ? 'Copied!' : 'Copy link'}>
+              <ToggleButtonGroup
+                value={'copied'}
+                exclusive
+                onChange={handleCopyLink}
+                aria-label="copied"
+                style={{ maxHeight: '40px', marginLeft: '15px'}}
+              >
+                <ToggleButton value="copied" aria-label="copied">
+                  <LinkIcon/>
+                </ToggleButton>
+              </ToggleButtonGroup> 
+            </Tooltip>
+          </Stack>
+          <Button onClick={() => setOpen(true)} variant="contained" style={{ maxHeight: '40px'}}>Reset</Button>
           <MySnackBar 
           open={openReset}
           setOpen={setOpenReset}

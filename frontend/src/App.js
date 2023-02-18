@@ -43,6 +43,7 @@ export default function App() {
   const [theme, setTheme] = React.useState(
     localStorage.getItem('theme') || 'light'
   );
+
   React.useEffect(() => {
       localStorage.setItem('theme', theme);
   }, [theme]);
